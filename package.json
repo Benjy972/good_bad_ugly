@@ -1,0 +1,15 @@
+{
+  "name": "good_bad_ugly",
+  "version": "1.0.0",
+  "description": "Le bon, la brute et le truand",
+  "main": "index.js",
+  "scripts": {
+    "start": "serve"
+  },
+  "author": "winnie_lourdson",
+  "license": "ISC",
+  "dependencies": {
+    "pixijs": "^7.1.1",
+    "serve": "^14.2.0"
+  }
+}

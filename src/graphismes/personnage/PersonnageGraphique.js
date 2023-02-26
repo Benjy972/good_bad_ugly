@@ -28,29 +28,29 @@ class PersonnageGraphique {
     animateHaut() {
         if (this.animatedSprite.textures != this.spritesHaut) {
             this.animatedSprite.textures = this.spritesHaut;
-            this.animatedSprite.play();
         }
+        this.animatedSprite.play();
     }
 
     animateBas() {
         if (this.animatedSprite.textures != this.spritesBas) {
             this.animatedSprite.textures = this.spritesBas;
-            this.animatedSprite.play();
         }
+        this.animatedSprite.play();
     }
 
     animateDroite() {
         if (this.animatedSprite.textures != this.spritesDroite) {
             this.animatedSprite.textures = this.spritesDroite;
-            this.animatedSprite.play();
         }
+        this.animatedSprite.play();
     }
 
     animateGauche() {
         if (this.animatedSprite.textures != this.spritesGauche) {
             this.animatedSprite.textures = this.spritesGauche;
-            this.animatedSprite.play();
         }
+        this.animatedSprite.play();
     }
 
     stop() {

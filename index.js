@@ -7,24 +7,39 @@ let terrainGraphique = new TerrainGraphique(terrain);
 terrainGraphique.draw(app);
 
 // Perso
-let perso = new Personnage(160, 160);
+let perso = new Personnage(176, 176);
 let persoGraphique = perso.personnageGraphique;
 app.stage.addChild(persoGraphique.animatedSprite);
 
+// Boutons
+function evaluerDeplacements() {
+    if (perso.listeMarcheCommande.length == 0) {
+        perso.calculateSteps(terrain);
+    }
+    for (let marcheCommande of perso.listeMarcheCommande) {
+        marcheCommande.displayCase(app);
+        marcheCommande.caseDeplacement.caseSol.on('mousedown', function() {
+            executeurCommande.addCommande(marcheCommande);
+            perso.removeMarcheCommands();
+        });
+    }
+    console.log("Hello !");
+}
+
 // Executeur commandes
 let listeCommande = [
-    new MarcheCommande(perso, new Coordonnees(160, 320)),
-    new MarcheCommande(perso, new Coordonnees(320, 320)),
-    new MarcheCommande(perso, new Coordonnees(320, 160)),
-    new MarcheCommande(perso, new Coordonnees(160, 160))
+    new MarcheCommande(perso, new Coordonnees(176, 336)),
+    new MarcheCommande(perso, new Coordonnees(336, 336)),
+    new MarcheCommande(perso, new Coordonnees(336, 176)),
+    new MarcheCommande(perso, new Coordonnees(176, 176))
 ];
 let executeurCommande = new ExecuteurCommande();
 
-let pos = 0;
+/**let pos = 0;
 persoGraphique.animatedSprite.on('mousedown', function() {
     executeurCommande.addCommande(listeCommande[pos%listeCommande.length]);
     pos++;
-})
+})*/
 
 let commande = null;
 app.ticker.add((delta) => {

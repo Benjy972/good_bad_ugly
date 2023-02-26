@@ -1,7 +1,7 @@
 class TerrainGraphique {
 
-    constructor(terrainGraphique) {
-        this.terrainGraphique = terrainGraphique;
+    constructor(terrain) {
+        this.terrain = terrain;
         this.sprites = [];
 
         // Initialisation des graphismes
@@ -10,9 +10,9 @@ class TerrainGraphique {
     }
 
     draw(app) {
-        for (let i=0; i<this.terrainGraphique.map.length; i++) {
-            for (let j=0; j<this.terrainGraphique.map[i].length; j++) {
-                let tuile = new PIXI.Sprite(this.sprites[this.terrainGraphique.map[i][j]]);
+        for (let i=0; i<this.terrain.map.length; i++) {
+            for (let j=0; j<this.terrain.map[i].length; j++) {
+                let tuile = new PIXI.Sprite(this.sprites[this.terrain.map[i][j]]);
                 tuile.x = 32*j;
                 tuile.y = 32*i;
                 app.stage.addChild(tuile);

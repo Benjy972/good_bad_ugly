@@ -8,24 +8,9 @@
     <script src="src/graphismes/terrain/TerrainGraphique.js"></script>
     <script src="src/moteur/personnage/Personnage.js"></script>
     <script src="src/graphismes/personnage/PersonnageGraphique.js"></script>
+    <script src="src/graphismes/interface/CaseDeplacement.js"></script>
     <script src="src/moteur/commandes/MarcheCommande.js"></script>
     <script src="src/moteur/commandes/ExecuteurCommande.js"></script>
     <script src="index.js"></script>
-    <!-- script>
-        let app = new PIXI.Application({ width: 640, height: 360 });
-        document.body.appendChild(app.view);
-        let sprite = PIXI.Sprite.from('resources/sample.png');
-        app.stage.addChild(sprite);
-        // Add a variable to count up the seconds our demo has been running
-        let elapsed = 0.0;
-        // in the amount of time that has passed since the last tick
-        // Tell our application's ticker to run a new callback every frame, passing
-        // Add the time to our total elapsed time
-        app.ticker.add((delta) => {
-            // Update the sprite's X position based on the cosine of our elapsed time.  We divide
-            elapsed += delta;
-            sprite.x = 100.0 + Math.cos(elapsed/50.0) * 100.0;
-            // by 50 to slow the animation down a bit...
-        });
-    </script -->      
+    <button id="mouvement" onclick="evaluerDeplacements()">Deplacement</button>    
 </body>

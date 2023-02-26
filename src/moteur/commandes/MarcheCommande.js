@@ -3,6 +3,11 @@ class MarcheCommande {
     constructor(perso, coords) {
         this.perso = perso;
         this.coords = coords;
+        this.caseDeplacement = new CaseDeplacement(coords.x, coords.y);
+    }
+
+    displayCase(app) {
+        this.caseDeplacement.draw(app);
     }
 
     execute() {

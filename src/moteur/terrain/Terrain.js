@@ -15,4 +15,13 @@ class Terrain {
             [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
         ];
     }
+
+    canWalk(x, y) {
+        let i = Math.trunc(y/32);
+        let j = Math.trunc(x/32);
+        if (i<0 || j<0 || i>=this.map.length || j>=this.map[i].length) {
+            return false;
+        }
+        return this.map[i][j] == 0;
+    }
 }

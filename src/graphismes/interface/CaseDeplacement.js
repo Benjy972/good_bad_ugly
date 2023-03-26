@@ -9,7 +9,6 @@ class CaseDeplacement {
     }
 
     draw(app) {
-        console.log(`x: ${this.caseSol.x}, y: ${this.caseSol.y}`);
         app.stage.addChild(this.caseSol);
     }
 

@@ -1,9 +1,14 @@
 class MarcheCommande {
 
-    constructor(perso, coords) {
+    constructor(perso, terrain, coords) {
         this.perso = perso;
         this.coords = coords;
+        this.terrain = terrain;
         this.caseDeplacement = new CaseDeplacement(coords.x, coords.y);
+
+        // Calcul du chemin
+        this.listeDeplacement = [];
+        this.indexDeplacement = 0;
     }
 
     displayCase(app) {
@@ -11,14 +16,44 @@ class MarcheCommande {
     }
 
     execute() {
-        if (this.perso.coords.equals(this.coords)) {
+        // Etape 1 : on définit la route
+        if (this.listeDeplacement.length == 0) {
+            this.determinerChemin();
+        }
+
+        // Etape 2 : on suit une cas à la fois
+        if (this.indexDeplacement == this.listeDeplacement.length) {
             this.perso.move(0, 0);
             return null;
-        } else if (this.perso.coords.y == this.coords.y) {
-            this.perso.move(2*Math.sign(this.coords.x - this.perso.coords.x), 0);
+        }
+        let nextCoord = this.listeDeplacement[this.indexDeplacement];
+        if (this.perso.coords.equals(nextCoord)) {
+            this.indexDeplacement++;
         } else {
-            this.perso.move(0, 2*Math.sign(this.coords.y - this.perso.coords.y));
+            let dx = 2 * Math.sign(nextCoord.x - this.perso.coords.x);
+            let dy = 2 * Math.sign(nextCoord.y - this.perso.coords.y);
+            this.perso.move(dx, dy);
         }
         return this;
+    }
+
+    determinerChemin() {
+        let positionPrecedente = null;
+        let positionCourante = perso.coords;
+        while (!positionCourante.equals(this.coords)) {
+            let listePositions = [[positionCourante.x + 32, positionCourante.y],
+            [positionCourante.x - 32, positionCourante.y],
+            [positionCourante.x, positionCourante.y + 32],
+            [positionCourante.x, positionCourante.y - 32]];
+            // On recherche la position qui rapproche le plus de l'objectif
+            let meilleurPosition = listePositions.filter(pos => this.terrain.canWalk(pos[0], pos[1])
+                && (positionPrecedente == null || !positionPrecedente.equalsCoords(pos[0], pos[1]))
+            ).sort((pos1, pos2) => this.coords.getDistanceCoords(pos1[0], pos1[1]) - this.coords.getDistanceCoords(pos2[0], pos2[1]))[0];
+            // Une fois la position récupérée, on l'enregistre
+            let newCoord = new Coordonnees(meilleurPosition[0], meilleurPosition[1]);
+            this.listeDeplacement.push(newCoord);
+            positionPrecedente = positionCourante.getCopy();
+            positionCourante = newCoord;
+        }
     }
 }

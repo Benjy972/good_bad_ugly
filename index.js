@@ -23,16 +23,9 @@ function evaluerDeplacements() {
             perso.removeMarcheCommands();
         });
     }
-    console.log("Hello !");
 }
 
 // Executeur commandes
-let listeCommande = [
-    new MarcheCommande(perso, new Coordonnees(176, 336)),
-    new MarcheCommande(perso, new Coordonnees(336, 336)),
-    new MarcheCommande(perso, new Coordonnees(336, 176)),
-    new MarcheCommande(perso, new Coordonnees(176, 176))
-];
 let executeurCommande = new ExecuteurCommande();
 
 /**let pos = 0;

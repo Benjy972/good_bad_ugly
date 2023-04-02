@@ -12,5 +12,12 @@
     <script src="src/moteur/commandes/MarcheCommande.js"></script>
     <script src="src/moteur/commandes/ExecuteurCommande.js"></script>
     <script src="index.js"></script>
-    <button id="mouvement" onclick="evaluerDeplacements()">Deplacement</button>    
+
+    <div id="zoneActions">
+        <button id="mouvement" onclick="evaluerDeplacements()">Deplacement</button>
+        <button id="tour" onclick="passerTour()">Passer son tour</button>   
+    </div>
+    <div id="zoneTexte">
+        <textarea id="infoTexte" rows="3" cols="80"></textarea>
+    </div>
 </body>

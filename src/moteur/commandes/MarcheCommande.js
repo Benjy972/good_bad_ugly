@@ -1,9 +1,10 @@
 class MarcheCommande {
 
-    constructor(perso, terrain, coords) {
+    constructor(perso, terrain, listePerso, coords) {
         this.perso = perso;
         this.coords = coords;
         this.terrain = terrain;
+        this.listePerso = listePerso;
         this.caseDeplacement = new CaseDeplacement(coords.x, coords.y);
 
         // Calcul du chemin
@@ -16,6 +17,9 @@ class MarcheCommande {
     }
 
     execute() {
+        // Etape 0 : consomme l'action de déplacement du personnage
+        this.perso.peutMarcher = false;
+
         // Etape 1 : on définit la route
         if (this.listeDeplacement.length == 0) {
             this.determinerChemin();
@@ -39,7 +43,7 @@ class MarcheCommande {
 
     determinerChemin() {
         let positionPrecedente = null;
-        let positionCourante = perso.coords;
+        let positionCourante = this.perso.coords;
         while (!positionCourante.equals(this.coords)) {
             let listePositions = [[positionCourante.x + 32, positionCourante.y],
             [positionCourante.x - 32, positionCourante.y],
@@ -47,6 +51,7 @@ class MarcheCommande {
             [positionCourante.x, positionCourante.y - 32]];
             // On recherche la position qui rapproche le plus de l'objectif
             let meilleurPosition = listePositions.filter(pos => this.terrain.canWalk(pos[0], pos[1])
+                && !this.listePerso.some(perso => perso.coords.equalsCoords(pos[0], pos[1]))
                 && (positionPrecedente == null || !positionPrecedente.equalsCoords(pos[0], pos[1]))
             ).sort((pos1, pos2) => this.coords.getDistanceCoords(pos1[0], pos1[1]) - this.coords.getDistanceCoords(pos2[0], pos2[1]))[0];
             // Une fois la position récupérée, on l'enregistre

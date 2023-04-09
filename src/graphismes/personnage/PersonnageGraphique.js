@@ -2,21 +2,41 @@ class PersonnageGraphique {
 
     constructor(personnage) {
         this.perso = personnage;
-        this.spritesHaut = [];
-        this.spritesBas = [];
-        this.spritesDroite = [];
-        this.spritesGauche = [];
+        // Sprites marche
+        this.spritesMarche_haut = [];
+        this.spritesMarche_bas = [];
+        this.spritesMarche_droite = [];
+        this.spritesMarche_gauche = [];
+        // Sprites tir
+        this.spritesTir_haut = [];
+        this.spritesTir_bas = [];
+        this.spritesTir_droite = [];
+        this.spritesTir_gauche = [];
+        // Sprites encaisser tir
+        this.spritesEncaisserTir_haut = [];
+        this.spritesEncaisserTir_bas = [];
+        this.spritesEncaisserTir_droite = [];
+        this.spritesEncaisserTir_gauche = [];
 
         // Initialisation des graphismes
-        let listePas = ['', '_g', '', '_d'];
-        for (let pas of listePas) {
-            this.spritesHaut.push(PIXI.Texture.from(`resources/personnage/heros/heros_haut${pas}.png`));
-            this.spritesBas.push(PIXI.Texture.from(`resources/personnage/heros/heros_bas${pas}.png`));
-            this.spritesDroite.push(PIXI.Texture.from(`resources/personnage/heros/heros_droite${pas}.png`));
-            this.spritesGauche.push(PIXI.Texture.from(`resources/personnage/heros/heros_gauche${pas}.png`));
+        let listeDirection = ['haut', 'bas', 'droite', 'gauche'];
+        for (let direction of listeDirection) {
+            // Marche
+            this[`spritesMarche_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/heros_${direction}.png`));
+            this[`spritesMarche_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/heros_${direction}_g.png`));
+            this[`spritesMarche_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/heros_${direction}.png`));
+            this[`spritesMarche_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/heros_${direction}_d.png`));
+
+            // Tir
+            this[`spritesTir_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/heros_tire_${direction}.png`));
+            this[`spritesTir_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/heros_${direction}.png`));
+
+            // Encaisser ir
+            this[`spritesEncaisserTir_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/heros_blesse_${direction}.png`));
+            this[`spritesEncaisserTir_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/heros_${direction}.png`));
         }
 
-        this.animatedSprite = new PIXI.AnimatedSprite(this.spritesBas);
+        this.animatedSprite = new PIXI.AnimatedSprite(this.spritesMarche_bas);
         this.animatedSprite.x = this.perso.coords.x;
         this.animatedSprite.y = this.perso.coords.y
         this.animatedSprite.anchor.set(0.5);
@@ -25,31 +45,30 @@ class PersonnageGraphique {
         this.animatedSprite.interactive = true;
     }
 
-    animateHaut() {
-        if (this.animatedSprite.textures != this.spritesHaut) {
-            this.animatedSprite.textures = this.spritesHaut;
+    animerMarche() {
+        if (this.animatedSprite.textures != this[`spritesMarche_${this.perso.direction}`]) {
+            this.animatedSprite.textures = this[`spritesMarche_${this.perso.direction}`];
         }
+        this.animatedSprite.animationSpeed = 0.15;
+        this.animatedSprite.loop = true;
         this.animatedSprite.play();
     }
 
-    animateBas() {
-        if (this.animatedSprite.textures != this.spritesBas) {
-            this.animatedSprite.textures = this.spritesBas;
+    animerTir() {
+        if (this.animatedSprite.textures != this[`spritesTir_${this.perso.direction}`]) {
+            this.animatedSprite.textures = this[`spritesTir_${this.perso.direction}`];
         }
+        this.animatedSprite.animationSpeed = 0.1;
+        this.animatedSprite.loop = false;
         this.animatedSprite.play();
     }
 
-    animateDroite() {
-        if (this.animatedSprite.textures != this.spritesDroite) {
-            this.animatedSprite.textures = this.spritesDroite;
+    animerEncaisserTir() {
+        if (this.animatedSprite.textures != this[`spritesEncaisserTir_${this.perso.direction}`]) {
+            this.animatedSprite.textures = this[`spritesEncaisserTir_${this.perso.direction}`];
         }
-        this.animatedSprite.play();
-    }
-
-    animateGauche() {
-        if (this.animatedSprite.textures != this.spritesGauche) {
-            this.animatedSprite.textures = this.spritesGauche;
-        }
+        this.animatedSprite.animationSpeed = 0.05;
+        this.animatedSprite.loop = false;
         this.animatedSprite.play();
     }
 

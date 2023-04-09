@@ -1,23 +1,32 @@
 class Personnage {
     constructor(x, y) {
+        // Position
         this.coords = new Coordonnees(x, y);
+        this.direction = "bas";
+
         this.personnageGraphique = new PersonnageGraphique(this);
         this.nombrePas = 4;
         this.peutMarcher = true;
         this.listeMarcheCommande = [];
+        this.porteeTir = 4;
+        this.peutTirer = true;
+        this.listeTirCommande = [];
     }
 
     move(dx, dy) {
         if (dx==0 && dy==0) {
             this.personnageGraphique.stop();
-        } else if (dx>0) {
-            this.personnageGraphique.animateDroite();
-        } else if (dx<0) {
-            this.personnageGraphique.animateGauche();
-        } else if (dy>0) {
-            this.personnageGraphique.animateBas();
-        } else if (dy<0) {
-            this.personnageGraphique.animateHaut();
+        } else {
+            if (dx>0) {
+                this.direction = "droite";
+            } else if (dx<0) {
+                this.direction = "gauche";
+            } else if (dy>0) {
+                this.direction = "bas";
+            } else if (dy<0) {
+                this.direction = "haut";
+            }
+            this.personnageGraphique.animerMarche();
         }
         this.coords.move(dx, dy);
         this.personnageGraphique.animatedSprite.x = this.coords.x;
@@ -43,6 +52,35 @@ class Personnage {
             commande.caseDeplacement.destroy();
         }
         this.listeMarcheCommande = [];
-
     }
+
+    evaluerTir(listePerso) {
+        for (let perso of listePerso) {
+            if (perso != this && perso.coords.getDistance(this.coords) <= this.porteeTir*32) {
+                // Ajouter action tir
+                this.listeTirCommande.push(new TirCommande(this, perso));
+            }
+        }
+        return this.listeTirCommande.length > 0;
+    }
+
+    tirer() {
+        // Animation
+        this.personnageGraphique.animerTir();
+        // Action
+    }
+
+    encaisserTir() {
+        // Action
+        // Animation
+        this.personnageGraphique.animerEncaisserTir();
+    }
+
+    removeTirCommands() {
+        for(let commande of this.listeTirCommande) {
+            commande.caseTir.destroy();
+        }
+        this.listeTirCommande = [];
+    }
+
 }

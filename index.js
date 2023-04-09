@@ -35,14 +35,36 @@ function evaluerDeplacements() {
             getPersoCourant().removeMarcheCommands();
         });
     }
+    // On efface la liste de cases de tir si on veut se déplacer
+    getPersoCourant().removeTirCommands();
 }
 
-// Zone de texte
-let infoTexte;
-window.onload = function() {
-    infoTexte = document.getElementById("infoTexte");
-    infoTexte.value = "";
-};
+// Tirer
+function evaluerTir() {
+    // Inhibe le bouton si une action est en cours
+    if (actionEnCours()) {
+        return;
+    }
+    // Si le personnage a déjà épuisé son action de déplacement
+    if (!getPersoCourant().peutTirer) {
+        infoTexte.value = "Vous ne pouvez plus tirer";
+        return;
+    }
+
+    if (getPersoCourant().listeTirCommande.length == 0 && !getPersoCourant().evaluerTir(listePerso)) {
+        infoTexte.value = "Aucune cible à proximité";
+    }
+
+    for (let tirCommande of getPersoCourant().listeTirCommande) {
+        tirCommande.displayCase(app);
+        tirCommande.caseTir.caseSol.on('mousedown', function() {
+            executeurCommande.addCommande(tirCommande);
+            getPersoCourant().removeTirCommands();
+        });
+    }
+    // On efface la liste de cases de tir si on veut marcher
+    getPersoCourant().removeMarcheCommands();
+}
 
 // Passer son tour
 function passerTour() {
@@ -51,10 +73,19 @@ function passerTour() {
         return;
     }
     getPersoCourant().removeMarcheCommands();
+    getPersoCourant().removeTirCommands();
     getPersoCourant().peutMarcher = true;
+    getPersoCourant().peutTirer = true;
     indexPerso = (indexPerso + 1) % listePerso.length;
     infoTexte.value = "Au tour du joueur " + Number(indexPerso+1) ;
 }
+
+// Zone de texte
+let infoTexte;
+window.onload = function() {
+    infoTexte = document.getElementById("infoTexte");
+    infoTexte.value = "";
+};
 
 // Executeur commandes
 let executeurCommande = new ExecuteurCommande();

@@ -13,6 +13,20 @@ class Personnage {
         this.listeTirCommande = [];
     }
 
+    
+    setDirection(angle) {
+        console.log(angle);
+        if (Math.abs(angle) <= Math.PI/4) {
+            this.direction = "droite"
+        } else if (Math.abs(angle + Math.PI/2) <= Math.PI/4) {
+            this.direction = "haut"
+        }  else if (Math.abs(angle - Math.PI) <= Math.PI/4) {
+            this.direction = "gauche"
+        } else if (Math.abs(angle - Math.PI/2) <= Math.PI/4) {
+            this.direction = "bas"
+        }
+    }
+
     move(dx, dy) {
         if (dx==0 && dy==0) {
             this.personnageGraphique.stop();

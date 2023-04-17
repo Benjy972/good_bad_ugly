@@ -32,7 +32,7 @@ class Coordonnees {
         return this.x == px && this.y == py;
     }
 
-    /*getAngle(coords) {
+    getAngle(coords) {
         return Math.atan2(coords.y-this.y, coords.x-this.x);
-    }*/
+    }
 }

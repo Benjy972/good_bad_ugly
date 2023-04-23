@@ -3,7 +3,6 @@ class TirCommande {
     constructor(perso, cible) {
         this.perso = perso;
         this.cible = cible;
-        this.terrain = terrain;
         this.caseTir = new CaseTir(cible.coords.x, cible.coords.y);
     }
 

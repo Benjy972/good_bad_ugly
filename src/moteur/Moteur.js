@@ -1,14 +1,19 @@
 class Moteur {
 
-    constructor(...listePerso) {
+    constructor() {
         this.terrain = new Terrain();
-        this.listePerso = listePerso;
+        // À définir
+        this.listePerso = [];
         this.indexPerso = 0;
         this.executeurCommande = new ExecuteurCommande();
         this.commande = null;
 
         // Moteur graphique
         this.moteurGraphique = new MoteurGraphique(this);
+    }
+
+    setListePerso(...listePerso) {
+        this.listePerso = listePerso;
     }
 
     getPersoCourant() {
@@ -21,7 +26,7 @@ class Moteur {
         let execCommande = this.executeurCommande;
 
         if (persoCourant.listeMarcheCommande.length == 0) {
-            persoCourant.calculateSteps(this.terrain, this.listePerso);
+            persoCourant.calculateSteps();
         }
         for (let marcheCommande of persoCourant.listeMarcheCommande) {
             marcheCommande.displayCase(app);
@@ -39,6 +44,9 @@ class Moteur {
         let persoCourant = this.getPersoCourant();
         let execCommande = this.executeurCommande;
 
+        if (persoCourant.listeTirCommande.length == 0) {
+            persoCourant.evaluerTir();
+        }
         for (let tirCommande of persoCourant.listeTirCommande) {
             tirCommande.displayCase(app);
             tirCommande.caseTir.caseSol.on('mousedown', function() {
@@ -48,16 +56,12 @@ class Moteur {
         }
         // On efface la liste de cases de tir si on veut marcher
         persoCourant.removeMarcheCommands();
+        // On vérifie que le personnage a bien une cible à viser
+        return persoCourant.listeTirCommande.length > 0;
     }
 
     passerTour() {
-        let persoCourant = this.getPersoCourant();
-
-        persoCourant.removeMarcheCommands();
-        persoCourant.removeTirCommands();
-        persoCourant.peutMarcher = true;
-        persoCourant.peutTirer = true;
-        this.indexPerso = (this.indexPerso + 1) % this.listePerso.length;
+        this.executeurCommande.addCommande(new PasserTourCommande(this.getPersoCourant(), this));
     }
 
     executerCommande() {

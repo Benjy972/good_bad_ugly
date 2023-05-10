@@ -1,5 +1,5 @@
 class Personnage {
-    constructor(x, y) {
+    constructor(x, y, moteur, estIA) {
         // Position
         this.coords = new Coordonnees(x, y);
         this.direction = "bas";
@@ -11,6 +11,12 @@ class Personnage {
         this.porteeTir = 4;
         this.peutTirer = true;
         this.listeTirCommande = [];
+        this.moteur = moteur;
+        /* if (estIA) {
+            this.ia = new BaseIA(this, this.moteur.execCommande);
+        } else {
+            this.ia = null;
+        } */
     }
 
     
@@ -47,15 +53,15 @@ class Personnage {
         this.personnageGraphique.animatedSprite.y = this.coords.y;
     }
 
-    calculateSteps(terrain, listePerso) {
+    calculateSteps() {
         for (let i=-this.nombrePas; i<=this.nombrePas; i++) {
             for (let j=-this.nombrePas+Math.abs(i); j<=this.nombrePas-Math.abs(i); j++) {
                 let new_x = this.coords.x + 32*j;
                 let new_y = this.coords.y + 32*i;
                 // On vérifie qu'il n'y a ni obstacle ni joueur sur la case
-                if (terrain.canWalk(new_x, new_y) && !listePerso.some(perso => perso.coords.equalsCoords(new_x, new_y))) {
+                if (this.moteur.terrain.canWalk(new_x, new_y) && !this.moteur.listePerso.some(perso => perso.coords.equalsCoords(new_x, new_y))) {
                     let newCoords = new Coordonnees(new_x, new_y);
-                    this.listeMarcheCommande.push(new MarcheCommande(this, terrain, listePerso, newCoords));
+                    this.listeMarcheCommande.push(new MarcheCommande(this, this.moteur.terrain, this.moteur.listePerso, newCoords));
                 }
             }
         }
@@ -68,14 +74,13 @@ class Personnage {
         this.listeMarcheCommande = [];
     }
 
-    evaluerTir(listePerso) {
-        for (let perso of listePerso) {
+    evaluerTir() {
+        for (let perso of this.moteur.listePerso) {
             if (perso != this && perso.coords.getDistance(this.coords) <= this.porteeTir*32) {
                 // Ajouter action tir
                 this.listeTirCommande.push(new TirCommande(this, perso));
             }
         }
-        return this.listeTirCommande.length > 0;
     }
 
     tirer() {

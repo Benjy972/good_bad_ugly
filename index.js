@@ -2,7 +2,11 @@ let app = new PIXI.Application({ width: 640, height: 384 });
 document.body.appendChild(app.view);
 
 // Moteur
-let moteur = new Moteur(new Personnage(176, 176), new Personnage(304, 304));
+let moteur = new Moteur();
+moteur.setListePerso(
+    new Personnage(176, 176, moteur, false),
+    new Personnage(304, 304, moteur, true)
+)
 // On initialise les graphismes
 let moteurGraphique = moteur.moteurGraphique;
 moteurGraphique.initGraphics(app);
@@ -36,11 +40,12 @@ function evaluerTir() {
         return;
     }
 
-    if (moteur.getPersoCourant().listeTirCommande.length == 0 && !moteur.getPersoCourant().evaluerTir(moteur.listePerso)) {
+    let cibleDisponible = moteur.evaluerTir();
+    // Si après avoir évalué un tir, le personnage n'a pas de cible en vue
+    if (!cibleDisponible) {
         infoTexte.value = "Aucune cible à proximité";
     }
 
-    moteur.evaluerTir();
 }
 
 // Passer son tour
@@ -50,7 +55,7 @@ function passerTour() {
         return;
     }
     moteur.passerTour();
-    infoTexte.value = "Au tour du joueur " + Number(moteur.indexPerso+1) ;
+    infoTexte.value = `Le joueur ${(moteur.indexPerso+1)} passe son tour.` ;
 }
 
 // Zone de texte

@@ -12,11 +12,11 @@ class Personnage {
         this.peutTirer = true;
         this.listeTirCommande = [];
         this.moteur = moteur;
-        /* if (estIA) {
-            this.ia = new BaseIA(this, this.moteur.execCommande);
+        if (estIA) {
+            this.ia = new BaseIA(this, this.moteur.executeurCommande);
         } else {
             this.ia = null;
-        } */
+        }
     }
 
     
@@ -100,6 +100,12 @@ class Personnage {
             commande.caseTir.destroy();
         }
         this.listeTirCommande = [];
+    }
+
+    jouer() {
+        if (this.ia != null) {
+            this.ia.action();
+        }
     }
 
 }

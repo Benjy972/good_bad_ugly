@@ -69,6 +69,9 @@ class Moteur {
         if (this.commande == null) {
             if (this.executeurCommande.listeCommande.length > 0) {
                 this.commande = this.executeurCommande.renvoiCommande();
+            } else {
+                // On va demander au joueur en cours de jouer
+                this.getPersoCourant().jouer();
             }
         } else {
             this.commande = this.commande.execute();

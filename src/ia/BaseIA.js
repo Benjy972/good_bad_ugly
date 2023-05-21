@@ -1,8 +1,7 @@
 class BaseIA {
 
-    constructor(perso, execCommande) {
+    constructor(perso) {
         this.perso = perso;
-        this.execCommande = execCommande;
         this.actionEnCours = false;
     }
 
@@ -13,7 +12,6 @@ class BaseIA {
         }
         // On définit les variables pour les fonctions anonymes
         let perso = this.perso;
-        let execCommande = this.execCommande;
         let ia = this;
 
         // On évalue si le personnage peut tirer
@@ -33,7 +31,7 @@ class BaseIA {
             // Pour l'instant, on reste sur de l'aléatoire
             this.actionEnCours = true;
             setTimeout(() => {
-                execCommande.addCommande(perso.listeTirCommande[Math.round(Math.random() * (perso.listeTirCommande.length - 1))]);
+                ExecuteurCommande.addCommande(perso.listeTirCommande[Math.round(Math.random() * (perso.listeTirCommande.length - 1))]);
                 perso.removeTirCommands();
                 ia.actionEnCours = false;
             }, wait);
@@ -41,13 +39,13 @@ class BaseIA {
             // Pour l'instant, on reste sur de l'aléatoire
             this.actionEnCours = true;
             setTimeout(() => {
-                execCommande.addCommande(perso.listeMarcheCommande[Math.round(Math.random() * (perso.listeMarcheCommande.length - 1))]);
+                ExecuteurCommande.addCommande(perso.listeMarcheCommande[Math.round(Math.random() * (perso.listeMarcheCommande.length - 1))]);
                 perso.removeMarcheCommands();
                 ia.actionEnCours = false;
             }, wait);
         } else {
             // Si plus aucune action possible
-            this.execCommande.addCommande(new PasserTourCommande(this.perso, this.perso.moteur));
+            ExecuteurCommande.addCommande(new PasserTourCommande(this.perso));
         }
     }
 }

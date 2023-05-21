@@ -1,16 +1,12 @@
 class MoteurGraphique {
 
-    constructor(moteur) {
-        this.moteur = moteur;
-    }
-
-    initGraphics(app) {
+    static initGraphics(app) {
         // On commence par dessiner le terrain
-        let terrainGraphique = this.moteur.terrain.terrainGraphique;
+        let terrainGraphique = Moteur.terrain.terrainGraphique;
         terrainGraphique.draw(app);
 
         // On dessine les personnages
-        for (let perso of this.moteur.listePerso) {
+        for (let perso of Moteur.listePerso) {
             let persoGraphique = perso.personnageGraphique;
             app.stage.addChild(persoGraphique.animatedSprite);
         }

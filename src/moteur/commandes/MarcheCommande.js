@@ -1,10 +1,8 @@
 class MarcheCommande {
 
-    constructor(perso, terrain, listePerso, coords) {
+    constructor(perso, coords) {
         this.perso = perso;
         this.coords = coords;
-        this.terrain = terrain;
-        this.listePerso = listePerso;
         this.caseDeplacement = new CaseDeplacement(coords.x, coords.y);
 
         // Calcul du chemin
@@ -50,8 +48,8 @@ class MarcheCommande {
             [positionCourante.x, positionCourante.y + 32],
             [positionCourante.x, positionCourante.y - 32]];
             // On recherche la position qui rapproche le plus de l'objectif
-            let meilleurPosition = listePositions.filter(pos => this.terrain.canWalk(pos[0], pos[1])
-                && !this.listePerso.some(perso => perso.coords.equalsCoords(pos[0], pos[1]))
+            let meilleurPosition = listePositions.filter(pos => Moteur.terrain.canWalk(pos[0], pos[1])
+                && !Moteur.listePerso.some(perso => perso.coords.equalsCoords(pos[0], pos[1]))
                 && (positionPrecedente == null || !positionPrecedente.equalsCoords(pos[0], pos[1]))
             ).sort((pos1, pos2) => this.coords.getDistanceCoords(pos1[0], pos1[1]) - this.coords.getDistanceCoords(pos2[0], pos2[1]))[0];
             // Une fois la position récupérée, on l'enregistre

@@ -1,37 +1,30 @@
 class Moteur {
 
-    constructor() {
-        this.terrain = new Terrain();
-        // À définir
-        this.listePerso = [];
-        this.indexPerso = 0;
-        this.executeurCommande = new ExecuteurCommande();
-        this.commande = null;
+    static terrain = new Terrain();
+    // À définir
+    static listePerso = [];
+    static indexPerso = 0;
+    static commande = null;
 
-        // Moteur graphique
-        this.moteurGraphique = new MoteurGraphique(this);
-    }
-
-    setListePerso(...listePerso) {
+    static setListePerso(...listePerso) {
         this.listePerso = listePerso;
     }
 
-    getPersoCourant() {
+    static getPersoCourant() {
         return this.listePerso[this.indexPerso];
     }
 
-    evaluerDeplacements() {
+    static evaluerDeplacements() {
         // Obligé de passer par une variable à cause de la fonction anonyme
         let persoCourant = this.getPersoCourant();
-        let execCommande = this.executeurCommande;
 
         if (persoCourant.listeMarcheCommande.length == 0) {
             persoCourant.calculateSteps();
         }
         for (let marcheCommande of persoCourant.listeMarcheCommande) {
             marcheCommande.displayCase(app);
-            marcheCommande.caseDeplacement.caseSol.on('mousedown', function() {
-                execCommande.addCommande(marcheCommande);
+            marcheCommande.caseDeplacement.caseSol.on('mousedown', function () {
+                ExecuteurCommande.addCommande(marcheCommande);
                 persoCourant.removeMarcheCommands();
             });
         }
@@ -39,18 +32,17 @@ class Moteur {
         persoCourant.removeTirCommands();
     }
 
-    evaluerTir() {
+    static evaluerTir() {
         // Obligé de passer par une variable à cause de la fonction anonyme
         let persoCourant = this.getPersoCourant();
-        let execCommande = this.executeurCommande;
 
         if (persoCourant.listeTirCommande.length == 0) {
             persoCourant.evaluerTir();
         }
         for (let tirCommande of persoCourant.listeTirCommande) {
             tirCommande.displayCase(app);
-            tirCommande.caseTir.caseSol.on('mousedown', function() {
-                execCommande.addCommande(tirCommande);
+            tirCommande.caseTir.caseSol.on('mousedown', function () {
+                ExecuteurCommande.addCommande(tirCommande);
                 persoCourant.removeTirCommands();
             });
         }
@@ -60,15 +52,19 @@ class Moteur {
         return persoCourant.listeTirCommande.length > 0;
     }
 
-    passerTour() {
-        this.executeurCommande.addCommande(new PasserTourCommande(this.getPersoCourant(), this));
+    static passerTour() {
+        ExecuteurCommande.addCommande(new PasserTourCommande(this.getPersoCourant(), this));
     }
 
-    executerCommande() {
+    static incrementerTour() {
+        this.indexPerso = (this.indexPerso + 1) % this.listePerso.length;
+    }
+
+    static executerCommande() {
         // On vérifie que l'exécuteur de commande et est bien initialisé, sinon on renvoie null
         if (this.commande == null) {
-            if (this.executeurCommande.listeCommande.length > 0) {
-                this.commande = this.executeurCommande.renvoiCommande();
+            if (ExecuteurCommande.listeCommande.length > 0) {
+                this.commande = ExecuteurCommande.renvoiCommande();
             } else {
                 // On va demander au joueur en cours de jouer
                 this.getPersoCourant().jouer();

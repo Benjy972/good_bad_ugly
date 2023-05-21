@@ -2,14 +2,12 @@ let app = new PIXI.Application({ width: 640, height: 384 });
 document.body.appendChild(app.view);
 
 // Moteur
-let moteur = new Moteur();
-moteur.setListePerso(
-    new Personnage("Joueur 1", 176, 176, moteur, false),
-    new Personnage("Joueur 2", 304, 304, moteur, true)
+Moteur.setListePerso(
+    new Personnage("Joueur 1", 176, 176, false),
+    new Personnage("Joueur 2", 304, 304, true)
 )
 // On initialise les graphismes
-let moteurGraphique = moteur.moteurGraphique;
-moteurGraphique.initGraphics(app);
+MoteurGraphique.initGraphics(app);
 
 // Boutons
 // Marcher
@@ -19,12 +17,12 @@ function evaluerDeplacements() {
         return;
     }
     // Si le personnage a déjà épuisé son action de déplacement
-    if (!moteur.getPersoCourant().peutMarcher) {
+    if (!Moteur.getPersoCourant().peutMarcher) {
         ServiceNotification.pushMessage("Vous ne pouvez plus vous déplacer");
         return;
     }
 
-    moteur.evaluerDeplacements();
+    Moteur.evaluerDeplacements();
 }
 
 // Tirer
@@ -34,12 +32,12 @@ function evaluerTir() {
         return;
     }
     // Si le personnage a déjà épuisé son action de déplacement
-    if (!moteur.getPersoCourant().peutTirer) {
+    if (!Moteur.getPersoCourant().peutTirer) {
         ServiceNotification.pushMessage("Vous ne pouvez plus tirer");
         return;
     }
 
-    let cibleDisponible = moteur.evaluerTir();
+    let cibleDisponible = Moteur.evaluerTir();
     // Si après avoir évalué un tir, le personnage n'a pas de cible en vue
     if (!cibleDisponible) {
         ServiceNotification.pushMessage("Aucune cible à proximité");
@@ -53,7 +51,7 @@ function passerTour() {
     if (actionEnCours()) {
         return;
     }
-    moteur.passerTour();
+    Moteur.passerTour();
 }
 
 window.onload = function() {
@@ -61,13 +59,13 @@ window.onload = function() {
     ServiceNotification.initService();
 
     // Execution de commandes
-    app.ticker.add((delta) => moteur.executerCommande());
+    app.ticker.add((delta) => Moteur.executerCommande());
 };
 
 // Fonction utilitaire
 
 function actionEnCours() {
-    if (moteur.commande != null) {
+    if (Moteur.commande != null) {
         ServiceNotification.pushMessage("Une action est déjà en cours");
         return true;
     }

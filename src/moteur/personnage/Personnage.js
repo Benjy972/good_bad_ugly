@@ -1,5 +1,5 @@
 class Personnage {
-    constructor(nom, x, y, moteur, estIA) {
+    constructor(nom, x, y, estIA) {
         // Nom du personnage
         this.nom = nom;
 
@@ -14,9 +14,8 @@ class Personnage {
         this.porteeTir = 4;
         this.peutTirer = true;
         this.listeTirCommande = [];
-        this.moteur = moteur;
         if (estIA) {
-            this.ia = new BaseIA(this, this.moteur.executeurCommande);
+            this.ia = new BaseIA(this);
         } else {
             this.ia = null;
         }
@@ -24,7 +23,6 @@ class Personnage {
 
     
     setDirection(angle) {
-        console.log(angle);
         if (Math.abs(angle) <= Math.PI/4) {
             this.direction = "droite"
         } else if (Math.abs(angle + Math.PI/2) <= Math.PI/4) {
@@ -62,9 +60,9 @@ class Personnage {
                 let new_x = this.coords.x + 32*j;
                 let new_y = this.coords.y + 32*i;
                 // On vérifie qu'il n'y a ni obstacle ni joueur sur la case
-                if (this.moteur.terrain.canWalk(new_x, new_y) && !this.moteur.listePerso.some(perso => perso.coords.equalsCoords(new_x, new_y))) {
+                if (Moteur.terrain.canWalk(new_x, new_y) && !Moteur.listePerso.some(perso => perso.coords.equalsCoords(new_x, new_y))) {
                     let newCoords = new Coordonnees(new_x, new_y);
-                    this.listeMarcheCommande.push(new MarcheCommande(this, this.moteur.terrain, this.moteur.listePerso, newCoords));
+                    this.listeMarcheCommande.push(new MarcheCommande(this, Moteur.terrain, Moteur.listePerso, newCoords));
                 }
             }
         }
@@ -78,7 +76,7 @@ class Personnage {
     }
 
     evaluerTir() {
-        for (let perso of this.moteur.listePerso) {
+        for (let perso of Moteur.listePerso) {
             if (perso != this && perso.coords.getDistance(this.coords) <= this.porteeTir*32) {
                 // Ajouter action tir
                 this.listeTirCommande.push(new TirCommande(this, perso));

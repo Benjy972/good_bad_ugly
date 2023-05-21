@@ -1,14 +1,12 @@
 class ExecuteurCommande {
 
-    constructor() {
-        this.listeCommande = [];
-    }
+    static listeCommande = [];
 
-    addCommande(commande) {
+    static addCommande(commande) {
         this.listeCommande.push(commande);
     }
 
-    renvoiCommande() {
+    static renvoiCommande() {
         let commande = this.listeCommande.pop();
         return commande.execute();
     }

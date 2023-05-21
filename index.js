@@ -4,13 +4,12 @@ document.body.appendChild(app.view);
 // Moteur
 let moteur = new Moteur();
 moteur.setListePerso(
-    new Personnage(176, 176, moteur, false),
-    new Personnage(304, 304, moteur, true)
+    new Personnage("Joueur 1", 176, 176, moteur, false),
+    new Personnage("Joueur 2", 304, 304, moteur, true)
 )
 // On initialise les graphismes
 let moteurGraphique = moteur.moteurGraphique;
 moteurGraphique.initGraphics(app);
-
 
 // Boutons
 // Marcher
@@ -21,7 +20,7 @@ function evaluerDeplacements() {
     }
     // Si le personnage a déjà épuisé son action de déplacement
     if (!moteur.getPersoCourant().peutMarcher) {
-        infoTexte.value = "Vous ne pouvez plus vous déplacer";
+        ServiceNotification.pushMessage("Vous ne pouvez plus vous déplacer");
         return;
     }
 
@@ -36,14 +35,14 @@ function evaluerTir() {
     }
     // Si le personnage a déjà épuisé son action de déplacement
     if (!moteur.getPersoCourant().peutTirer) {
-        infoTexte.value = "Vous ne pouvez plus tirer";
+        ServiceNotification.pushMessage("Vous ne pouvez plus tirer");
         return;
     }
 
     let cibleDisponible = moteur.evaluerTir();
     // Si après avoir évalué un tir, le personnage n'a pas de cible en vue
     if (!cibleDisponible) {
-        infoTexte.value = "Aucune cible à proximité";
+        ServiceNotification.pushMessage("Aucune cible à proximité");
     }
 
 }
@@ -55,14 +54,11 @@ function passerTour() {
         return;
     }
     moteur.passerTour();
-    infoTexte.value = `Le joueur ${(moteur.indexPerso+1)} passe son tour.` ;
 }
 
-// Zone de texte
-let infoTexte;
 window.onload = function() {
-    infoTexte = document.getElementById("infoTexte");
-    infoTexte.value = "";
+    // On initialise le service de notification
+    ServiceNotification.initService();
 
     // Execution de commandes
     app.ticker.add((delta) => moteur.executerCommande());
@@ -72,7 +68,7 @@ window.onload = function() {
 
 function actionEnCours() {
     if (moteur.commande != null) {
-        infoTexte.value = "Une action est déjà en cours";
+        ServiceNotification.pushMessage("Une action est déjà en cours");
         return true;
     }
     return false;

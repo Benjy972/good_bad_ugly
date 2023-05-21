@@ -1,5 +1,8 @@
 class Personnage {
-    constructor(x, y, moteur, estIA) {
+    constructor(nom, x, y, moteur, estIA) {
+        // Nom du personnage
+        this.nom = nom;
+
         // Position
         this.coords = new Coordonnees(x, y);
         this.direction = "bas";

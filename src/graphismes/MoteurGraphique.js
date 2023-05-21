@@ -1,5 +1,13 @@
+/**
+ * Classe graphique du moteur
+ */
 class MoteurGraphique {
 
+    /**
+     * Initialisation des éléments graphiques (terrain, personnages)
+     * 
+     * @param {PIXI.Animation} app 
+     */
     static initGraphics(app) {
         // On commence par dessiner le terrain
         let terrainGraphique = Moteur.terrain.terrainGraphique;

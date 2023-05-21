@@ -1,3 +1,6 @@
+/**
+ * Classe de la map
+ */
 class Terrain {
     constructor() {
         this.map = [
@@ -17,6 +20,13 @@ class Terrain {
         this.terrainGraphique = new TerrainGraphique(this);
     }
 
+    /**
+     * Définit si une case est praticable
+     * 
+     * @param {number} x l'axe x de la coordonnée de la case
+     * @param {number} y l'axe y de la coordonnée de la case
+     * @returns true si on peut se déplacer sur la case, false s'il s'agit d'un obstacle
+     */
     canWalk(x, y) {
         let i = Math.trunc(y/32);
         let j = Math.trunc(x/32);

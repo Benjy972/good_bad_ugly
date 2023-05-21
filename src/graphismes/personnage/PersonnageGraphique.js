@@ -1,5 +1,12 @@
+/**
+ * Élément graphique du personnage
+ */
 class PersonnageGraphique {
 
+    /**
+     * 
+     * @param {Personnage} personnage personnage à dessiner sur la map
+     */
     constructor(personnage) {
         this.perso = personnage;
         // Sprites marche
@@ -45,6 +52,9 @@ class PersonnageGraphique {
         this.animatedSprite.interactive = true;
     }
 
+    /**
+     * Méthode d'animation de marche
+     */
     animerMarche() {
         if (this.animatedSprite.textures != this[`spritesMarche_${this.perso.direction}`]) {
             this.animatedSprite.textures = this[`spritesMarche_${this.perso.direction}`];
@@ -54,6 +64,9 @@ class PersonnageGraphique {
         this.animatedSprite.play();
     }
 
+    /**
+     * Méthode d'animation de tir
+     */
     animerTir() {
         if (this.animatedSprite.textures != this[`spritesTir_${this.perso.direction}`]) {
             this.animatedSprite.textures = this[`spritesTir_${this.perso.direction}`];
@@ -63,6 +76,9 @@ class PersonnageGraphique {
         this.animatedSprite.play();
     }
 
+    /**
+     * Méthode d'animation de personnage blessé
+     */
     animerEncaisserTir() {
         if (this.animatedSprite.textures != this[`spritesEncaisserTir_${this.perso.direction}`]) {
             this.animatedSprite.textures = this[`spritesEncaisserTir_${this.perso.direction}`];
@@ -72,6 +88,9 @@ class PersonnageGraphique {
         this.animatedSprite.play();
     }
 
+    /**
+     * Méthode arrête l'animation de marche
+     */
     stop() {
         this.animatedSprite.gotoAndStop(0);
     }

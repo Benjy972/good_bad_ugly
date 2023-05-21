@@ -1,5 +1,13 @@
+/**
+ * Commande de déplacement de personnage
+ */
 class MarcheCommande {
 
+    /**
+     * 
+     * @param {Personnage} perso le personnage à déplacer
+     * @param {Coordonnees} coords les coordonnées cibles
+     */
     constructor(perso, coords) {
         this.perso = perso;
         this.coords = coords;
@@ -10,10 +18,20 @@ class MarcheCommande {
         this.indexDeplacement = 0;
     }
 
+    /**
+     * Affichage de la case de déplacement associée à la commande
+     * 
+     * @param {PIXI.Application} app 
+     */
     displayCase(app) {
         this.caseDeplacement.draw(app);
     }
 
+    /**
+     * Exécution de la commande
+     * 
+     * @returns le résultat de l'exécution de la commande (null si la commande est terminée)
+     */
     execute() {
         // Etape 0 : consomme l'action de déplacement du personnage
         this.perso.peutMarcher = false;
@@ -39,6 +57,9 @@ class MarcheCommande {
         return this;
     }
 
+    /**
+     * Méthode détermine le chemin à emprunter pour atteindre la cible
+     */
     determinerChemin() {
         let positionPrecedente = null;
         let positionCourante = this.perso.coords;

@@ -1,9 +1,19 @@
+/**
+ * Commande pour passer son tour
+ */
 class PasserTourCommande {
 
+    /**
+     * 
+     * @param {Personnage} perso 
+     */
     constructor(perso) {
         this.perso = perso;
     }
 
+    /**
+     * Exécution de la commande
+     */
     execute() {
         this.perso.removeMarcheCommands();
         this.perso.removeTirCommands();

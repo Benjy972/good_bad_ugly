@@ -1,10 +1,20 @@
+/**
+ * IA de base (se déplacer et tirer à vue)
+ */
 class BaseIA {
 
+    /**
+     * 
+     * @param {Personnage} perso personnage auquel assigner l'IA
+     */
     constructor(perso) {
         this.perso = perso;
         this.actionEnCours = false;
     }
 
+    /**
+     * Méthode définit l'action à effectuer par l'IA
+     */
     action() {
         // Si on est déjà en cours d'action, on arrête
         if (this.actionEnCours) {

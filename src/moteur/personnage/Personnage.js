@@ -1,4 +1,15 @@
+/**
+ * Classe Personnage
+ */
 class Personnage {
+
+    /**
+     * 
+     * @param {string} nom nom du personnage
+     * @param {number} x l'axe x de la coordonnée du personnage
+     * @param {number} y l'axe y de la coordonnée du personnage
+     * @param {boolean} estIA définit si le personnage est non joueur (true) ou joueur (false)
+     */
     constructor(nom, x, y, estIA) {
         // Nom du personnage
         this.nom = nom;
@@ -21,7 +32,11 @@ class Personnage {
         }
     }
 
-    
+    /**
+     * Définit la direction dans laquelle regarde le personnage (haut, bas, gauche ou droite)
+     * 
+     * @param {number} angle l'angle du personnage en radians
+     */
     setDirection(angle) {
         if (Math.abs(angle) <= Math.PI/4) {
             this.direction = "droite"
@@ -34,6 +49,12 @@ class Personnage {
         }
     }
 
+    /**
+     * Déplace le personnage
+     * 
+     * @param {number} dx déplacement selon l'axe x
+     * @param {number} dy déplacement selon l'axe y
+     */
     move(dx, dy) {
         if (dx==0 && dy==0) {
             this.personnageGraphique.stop();
@@ -54,6 +75,9 @@ class Personnage {
         this.personnageGraphique.animatedSprite.y = this.coords.y;
     }
 
+    /**
+     * Définit la liste de déplacements possibles 
+     */
     calculateSteps() {
         for (let i=-this.nombrePas; i<=this.nombrePas; i++) {
             for (let j=-this.nombrePas+Math.abs(i); j<=this.nombrePas-Math.abs(i); j++) {
@@ -62,12 +86,15 @@ class Personnage {
                 // On vérifie qu'il n'y a ni obstacle ni joueur sur la case
                 if (Moteur.terrain.canWalk(new_x, new_y) && !Moteur.listePerso.some(perso => perso.coords.equalsCoords(new_x, new_y))) {
                     let newCoords = new Coordonnees(new_x, new_y);
-                    this.listeMarcheCommande.push(new MarcheCommande(this, Moteur.terrain, Moteur.listePerso, newCoords));
+                    this.listeMarcheCommande.push(new MarcheCommande(this, newCoords));
                 }
             }
         }
     }
 
+    /**
+     * Vide la liste des commandes de déplacement
+     */
     removeMarcheCommands() {
         for(let commande of this.listeMarcheCommande) {
             commande.caseDeplacement.destroy();
@@ -75,6 +102,9 @@ class Personnage {
         this.listeMarcheCommande = [];
     }
 
+    /**
+     * Définit la liste des commandes de tir possibles
+     */
     evaluerTir() {
         for (let perso of Moteur.listePerso) {
             if (perso != this && perso.coords.getDistance(this.coords) <= this.porteeTir*32) {
@@ -84,18 +114,27 @@ class Personnage {
         }
     }
 
+    /**
+     * Déclencher l'action de tir
+     */
     tirer() {
         // Animation
         this.personnageGraphique.animerTir();
         // Action
     }
 
+    /**
+     * Déclencher l'action d'encaisser un tir
+     */
     encaisserTir() {
         // Action
         // Animation
         this.personnageGraphique.animerEncaisserTir();
     }
 
+    /**
+     * Vider la liste des commandes de tir
+     */
     removeTirCommands() {
         for(let commande of this.listeTirCommande) {
             commande.caseTir.destroy();
@@ -103,6 +142,9 @@ class Personnage {
         this.listeTirCommande = [];
     }
 
+    /**
+     * Si le personnage est non joueur, définit l'action à effectuer
+     */
     jouer() {
         if (this.ia != null) {
             this.ia.action();

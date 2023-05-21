@@ -1,3 +1,6 @@
+/**
+ * Classe moteur : gère les actions des personnages
+ */
 class Moteur {
 
     static terrain = new Terrain();
@@ -6,14 +9,26 @@ class Moteur {
     static indexPerso = 0;
     static commande = null;
 
+    /**
+     * Ajoute les personnages participant au jeu
+     * 
+     * @param  {...Personnage} listePerso la liste de personnage
+     */
     static setListePerso(...listePerso) {
         this.listePerso = listePerso;
     }
 
+    /**
+     * 
+     * @returns le personnage en train de jouer
+     */
     static getPersoCourant() {
         return this.listePerso[this.indexPerso];
     }
 
+    /**
+     * Définit la liste de déplacements possibles du personnage en train de jouer
+     */
     static evaluerDeplacements() {
         // Obligé de passer par une variable à cause de la fonction anonyme
         let persoCourant = this.getPersoCourant();
@@ -32,6 +47,11 @@ class Moteur {
         persoCourant.removeTirCommands();
     }
 
+    /**
+     * Définit la liste de tirs possibles pour le joueur en train de jouer
+     * 
+     * @returns true si une cible est à portée du joueur, false sinon 
+     */
     static evaluerTir() {
         // Obligé de passer par une variable à cause de la fonction anonyme
         let persoCourant = this.getPersoCourant();
@@ -52,14 +72,23 @@ class Moteur {
         return persoCourant.listeTirCommande.length > 0;
     }
 
+    /**
+     * Passer au joueur suivant
+     */
     static passerTour() {
         ExecuteurCommande.addCommande(new PasserTourCommande(this.getPersoCourant(), this));
     }
 
+    /**
+     * Méthode appelée pour passer au joueur suivant
+     */
     static incrementerTour() {
         this.indexPerso = (this.indexPerso + 1) % this.listePerso.length;
     }
 
+    /**
+     * Exécuter la commande en cours. Si aucune commande n'est en cours, demande au personnage en train de jouer d'effectuer une action.
+     */
     static executerCommande() {
         // On vérifie que l'exécuteur de commande et est bien initialisé, sinon on renvoie null
         if (this.commande == null) {

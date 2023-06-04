@@ -6,6 +6,7 @@ class Moteur {
     static terrain = new Terrain();
     // À définir
     static listePerso = [];
+    static listeObjets = [];
     static indexPerso = 0;
     static commande = null;
 
@@ -16,6 +17,15 @@ class Moteur {
      */
     static setListePerso(...listePerso) {
         this.listePerso = listePerso;
+    }
+
+    /**
+     * Ajoute les objets dans le jeu
+     * 
+     * @param  {...Objet} listeObjets la liste d'objets
+     */
+    static setListeObjets(...listeObjets) {
+        this.listeObjets = listeObjets;
     }
 
     /**

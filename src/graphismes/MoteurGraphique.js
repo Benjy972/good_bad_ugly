@@ -18,5 +18,11 @@ class MoteurGraphique {
             let persoGraphique = perso.personnageGraphique;
             app.stage.addChild(persoGraphique.animatedSprite);
         }
+
+        // On dessine les objets
+        for (let objet of Moteur.listeObjets) {
+            let objetGraphique = objet.objetGraphique;
+            objetGraphique.draw(app);
+        }
     }
 }

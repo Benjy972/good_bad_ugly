@@ -1,11 +1,13 @@
 let app = new PIXI.Application({ width: 640, height: 384 });
 document.body.appendChild(app.view);
 
-// Moteur
+// On ajoute les personnages
 Moteur.setListePerso(
     new Personnage("Joueur 1", 176, 176, false),
     new Personnage("Joueur 2", 304, 304, true)
 )
+// On ajoute les objets
+Moteur.setListeObjets(new Objet(Objet.COFFRE, 240, 240));
 // On initialise les graphismes
 MoteurGraphique.initGraphics(app);
 

@@ -83,8 +83,11 @@ class Personnage {
             for (let j=-this.nombrePas+Math.abs(i); j<=this.nombrePas-Math.abs(i); j++) {
                 let new_x = this.coords.x + 32*j;
                 let new_y = this.coords.y + 32*i;
-                // On vérifie qu'il n'y a ni obstacle ni joueur sur la case
-                if (Moteur.terrain.canWalk(new_x, new_y) && !Moteur.listePerso.some(perso => perso.coords.equalsCoords(new_x, new_y))) {
+                // On vérifie qu'il n'y a ni obstacle, ni joueur, ni objet sur la case
+                if (Moteur.terrain.canWalk(new_x, new_y)
+                    && !Moteur.listePerso.some(perso => perso.coords.equalsCoords(new_x, new_y))
+                    && !Moteur.listeObjets.some(objet => objet.coords.equalsCoords(new_x, new_y))) {
+
                     let newCoords = new Coordonnees(new_x, new_y);
                     this.listeMarcheCommande.push(new MarcheCommande(this, newCoords));
                 }

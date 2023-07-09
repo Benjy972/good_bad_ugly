@@ -7,7 +7,7 @@ Moteur.setListePerso(
     new Personnage("Joueur 2", 304, 304, true)
 )
 // On ajoute les objets
-Moteur.setListeObjets(new Objet(Objet.COFFRE, 240, 240));
+Moteur.setListeObjets(new Coffre(240, 240));
 // On initialise les graphismes
 MoteurGraphique.initGraphics(app);
 
@@ -43,6 +43,21 @@ function evaluerTir() {
     // Si après avoir évalué un tir, le personnage n'a pas de cible en vue
     if (!cibleDisponible) {
         ServiceNotification.pushMessage("Aucune cible à proximité");
+    }
+
+}
+
+// Action sur un objet
+function evaluerAction() {
+    // Inhibe le bouton si une action est en cours
+    if (actionEnCours()) {
+        return;
+    }
+
+    let objetDisponible = Moteur.evaluerAction();
+    // Si après avoir évalué un tir, le personnage n'a pas de cible en vue
+    if (!objetDisponible) {
+        ServiceNotification.pushMessage("Aucun objet à proximité");
     }
 
 }

@@ -9,11 +9,14 @@
     <script src="src/moteur/personnage/Personnage.js"></script>
     <script src="src/graphismes/personnage/PersonnageGraphique.js"></script>
     <script src="src/moteur/objet/Objet.js"></script>
+    <script src="src/moteur/objet/Coffre.js"></script>
     <script src="src/graphismes/objet/ObjetGraphique.js"></script>
     <script src="src/graphismes/interface/CaseDeplacement.js"></script>
     <script src="src/graphismes/interface/CaseTir.js"></script>
+    <script src="src/graphismes/interface/CaseAction.js"></script>
     <script src="src/moteur/commandes/MarcheCommande.js"></script>
     <script src="src/moteur/commandes/TirCommande.js"></script>
+    <script src="src/moteur/commandes/ActionCommande.js"></script>
     <script src="src/moteur/commandes/PasserTourCommande.js"></script>
     <script src="src/moteur/commandes/ExecuteurCommande.js"></script>
     <script src="src/ia/BaseIA.js"></script>
@@ -25,6 +28,7 @@
     <div id="zoneActions">
         <button id="mouvement" onclick="evaluerDeplacements()">Deplacement</button>
         <button id="tir" onclick="evaluerTir()">Tir</button>
+        <button id="action" onclick="evaluerAction()">Action</button>
         <button id="tour" onclick="passerTour()">Passer son tour</button>   
     </div>
     <div id="zoneTexte">

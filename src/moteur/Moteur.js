@@ -53,8 +53,9 @@ class Moteur {
                 persoCourant.removeMarcheCommands();
             });
         }
-        // On efface la liste de cases de tir si on veut se déplacer
+        // On efface la liste de cases des autres actions
         persoCourant.removeTirCommands();
+        persoCourant.removeActionCommands()
     }
 
     /**
@@ -76,10 +77,35 @@ class Moteur {
                 persoCourant.removeTirCommands();
             });
         }
-        // On efface la liste de cases de tir si on veut marcher
+        // On efface la liste de cases des autres actions
         persoCourant.removeMarcheCommands();
+        persoCourant.removeActionCommands()
         // On vérifie que le personnage a bien une cible à viser
         return persoCourant.listeTirCommande.length > 0;
+    }
+
+    /**
+     * Définit la liste de actions sur des objets possibles pour le joueur en train de jouer
+     * 
+     * @returns true si un objet est à portée du joueur, false sinon 
+     */
+     static evaluerAction() {
+        // Obligé de passer par une variable à cause de la fonction anonyme
+        let persoCourant = this.getPersoCourant();
+        persoCourant.evaluerAction();
+
+        for (let actionCommande of persoCourant.listeActionCommande) {
+            actionCommande.displayCase(app);
+            actionCommande.caseAction.caseSol.on('mousedown', function () {
+                ExecuteurCommande.addCommande(actionCommande);
+                persoCourant.removeActionCommands();
+            });
+        }
+        // On efface la liste de cases des autres actions
+        persoCourant.removeMarcheCommands();
+        persoCourant.removeTirCommands();
+        // On vérifie que le personnage a bien une cible à viser
+        return persoCourant.listeActionCommande.length > 0;
     }
 
     /**

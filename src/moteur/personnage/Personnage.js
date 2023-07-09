@@ -25,6 +25,7 @@ class Personnage {
         this.porteeTir = 4;
         this.peutTirer = true;
         this.listeTirCommande = [];
+        this.listeActionCommande = [];
         if (estIA) {
             this.ia = new BaseIA(this);
         } else {
@@ -143,6 +144,28 @@ class Personnage {
             commande.caseTir.destroy();
         }
         this.listeTirCommande = [];
+    }
+
+    /**
+     * Définit la liste des commandes dion'act possibles
+     */
+     evaluerAction() {
+        for (let objet of Moteur.listeObjets) {
+            if (objet.actif && objet.coords.getDistance(this.coords) <= 32) {
+                // Ajouter action tir
+                this.listeActionCommande.push(new ActionCommande(this, objet));
+            }
+        }
+    }
+
+    /**
+     * Vider la liste des commandes de d'action
+     */
+    removeActionCommands() {
+        for(let commande of this.listeActionCommande) {
+            commande.caseAction.destroy();
+        }
+        this.listeActionCommande = [];
     }
 
     /**

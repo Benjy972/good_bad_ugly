@@ -18,4 +18,13 @@ class ObjetGraphique {
     draw(app) {
         app.stage.addChild(this.sprite);
     }
+
+    /**
+     * Change l'état (apparence) de l'objet
+     * 
+     * @param {string} state état de l'objet 
+     */
+    changeState(state) {
+        this.sprite.texture = PIXI.Texture.from(`resources/objet/${this.objet.nom}${state}.png`); 
+    }
 }

@@ -120,6 +120,9 @@ class Moteur {
      */
     static incrementerTour() {
         this.indexPerso = (this.indexPerso + 1) % this.listePerso.length;
+        if (!Moteur.getPersoCourant().estVivant) {
+            Moteur.incrementerTour();
+        }
     }
 
     /**

@@ -3,8 +3,9 @@ document.body.appendChild(app.view);
 
 // On ajoute les personnages
 Moteur.setListePerso(
-    new Personnage("Joueur 1", 176, 176, false),
-    new Personnage("Joueur 2", 304, 304, true)
+    new Truand("Joueur 1", 176, 176, false),
+    new Personnage("Joueur 2", 304, 304, true),
+    new Personnage("Joueur 3", 304, 176, true)
 )
 // On ajoute les objets
 Moteur.setListeObjets(new Coffre(240, 240));

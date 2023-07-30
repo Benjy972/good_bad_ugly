@@ -88,6 +88,11 @@ class PersonnageGraphique {
         this.animatedSprite.play();
     }
 
+    mourir() {
+        this.animatedSprite.textures = [PIXI.Texture.from(`resources/personnage/heros/heros_mort_${this.perso.direction}.png`)];
+        this.animatedSprite.stop();
+    }
+
     /**
      * Méthode arrête l'animation de marche
      */

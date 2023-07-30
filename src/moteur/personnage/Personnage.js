@@ -2,7 +2,7 @@
  * Classe Personnage
  */
 class Personnage {
-
+    
     /**
      * 
      * @param {string} nom nom du personnage
@@ -18,19 +18,29 @@ class Personnage {
         this.coords = new Coordonnees(x, y);
         this.direction = "bas";
 
-        this.personnageGraphique = new PersonnageGraphique(this);
+        // Statistiques
+        this.vie = 10;
         this.nombrePas = 4;
+        this.porteeTir = 4;
+        this.puissanceFeu = 4;
+        
+        // Commandes
+        this.estVivant = true;
         this.peutMarcher = true;
         this.listeMarcheCommande = [];
-        this.porteeTir = 4;
         this.peutTirer = true;
         this.listeTirCommande = [];
         this.listeActionCommande = [];
+
+        // IA
         if (estIA) {
             this.ia = new BaseIA(this);
         } else {
             this.ia = null;
         }
+
+        // Graphique
+        this.personnageGraphique = new PersonnageGraphique(this);
     }
 
     /**
@@ -111,7 +121,8 @@ class Personnage {
      */
     evaluerTir() {
         for (let perso of Moteur.listePerso) {
-            if (perso != this && perso.coords.getDistance(this.coords) <= this.porteeTir*32) {
+            if (perso != this && perso.estVivant
+                && perso.coords.getDistance(this.coords) <= this.porteeTir*32) {
                 // Ajouter action tir
                 this.listeTirCommande.push(new TirCommande(this, perso));
             }
@@ -129,11 +140,34 @@ class Personnage {
 
     /**
      * Déclencher l'action d'encaisser un tir
+     * 
+     * @param nombreDegats {number} nombre de points de vie perdus
      */
-    encaisserTir() {
+    encaisserTir(nombreDegats) {
         // Action
+        if (this.vie < nombreDegats) {
+            this.vie = 0;
+        } else {
+            this.vie -= nombreDegats;
+        }
         // Animation
         this.personnageGraphique.animerEncaisserTir();
+
+        // Mort
+        if (this.vie == 0) {
+            this.mourir();
+        }
+    }
+
+    /**
+     * Déclencher l'action de mourir
+     */
+    mourir() {
+        // Action
+        this.estVivant = false;
+
+        // Animation
+        this.personnageGraphique.mourir();
     }
 
     /**

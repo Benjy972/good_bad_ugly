@@ -35,7 +35,7 @@ class TirCommande {
 
         // Etape 1 : effectuer l'action de tir
         this.perso.tirer();
-        this.cible.encaisserTir();
+        this.cible.encaisserTir(this.perso.puissanceFeu);
     }
 
 }

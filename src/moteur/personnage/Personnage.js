@@ -18,6 +18,13 @@ class Personnage {
         this.coords = new Coordonnees(x, y);
         this.direction = "bas";
 
+        // Inventaire
+        this.inventaire = [];
+
+        // Compteurs
+        this.cooldownTour = 0;
+        this.cooldownActionSpeciale = 0;
+
         // Statistiques
         this.vie = 10;
         this.nombrePas = 4;
@@ -31,6 +38,7 @@ class Personnage {
         this.peutTirer = true;
         this.listeTirCommande = [];
         this.listeActionCommande = [];
+        this.listeActionSpecialeCommande = [];
 
         // IA
         if (estIA) {
@@ -135,7 +143,6 @@ class Personnage {
     tirer() {
         // Animation
         this.personnageGraphique.animerTir();
-        // Action
     }
 
     /**
@@ -157,6 +164,18 @@ class Personnage {
         if (this.vie == 0) {
             this.mourir();
         }
+    }
+
+    /**
+     * Déclencher l'action de se faire attraper par un lasso
+     * 
+     */
+     encaisserLasso() {
+        // Action
+        this.cooldownTour = 1;
+
+        // Animation
+        this.personnageGraphique.animerEncaisserTir();
     }
 
     /**
@@ -203,9 +222,24 @@ class Personnage {
     }
 
     /**
+     * Vider la liste des commandes de d'action spéciale
+     */
+     removeActionSpecialeCommands() {
+        for(let commande of this.listeActionSpecialeCommande) {
+            commande.caseActionSpeciale.destroy();
+        }
+        this.listeActionSpecialeCommande = [];
+    }
+
+    /**
      * Si le personnage est non joueur, définit l'action à effectuer
      */
     jouer() {
+        // Si un personnage ne peut temporairement pas jouer
+        if (this.cooldownTour > 0) {
+            ExecuteurCommande.addCommande(new PasserTourCommande(this));
+            return;
+        }
         if (this.ia != null) {
             this.ia.action();
         }

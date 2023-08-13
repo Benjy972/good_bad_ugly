@@ -1,17 +1,17 @@
 /**
- * Commande de tir
+ * Commande de lancer de lasso (action spéciale du Bon)
  */
-class TirCommande {
+class LancerLassoCommande {
 
     /**
      * 
-     * @param {Personnage} perso le personnage qui tire
+     * @param {Bon} perso le bon qui lance le lasso
      * @param {Personnage} cible le personnage visé
      */
     constructor(perso, cible) {
         this.perso = perso;
         this.cible = cible;
-        this.caseTir = new CaseTir(cible.coords.x, cible.coords.y);
+        this.caseActionSpeciale = new CaseActionSpeciale(cible.coords.x, cible.coords.y);
     }
 
     /**
@@ -20,22 +20,21 @@ class TirCommande {
      * @param {PIXI.Application} app 
      */
     displayCase(app) {
-        this.caseTir.draw(app);
+        this.caseActionSpeciale.draw(app);
     }
 
     /**
      * Exécution de la commande
      */
     execute() {
-        // Etape 0 : consomme l'action de tir du personnage
-        this.perso.peutTirer = false;
+        // Etape 0 : consomme l'action de déplacement du personnage
 
         // Etape 1 : le tireur se tourne ves sa victime
         this.perso.setDirection(this.perso.coords.getAngle(this.cible.coords));
 
         // Etape 1 : effectuer l'action de tir
-        this.perso.tirer();
-        this.cible.encaisserTir(this.perso.puissanceFeu);
+        this.perso.actionSpeciale(this.cible);
+        this.cible.encaisserLasso();
     }
 
 }

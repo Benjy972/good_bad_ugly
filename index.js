@@ -3,7 +3,7 @@ document.body.appendChild(app.view);
 
 // On ajoute les personnages
 Moteur.setListePerso(
-    new Truand("Joueur 1", 176, 176, false),
+    new Bon("Joueur 1", 176, 176, false),
     new Personnage("Joueur 2", 304, 304, true),
     new Personnage("Joueur 3", 304, 176, true)
 )
@@ -11,6 +11,9 @@ Moteur.setListePerso(
 Moteur.setListeObjets(new Coffre(240, 240));
 // On initialise les graphismes
 MoteurGraphique.initGraphics(app);
+
+// Test : joueur 3 possède un objet
+Moteur.listePerso[2].inventaire.push(new Item("Objet test"));
 
 // Boutons
 // Marcher
@@ -45,6 +48,25 @@ function evaluerTir() {
     if (!cibleDisponible) {
         ServiceNotification.pushMessage("Aucune cible à proximité");
     }
+}
+
+// Action spéciale
+function evaluerActionSpeciale() {
+    // Inhibe le bouton si une action est en cours
+    if (actionEnCours()) {
+        return;
+    }
+    // Si le personnage a déjà épuisé son action de déplacement
+    if (Moteur.getPersoCourant().cooldownActionSpeciale > 0) {
+        ServiceNotification.pushMessage("Vous ne pouvez plus utiliser votre action spéciale.");
+        return;
+    }
+
+    let cibleDisponible = Moteur.evaluerActionSpeciale();
+    // Si après avoir évalué un tir, le personnage n'a pas de cible en vue
+    if (!cibleDisponible) {
+        ServiceNotification.pushMessage("Aucune cible à proximité");
+    }
 
 }
 
@@ -75,6 +97,9 @@ function passerTour() {
 window.onload = function() {
     // On initialise le service de notification
     ServiceNotification.initService();
+
+    // On initialise le service d'affichage de l'inventaire
+    ServiceInventaire.initService();
 
     // Execution de commandes
     app.ticker.add((delta) => Moteur.executerCommande());

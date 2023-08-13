@@ -12,29 +12,38 @@
     <script src="src/moteur/personnage/Truand.js"></script>
     <script src="src/graphismes/personnage/PersonnageGraphique.js"></script>
     <script src="src/moteur/objet/Objet.js"></script>
+    <script src="src/moteur/objet/Item.js"></script>
     <script src="src/moteur/objet/Coffre.js"></script>
     <script src="src/graphismes/objet/ObjetGraphique.js"></script>
     <script src="src/graphismes/interface/CaseDeplacement.js"></script>
     <script src="src/graphismes/interface/CaseTir.js"></script>
     <script src="src/graphismes/interface/CaseAction.js"></script>
+    <script src="src/graphismes/interface/CaseActionSpeciale.js"></script>
     <script src="src/moteur/commandes/MarcheCommande.js"></script>
     <script src="src/moteur/commandes/TirCommande.js"></script>
     <script src="src/moteur/commandes/ActionCommande.js"></script>
     <script src="src/moteur/commandes/PasserTourCommande.js"></script>
+    <script src="src/moteur/commandes/LancerLassoCommande.js"></script>
     <script src="src/moteur/commandes/ExecuteurCommande.js"></script>
     <script src="src/ia/BaseIA.js"></script>
     <script src="src/moteur/Moteur.js"></script>
     <script src="src/graphismes/MoteurGraphique.js"></script>
     <script src="src/interface/ServiceNotification.js"></script>
+    <script src="src/interface/ServiceInventaire.js"></script>
     <script src="index.js"></script>
 
     <div id="zoneActions">
         <button id="mouvement" onclick="evaluerDeplacements()">Deplacement</button>
         <button id="tir" onclick="evaluerTir()">Tir</button>
         <button id="action" onclick="evaluerAction()">Action</button>
+        <button id="actionSpeciale" onclick="evaluerActionSpeciale()">Action spéciale</button>
         <button id="tour" onclick="passerTour()">Passer son tour</button>   
     </div>
     <div id="zoneTexte">
         <textarea id="infoTexte" rows="3" cols="80"></textarea>
+    </div>
+    <div id="zoneInventaire">
+        <label for="inventaire">Inventaire : </label>
+        <select id="inventaire"></select>
     </div>
 </body>

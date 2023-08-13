@@ -22,6 +22,9 @@ class Coffre extends Objet {
      action(perso) {
         ServiceNotification.pushMessage(`${perso.nom} ouvre le coffre.`);
         this.objetGraphique.changeState(Coffre.OUVERT);
+        perso.inventaire.push(new Item(Item.ARGENT));
         this.actif = false;
+        // On met à jour l'affichage de l'inventaire
+        ServiceInventaire.afficherInventaire(perso);
     }
 }

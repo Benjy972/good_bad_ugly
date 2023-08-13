@@ -16,6 +16,36 @@ class Bon extends Personnage {
         // Statistiques
         this.porteeTir = 5;
         this.puissanceFeu = 3;
+        this.porteeActionSpeciale = 2;
+    }
+
+    /**
+     * Définit la liste des commandes d'action spéciale possibles
+     */
+     evaluerActionSpeciale() {
+        for (let perso of Moteur.listePerso) {
+            if (perso != this && perso.estVivant
+                && perso.coords.getDistance(this.coords) <= this.porteeActionSpeciale*32) {
+                // Ajouter action tir
+                this.listeActionSpecialeCommande.push(new LancerLassoCommande(this, perso));
+            }
+        }
+    }
+
+    /**
+     * Attaque du Bon : lance son lasso sur la cible
+     * 
+     * @param {Personnage} cible la cible de l'attaque
+     */
+    actionSpeciale(cible) {
+        // Animation
+        this.personnageGraphique.animerTir();
+
+        // Action spéciale
+        this.inventaire.push(...cible.inventaire);
+        cible.inventaire = [];
+        ServiceInventaire.afficherInventaire(this);
+        this.cooldownActionSpeciale+=2;
     }
 
 }

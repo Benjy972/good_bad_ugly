@@ -3,6 +3,8 @@
  */
 class MoteurGraphique {
 
+    static pixiApp = undefined;
+
     /**
      * Initialisation des éléments graphiques (terrain, personnages)
      * 
@@ -24,5 +26,9 @@ class MoteurGraphique {
             let objetGraphique = objet.objetGraphique;
             objetGraphique.draw(app);
         }
+    }
+
+    static addObject(obj) {
+        app.stage.addChild(obj);
     }
 }

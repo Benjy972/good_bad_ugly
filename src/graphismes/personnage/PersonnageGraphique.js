@@ -24,23 +24,41 @@ class PersonnageGraphique {
         this.spritesEncaisserTir_bas = [];
         this.spritesEncaisserTir_droite = [];
         this.spritesEncaisserTir_gauche = [];
+        // Sprites être enchainé
+        this.spritesEnchaine_haut = [];
+        this.spritesEnchaine_bas = [];
+        this.spritesEnchaine_droite = [];
+        this.spritesEnchaine_gauche = [];
+        // Sprites encaisser tir enchaine
+        this.spritesEncaisserTirEnchaine_haut = [];
+        this.spritesEncaisserTirEnchaine_bas = [];
+        this.spritesEncaisserTirEnchaine_droite = [];
+        this.spritesEncaisserTirEnchaine_gauche = [];
+
 
         // Initialisation des graphismes
         let listeDirection = ['haut', 'bas', 'droite', 'gauche'];
         for (let direction of listeDirection) {
             // Marche
-            this[`spritesMarche_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/heros_${direction}.png`));
-            this[`spritesMarche_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/heros_${direction}_g.png`));
-            this[`spritesMarche_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/heros_${direction}.png`));
-            this[`spritesMarche_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/heros_${direction}_d.png`));
+            this[`spritesMarche_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/marche/heros_${direction}.png`));
+            this[`spritesMarche_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/marche/heros_${direction}_g.png`));
+            this[`spritesMarche_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/marche/heros_${direction}.png`));
+            this[`spritesMarche_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/marche/heros_${direction}_d.png`));
 
             // Tir
-            this[`spritesTir_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/heros_tire_${direction}.png`));
-            this[`spritesTir_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/heros_${direction}.png`));
+            this[`spritesTir_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/tire/heros_tire_${direction}.png`));
+            this[`spritesTir_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/marche/heros_${direction}.png`));
 
-            // Encaisser ir
-            this[`spritesEncaisserTir_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/heros_blesse_${direction}.png`));
-            this[`spritesEncaisserTir_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/heros_${direction}.png`));
+            // Encaisser tir
+            this[`spritesEncaisserTir_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/blesse/heros_blesse_${direction}.png`));
+            this[`spritesEncaisserTir_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/marche/heros_${direction}.png`));
+
+            // Enchainé
+            this[`spritesEnchaine_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/enchaine/heros_enchaine_${direction}.png`));
+
+            // Encaisser tir enchainé
+            this[`spritesEncaisserTirEnchaine_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/enchaine/heros_blesse_enchaine_${direction}.png`));
+            this[`spritesEncaisserTirEnchaine_${direction}`].push(PIXI.Texture.from(`resources/personnage/heros/enchaine/heros_enchaine_${direction}.png`));
         }
 
         this.animatedSprite = new PIXI.AnimatedSprite(this.spritesMarche_bas);
@@ -73,23 +91,38 @@ class PersonnageGraphique {
         }
         this.animatedSprite.animationSpeed = 0.1;
         this.animatedSprite.loop = false;
-        this.animatedSprite.play();
+        this.animatedSprite.gotoAndPlay(0);
     }
 
     /**
      * Méthode d'animation de personnage blessé
      */
     animerEncaisserTir() {
-        if (this.animatedSprite.textures != this[`spritesEncaisserTir_${this.perso.direction}`]) {
+        if (this.animatedSprite.textures == this[`spritesEnchaine_${this.perso.direction}`]) {
+            this.animatedSprite.textures = this[`spritesEncaisserTirEnchaine_${this.perso.direction}`];
+        }
+        if (this.animatedSprite.textures != this[`spritesEncaisserTir_${this.perso.direction}`]
+            && this.animatedSprite.textures != this[`spritesEncaisserTirEnchaine_${this.perso.direction}`]) {
             this.animatedSprite.textures = this[`spritesEncaisserTir_${this.perso.direction}`];
         }
         this.animatedSprite.animationSpeed = 0.05;
         this.animatedSprite.loop = false;
-        this.animatedSprite.play();
+        this.animatedSprite.gotoAndPlay(0);
     }
 
+    /**
+     * Affichage du personnage enchainé
+     */
+    etreEnchaine() {
+        this.animatedSprite.textures = this[`spritesEnchaine_${this.perso.direction}`];
+        this.animatedSprite.stop();
+    }
+
+    /**
+     * Affichage du personnage mort
+     */
     mourir() {
-        this.animatedSprite.textures = [PIXI.Texture.from(`resources/personnage/heros/heros_mort_${this.perso.direction}.png`)];
+        this.animatedSprite.textures = [PIXI.Texture.from(`resources/personnage/heros/mort/heros_mort_${this.perso.direction}.png`)];
         this.animatedSprite.stop();
     }
 

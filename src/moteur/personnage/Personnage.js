@@ -175,7 +175,7 @@ class Personnage {
         this.cooldownTour = 1;
 
         // Animation
-        this.personnageGraphique.animerEncaisserTir();
+        this.personnageGraphique.etreEnchaine();
     }
 
     /**

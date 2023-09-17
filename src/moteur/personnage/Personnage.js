@@ -132,7 +132,7 @@ class Personnage {
             if (perso != this && perso.estVivant
                 && perso.coords.getDistance(this.coords) <= this.porteeTir*32) {
                 // Ajouter action tir
-                this.listeTirCommande.push(new TirCommande(this, perso));
+                this.listeTirCommande.push(new TirCommande(this, perso, this.puissanceFeu));
             }
         }
     }

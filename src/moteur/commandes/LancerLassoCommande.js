@@ -1,7 +1,7 @@
 /**
  * Commande de lancer de lasso (action spéciale du Bon)
  */
-class LancerLassoCommande {
+class LancerLassoCommande extends ActionSpecialeCommande {
 
     /**
      * 
@@ -9,18 +9,7 @@ class LancerLassoCommande {
      * @param {Personnage} cible le personnage visé
      */
     constructor(perso, cible) {
-        this.perso = perso;
-        this.cible = cible;
-        this.caseActionSpeciale = new CaseActionSpeciale(cible.coords.x, cible.coords.y);
-    }
-
-    /**
-     * Affichage de la case de tir associée à la commande
-     * 
-     * @param {PIXI.Application} app 
-     */
-    displayCase(app) {
-        this.caseActionSpeciale.draw(app);
+        super(perso, cible);
     }
 
     /**
@@ -32,8 +21,16 @@ class LancerLassoCommande {
         // Etape 1 : le tireur se tourne ves sa victime
         this.perso.setDirection(this.perso.coords.getAngle(this.cible.coords));
 
-        // Etape 1 : effectuer l'action de tir
-        this.perso.actionSpeciale(this.cible);
+        // Etape 1 : effectuer l'action de lancer de lasso
+        // Animation
+        this.perso.personnageGraphique.animerTir();
+
+        // Action spéciale
+        this.perso.inventaire.push(...this.cible.inventaire);
+        this.cible.inventaire = [];
+        ServiceInventaire.afficherInventaire(this.perso);
+        this.perso.cooldownActionSpeciale += 2;
+
         this.cible.encaisserLasso();
     }
 

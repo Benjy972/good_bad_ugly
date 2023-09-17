@@ -32,20 +32,4 @@ class Bon extends Personnage {
         }
     }
 
-    /**
-     * Attaque du Bon : lance son lasso sur la cible
-     * 
-     * @param {Personnage} cible la cible de l'attaque
-     */
-    actionSpeciale(cible) {
-        // Animation
-        this.personnageGraphique.animerTir();
-
-        // Action spéciale
-        this.inventaire.push(...cible.inventaire);
-        cible.inventaire = [];
-        ServiceInventaire.afficherInventaire(this);
-        this.cooldownActionSpeciale+=2;
-    }
-
 }

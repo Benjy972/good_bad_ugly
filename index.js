@@ -3,7 +3,7 @@ document.body.appendChild(app.view);
 
 // On ajoute les personnages
 Moteur.setListePerso(
-    new Bon("Joueur 1", 176, 176, false),
+    new Brute("Joueur 1", 176, 176, false),
     new Personnage("Joueur 2", 304, 304, true),
     new Personnage("Joueur 3", 304, 176, true)
 )

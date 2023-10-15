@@ -9,6 +9,8 @@ class BaseIA {
      */
     constructor(perso) {
         this.perso = perso;
+        // Objectif par défaut
+        this.objectif = new ObjectifSandbox(perso);
         this.actionEnCours = false;
     }
 
@@ -21,38 +23,25 @@ class BaseIA {
             return;
         }
         // On définit les variables pour les fonctions anonymes
-        let perso = this.perso;
         let ia = this;
 
-        // On évalue si le personnage peut tirer
-        if (this.perso.peutTirer && this.perso.listeTirCommande.length == 0) {
-            this.perso.evaluerTir();
-        }
-        // On évalue ensuite si le personnage peut se déplacer
-        if (this.perso.peutMarcher && this.perso.listeMarcheCommande.length == 0) {
-            this.perso.calculateSteps();
-        }
+        // On évalue l'action du personnage
+        let action = this.objectif.calculateAction();
 
         // On définit un temps d'attente aléatoire entre les commandes
         let wait = 300 + Math.round(400*Math.random());
 
-        // Après avoir calculé tous les actions, on en choisit une
-        if (this.perso.listeTirCommande.length > 0) {
+        // Si une action est choisie on l'exécute
+        if (action != null) {
             // Pour l'instant, on reste sur de l'aléatoire
             this.actionEnCours = true;
             setTimeout(() => {
-                ExecuteurCommande.addCommande(perso.listeTirCommande[Math.round(Math.random() * (perso.listeTirCommande.length - 1))]);
-                perso.removeTirCommands();
+                ExecuteurCommande.addCommande(action);
                 ia.actionEnCours = false;
             }, wait);
-        } else if (this.perso.listeMarcheCommande.length > 0) {
-            // Pour l'instant, on reste sur de l'aléatoire
-            this.actionEnCours = true;
-            setTimeout(() => {
-                ExecuteurCommande.addCommande(perso.listeMarcheCommande[Math.round(Math.random() * (perso.listeMarcheCommande.length - 1))]);
-                perso.removeMarcheCommands();
-                ia.actionEnCours = false;
-            }, wait);
+        } else if (this.objectif.objectifAtteint) {
+            // Si l'objectif est atteint, on passe en mode sandbox
+            this.objectif = new ObjectifSandbox(this.perso);
         } else {
             // Si plus aucune action possible
             ExecuteurCommande.addCommande(new PasserTourCommande(this.perso));

@@ -12,8 +12,9 @@ Moteur.setListeObjets(new Coffre(240, 240));
 // On initialise les graphismes
 MoteurGraphique.initGraphics(app);
 
-// Test : joueur 3 possède un objet
-Moteur.listePerso[2].inventaire.push(new Item("Objet test"));
+// Test : joueur 2 a pour objectif le perso et  joueur 3 a pour objectif le coffre
+Moteur.listePerso[1].ia.objectif = new ObjectifEffectuerAction(Moteur.listePerso[1], Moteur.listeObjets[0]);
+Moteur.listePerso[2].ia.objectif = new ObjectifAttaquerJoueur(Moteur.listePerso[2], Moteur.listePerso[0]);
 
 // Boutons
 // Marcher

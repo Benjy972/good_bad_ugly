@@ -18,6 +18,9 @@ class SnipeCommande extends ActionSpecialeCommande {
      * Exécution de la commande
      */
     execute() {
+        // Etape 0 : consomme l'action spéciale du personnage
+        this.perso.removeActionSpecialeCommands();
+        
         // Etape 1 : le tireur se tourne ves sa victime
         this.perso.setDirection(this.perso.coords.getAngle(this.cible.coords));
 

@@ -35,6 +35,7 @@ class MarcheCommande {
     execute() {
         // Etape 0 : consomme l'action de déplacement du personnage
         this.perso.peutMarcher = false;
+        this.perso.removeMarcheCommands();
 
         // Etape 1 : on définit la route
         if (this.listeDeplacement.length == 0) {

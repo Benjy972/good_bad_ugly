@@ -31,6 +31,7 @@ class TirCommande {
     execute() {
         // Etape 0 : consomme l'action de tir du personnage
         this.perso.peutTirer = false;
+        this.perso.removeTirCommands();
 
         // Etape 1 : le tireur se tourne ves sa victime
         this.perso.setDirection(this.perso.coords.getAngle(this.cible.coords));

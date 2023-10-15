@@ -28,6 +28,7 @@ class ActionCommande {
      */
     execute() {
         this.cible.action(this.perso);
+        this.perso.removeActionCommands();
     }
 
 }

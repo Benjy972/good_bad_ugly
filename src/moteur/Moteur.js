@@ -55,7 +55,9 @@ class Moteur {
         }
         // On efface la liste de cases des autres actions
         persoCourant.removeTirCommands();
-        persoCourant.removeActionCommands()
+        persoCourant.removeEchangeCommands();
+        persoCourant.removeActionCommands();
+        persoCourant.removeActionSpecialeCommands();
     }
 
     /**
@@ -80,6 +82,7 @@ class Moteur {
         // On efface la liste de cases des autres actions
         persoCourant.removeMarcheCommands();
         persoCourant.removeActionCommands();
+        persoCourant.removeEchangeCommands();
         persoCourant.removeActionSpecialeCommands();
         // On vérifie que le personnage a bien une cible à viser
         return persoCourant.listeTirCommande.length > 0;
@@ -105,9 +108,36 @@ class Moteur {
         // On efface la liste de cases des autres actions
         persoCourant.removeMarcheCommands();
         persoCourant.removeTirCommands();
+        persoCourant.removeEchangeCommands();
         persoCourant.removeActionSpecialeCommands();
         // On vérifie que le personnage a bien une cible à viser
         return persoCourant.listeActionCommande.length > 0;
+    }
+
+    /**
+     * Définit la liste de échanges possibles pour le joueur en train de jouer
+     * 
+     * @returns true si un personnage est à portée du joueur, false sinon 
+     */
+    static evaluerEchange() {
+        // Obligé de passer par une variable à cause de la fonction anonyme
+        let persoCourant = this.getPersoCourant();
+        persoCourant.evaluerEchange();
+
+        for (let echangeCommande of persoCourant.listeEchangeCommande) {
+            echangeCommande.displayCase(app);
+            echangeCommande.caseAction.caseSol.on('mousedown', function () {
+                ExecuteurCommande.addCommande(echangeCommande);
+                persoCourant.removeEchangeCommands();
+            });
+        }
+        // On efface la liste de cases des autres actions
+        persoCourant.removeMarcheCommands();
+        persoCourant.removeTirCommands();
+        persoCourant.removeActionCommands();
+        persoCourant.removeActionSpecialeCommands();
+        // On vérifie que le personnage a bien une cible à viser
+        return persoCourant.listeEchangeCommande.length > 0;
     }
 
     /**
@@ -132,6 +162,7 @@ class Moteur {
         // On efface la liste de cases des autres actions
         persoCourant.removeMarcheCommands();
         persoCourant.removeTirCommands();
+        persoCourant.removeEchangeCommands();
         persoCourant.removeActionCommands();
         // On vérifie que le personnage a bien une cible à viser
         return persoCourant.listeActionSpecialeCommande.length > 0;

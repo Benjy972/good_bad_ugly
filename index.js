@@ -1,9 +1,12 @@
 let app = new PIXI.Application({ width: 640, height: 384 });
 document.body.appendChild(app.view);
 
+// On définit le personnage principal
+let monPerso = new Brute("Joueur 1", 176, 176, false);
+
 // On ajoute les personnages
 Moteur.setListePerso(
-    new Brute("Joueur 1", 176, 176, false),
+    monPerso,
     new Personnage("Joueur 2", 304, 304, true),
     new Personnage("Joueur 3", 304, 176, true)
 )
@@ -13,8 +16,8 @@ Moteur.setListeObjets(new Coffre(240, 240));
 MoteurGraphique.initGraphics(app);
 
 // Test : joueur 2 a pour objectif le perso et  joueur 3 a pour objectif le coffre
-Moteur.listePerso[1].ia.objectif = new ObjectifEffectuerAction(Moteur.listePerso[1], Moteur.listeObjets[0]);
-Moteur.listePerso[2].ia.objectif = new ObjectifAttaquerJoueur(Moteur.listePerso[2], Moteur.listePerso[0]);
+Moteur.listePerso[1].ia.objectif = new ObjectifRapporterObjet(Moteur.listePerso[1], monPerso, Moteur.listeObjets[0]);
+// Moteur.listePerso[2].ia.objectif = new ObjectifAttaquerJoueur(Moteur.listePerso[2], Moteur.listePerso[0]);
 
 // Boutons
 // Marcher
@@ -86,6 +89,27 @@ function evaluerAction() {
 
 }
 
+// Echange avec un autre joueur
+function evaluerEchange() {
+    // Inhibe le bouton si une action est en cours
+    if (actionEnCours()) {
+        return;
+    }
+
+    // Si le personnage n'a pas d'objet à échanger
+    if (Moteur.getPersoCourant().inventaire.length == 0) {
+        ServiceNotification.pushMessage("Vous n'avez pas d'objet à échanger");
+        return;
+    }
+
+    let personnageDisponible = Moteur.evaluerEchange();
+    // Si après avoir évalué un tir, le personnage n'a pas de cible en vue
+    if (!personnageDisponible) {
+        ServiceNotification.pushMessage("Aucun personnage à proximité");
+    }
+
+}
+
 // Passer son tour
 function passerTour() {
     // Inhibe le bouton si une action est en cours
@@ -100,7 +124,7 @@ window.onload = function() {
     ServiceNotification.initService();
 
     // On initialise le service d'affichage de l'inventaire
-    ServiceInventaire.initService();
+    ServiceInventaire.initService(monPerso);
 
     // Execution de commandes
     app.ticker.add((delta) => Moteur.executerCommande());

@@ -25,6 +25,6 @@ class Coffre extends Objet {
         perso.inventaire.push(new Item(Item.ARGENT));
         this.actif = false;
         // On met à jour l'affichage de l'inventaire
-        ServiceInventaire.afficherInventaire(perso);
+        ServiceInventaire.afficherInventaire();
     }
 }

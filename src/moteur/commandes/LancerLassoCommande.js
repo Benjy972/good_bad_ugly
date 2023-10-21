@@ -29,7 +29,7 @@ class LancerLassoCommande extends ActionSpecialeCommande {
         // Action spéciale
         this.perso.inventaire.push(...this.cible.inventaire);
         this.cible.inventaire = [];
-        ServiceInventaire.afficherInventaire(this.perso);
+        ServiceInventaire.afficherInventaire();
         this.perso.cooldownActionSpeciale += 2;
 
         this.cible.encaisserLasso();

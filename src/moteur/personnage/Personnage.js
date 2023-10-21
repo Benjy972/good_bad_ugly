@@ -38,6 +38,7 @@ class Personnage {
         this.peutTirer = true;
         this.listeTirCommande = [];
         this.listeActionCommande = [];
+        this.listeEchangeCommande = [];
         this.listeActionSpecialeCommande = [];
 
         // IA
@@ -219,6 +220,29 @@ class Personnage {
             commande.caseAction.destroy();
         }
         this.listeActionCommande = [];
+    }
+
+    /**
+     * Définit la liste des commandes d'echange possibles
+     */
+    evaluerEchange() {
+        for (let perso of Moteur.listePerso) {
+            if (perso != this && perso.estVivant
+                && perso.coords.getDistance(this.coords) <= 32) {
+                // Ajouter action tir
+                this.listeEchangeCommande.push(new EchangeCommande(this, perso, this.inventaire[0]));
+            }
+        }
+    }
+
+    /**
+     * Vider la liste des commandes d'échange
+     */
+    removeEchangeCommands() {
+        for(let commande of this.listeEchangeCommande) {
+            commande.caseAction.destroy();
+        }
+        this.listeEchangeCommande = [];
     }
 
     /**

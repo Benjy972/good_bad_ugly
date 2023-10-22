@@ -1,7 +1,7 @@
 /**
  * Commande d'echange
  */
-class EchangeCommande {
+class EchangeCommande extends Commande {
 
     /**
      * 
@@ -10,19 +10,9 @@ class EchangeCommande {
      * @param {Item} objet l'objet à échanger
      */
     constructor(perso, cible, objet) {
-        this.perso = perso;
+        super(perso, new CaseAction(cible.coords.x, cible.coords.y));
         this.cible = cible;
         this.objet = objet;
-        this.caseAction = new CaseAction(cible.coords.x, cible.coords.y);
-    }
-
-    /**
-     * Affichage de la case d'action associée à la commande
-     * 
-     * @param {PIXI.Application} app 
-     */
-    displayCase(app) {
-        this.caseAction.draw(app);
     }
 
     /**

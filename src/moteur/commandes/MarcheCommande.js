@@ -1,7 +1,7 @@
 /**
  * Commande de déplacement de personnage
  */
-class MarcheCommande {
+class MarcheCommande extends Commande {
 
     /**
      * 
@@ -9,23 +9,14 @@ class MarcheCommande {
      * @param {Coordonnees} coords les coordonnées cibles
      */
     constructor(perso, coords) {
-        this.perso = perso;
+        super(perso, new CaseDeplacement(coords.x, coords.y));
         this.coords = coords;
-        this.caseDeplacement = new CaseDeplacement(coords.x, coords.y);
 
         // Calcul du chemin
         this.listeDeplacement = [];
         this.indexDeplacement = 0;
     }
 
-    /**
-     * Affichage de la case de déplacement associée à la commande
-     * 
-     * @param {PIXI.Application} app 
-     */
-    displayCase(app) {
-        this.caseDeplacement.draw(app);
-    }
 
     /**
      * Exécution de la commande

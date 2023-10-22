@@ -1,7 +1,7 @@
 /**
  * Commande de tir
  */
-class TirCommande {
+class TirCommande extends Commande {
 
     /**
      * 
@@ -10,19 +10,9 @@ class TirCommande {
      * @param {number} degat le nombre de dégâts infligés
      */
     constructor(perso, cible, degat) {
-        this.perso = perso;
+        super(perso, new CaseTir(cible.coords.x, cible.coords.y));
         this.cible = cible;
-        this.caseTir = new CaseTir(cible.coords.x, cible.coords.y);
         this.degat = degat;
-    }
-
-    /**
-     * Affichage de la case de tir associée à la commande
-     * 
-     * @param {PIXI.Application} app 
-     */
-    displayCase(app) {
-        this.caseTir.draw(app);
     }
 
     /**

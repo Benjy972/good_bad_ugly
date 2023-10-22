@@ -2,7 +2,7 @@
  * Classe Personnage
  */
 class Personnage {
-    
+
     /**
      * 
      * @param {string} nom nom du personnage
@@ -30,7 +30,7 @@ class Personnage {
         this.nombrePas = 4;
         this.porteeTir = 4;
         this.puissanceFeu = 4;
-        
+
         // Commandes
         this.estVivant = true;
         this.peutMarcher = true;
@@ -58,13 +58,13 @@ class Personnage {
      * @param {number} angle l'angle du personnage en radians
      */
     setDirection(angle) {
-        if (Math.abs(angle) <= Math.PI/4) {
+        if (Math.abs(angle) <= Math.PI / 4) {
             this.direction = "droite"
-        } else if (Math.abs(angle + Math.PI/2) <= Math.PI/4) {
+        } else if (Math.abs(angle + Math.PI / 2) <= Math.PI / 4) {
             this.direction = "haut"
-        }  else if (Math.abs(angle - Math.PI) <= Math.PI/4) {
+        } else if (Math.abs(angle - Math.PI) <= Math.PI / 4) {
             this.direction = "gauche"
-        } else if (Math.abs(angle - Math.PI/2) <= Math.PI/4) {
+        } else if (Math.abs(angle - Math.PI / 2) <= Math.PI / 4) {
             this.direction = "bas"
         }
     }
@@ -76,16 +76,16 @@ class Personnage {
      * @param {number} dy déplacement selon l'axe y
      */
     move(dx, dy) {
-        if (dx==0 && dy==0) {
+        if (dx == 0 && dy == 0) {
             this.personnageGraphique.stop();
         } else {
-            if (dx>0) {
+            if (dx > 0) {
                 this.direction = "droite";
-            } else if (dx<0) {
+            } else if (dx < 0) {
                 this.direction = "gauche";
-            } else if (dy>0) {
+            } else if (dy > 0) {
                 this.direction = "bas";
-            } else if (dy<0) {
+            } else if (dy < 0) {
                 this.direction = "haut";
             }
             this.personnageGraphique.animerMarche();
@@ -99,10 +99,10 @@ class Personnage {
      * Définit la liste de déplacements possibles 
      */
     calculateSteps() {
-        for (let i=-this.nombrePas; i<=this.nombrePas; i++) {
-            for (let j=-this.nombrePas+Math.abs(i); j<=this.nombrePas-Math.abs(i); j++) {
-                let new_x = this.coords.x + 32*j;
-                let new_y = this.coords.y + 32*i;
+        for (let i = -this.nombrePas; i <= this.nombrePas; i++) {
+            for (let j = -this.nombrePas + Math.abs(i); j <= this.nombrePas - Math.abs(i); j++) {
+                let new_x = this.coords.x + 32 * j;
+                let new_y = this.coords.y + 32 * i;
                 // On vérifie qu'il n'y a ni obstacle, ni joueur, ni objet sur la case
                 if (Moteur.terrain.canWalk(new_x, new_y)
                     && !Moteur.listePerso.some(perso => perso.coords.equalsCoords(new_x, new_y))
@@ -118,12 +118,24 @@ class Personnage {
     /**
      * Vide la liste des commandes de déplacement
      */
-    removeMarcheCommands() {
-        for(let commande of this.listeMarcheCommande) {
+    removeCommands(...listeCommands) {
+        for (let commands of listeCommands) {
+            for (let commande of commands) {
+                commande.destroyCase();
+            }
+            commands = [];
+        }
+    }
+
+    /**
+     * Vide la liste des commandes de déplacement
+     */
+    /**removeMarcheCommands() {
+        for (let commande of this.listeMarcheCommande) {
             commande.caseDeplacement.destroy();
         }
         this.listeMarcheCommande = [];
-    }
+    }**/
 
     /**
      * Définit la liste des commandes de tir possibles
@@ -131,7 +143,7 @@ class Personnage {
     evaluerTir() {
         for (let perso of Moteur.listePerso) {
             if (perso != this && perso.estVivant
-                && perso.coords.getDistance(this.coords) <= this.porteeTir*32) {
+                && perso.coords.getDistance(this.coords) <= this.porteeTir * 32) {
                 // Ajouter action tir
                 this.listeTirCommande.push(new TirCommande(this, perso, this.puissanceFeu));
             }
@@ -171,7 +183,7 @@ class Personnage {
      * Déclencher l'action de se faire attraper par un lasso
      * 
      */
-     encaisserLasso() {
+    encaisserLasso() {
         // Action
         this.cooldownTour = 1;
 
@@ -193,17 +205,17 @@ class Personnage {
     /**
      * Vider la liste des commandes de tir
      */
-    removeTirCommands() {
-        for(let commande of this.listeTirCommande) {
+    /**removeTirCommands() {
+        for (let commande of this.listeTirCommande) {
             commande.caseTir.destroy();
         }
         this.listeTirCommande = [];
-    }
+    }**/
 
     /**
      * Définit la liste des commandes dion'act possibles
      */
-     evaluerAction() {
+    evaluerAction() {
         for (let objet of Moteur.listeObjets) {
             if (objet.actif && objet.coords.getDistance(this.coords) <= 32) {
                 // Ajouter action tir
@@ -215,12 +227,12 @@ class Personnage {
     /**
      * Vider la liste des commandes de d'action
      */
-    removeActionCommands() {
-        for(let commande of this.listeActionCommande) {
+    /**removeActionCommands() {
+        for (let commande of this.listeActionCommande) {
             commande.caseAction.destroy();
         }
         this.listeActionCommande = [];
-    }
+    }**/
 
     /**
      * Définit la liste des commandes d'echange possibles
@@ -238,22 +250,22 @@ class Personnage {
     /**
      * Vider la liste des commandes d'échange
      */
-    removeEchangeCommands() {
-        for(let commande of this.listeEchangeCommande) {
+    /**removeEchangeCommands() {
+        for (let commande of this.listeEchangeCommande) {
             commande.caseAction.destroy();
         }
         this.listeEchangeCommande = [];
-    }
+    }**/
 
     /**
      * Vider la liste des commandes de d'action spéciale
      */
-     removeActionSpecialeCommands() {
-        for(let commande of this.listeActionSpecialeCommande) {
+    /**removeActionSpecialeCommands() {
+        for (let commande of this.listeActionSpecialeCommande) {
             commande.caseActionSpeciale.destroy();
         }
         this.listeActionSpecialeCommande = [];
-    }
+    }**/
 
     /**
      * Si le personnage est non joueur, définit l'action à effectuer

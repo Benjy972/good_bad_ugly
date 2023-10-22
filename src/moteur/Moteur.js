@@ -48,16 +48,21 @@ class Moteur {
         }
         for (let marcheCommande of persoCourant.listeMarcheCommande) {
             marcheCommande.displayCase(app);
-            marcheCommande.caseDeplacement.caseSol.on('mousedown', function () {
+            marcheCommande.caseCommande.caseSol.on('mousedown', function () {
                 ExecuteurCommande.addCommande(marcheCommande);
-                persoCourant.removeMarcheCommands();
+                persoCourant.removeCommands(persoCourant.listeMarcheCommande);
+                //persoCourant.removeMarcheCommands();
             });
         }
         // On efface la liste de cases des autres actions
-        persoCourant.removeTirCommands();
-        persoCourant.removeEchangeCommands();
-        persoCourant.removeActionCommands();
-        persoCourant.removeActionSpecialeCommands();
+        persoCourant.removeCommands(persoCourant.listeTirCommande,
+            persoCourant.listeEchangeCommande,
+            persoCourant.listeActionCommande,
+            persoCourant.listeActionSpecialeCommande);
+        // persoCourant.removeTirCommands();
+        // persoCourant.removeEchangeCommands();
+        // persoCourant.removeActionCommands();
+        // persoCourant.removeActionSpecialeCommands();
     }
 
     /**
@@ -74,7 +79,7 @@ class Moteur {
         }
         for (let tirCommande of persoCourant.listeTirCommande) {
             tirCommande.displayCase(app);
-            tirCommande.caseTir.caseSol.on('mousedown', function () {
+            tirCommande.caseCommande.caseSol.on('mousedown', function () {
                 ExecuteurCommande.addCommande(tirCommande);
                 persoCourant.removeTirCommands();
             });
@@ -100,7 +105,7 @@ class Moteur {
 
         for (let actionCommande of persoCourant.listeActionCommande) {
             actionCommande.displayCase(app);
-            actionCommande.caseAction.caseSol.on('mousedown', function () {
+            actionCommande.caseCommande.caseSol.on('mousedown', function () {
                 ExecuteurCommande.addCommande(actionCommande);
                 persoCourant.removeActionCommands();
             });
@@ -126,7 +131,7 @@ class Moteur {
 
         for (let echangeCommande of persoCourant.listeEchangeCommande) {
             echangeCommande.displayCase(app);
-            echangeCommande.caseAction.caseSol.on('mousedown', function () {
+            echangeCommande.caseCommande.caseSol.on('mousedown', function () {
                 ExecuteurCommande.addCommande(echangeCommande);
                 persoCourant.removeEchangeCommands();
             });
@@ -154,7 +159,7 @@ class Moteur {
         }
         for (let actionSpecialeCommande of persoCourant.listeActionSpecialeCommande) {
             actionSpecialeCommande.displayCase(app);
-            actionSpecialeCommande.caseActionSpeciale.caseSol.on('mousedown', function () {
+            actionSpecialeCommande.caseCommande.caseSol.on('mousedown', function () {
                 ExecuteurCommande.addCommande(actionSpecialeCommande);
                 persoCourant.removeActionSpecialeCommands();
             });

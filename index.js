@@ -2,7 +2,7 @@ let app = new PIXI.Application({ width: 640, height: 384 });
 document.body.appendChild(app.view);
 
 // On définit le personnage principal
-let monPerso = new Brute("Joueur 1", 176, 176, false);
+let monPerso = new Truand("Joueur 1", 176, 176, false);
 
 // On ajoute les personnages
 Moteur.setListePerso(
@@ -16,7 +16,7 @@ Moteur.setListeObjets(new Coffre(240, 240));
 MoteurGraphique.initGraphics(app);
 
 // Test : joueur 2 a pour objectif le perso et  joueur 3 a pour objectif le coffre
-Moteur.listePerso[1].ia.objectif = new ObjectifRapporterObjet(Moteur.listePerso[1], monPerso, Moteur.listeObjets[0]);
+// Moteur.listePerso[1].ia.objectif = new ObjectifRapporterObjet(Moteur.listePerso[1], monPerso, Moteur.listeObjets[0]);
 // Moteur.listePerso[2].ia.objectif = new ObjectifAttaquerJoueur(Moteur.listePerso[2], Moteur.listePerso[0]);
 
 // Boutons

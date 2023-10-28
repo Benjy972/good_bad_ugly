@@ -15,4 +15,17 @@ class Truand extends Personnage {
         this.nombrePas = 5;
     }
 
+    /**
+     * Définit la liste des commandes d'action spéciale possibles
+     */
+    evaluerActionSpeciale() {
+        for (let perso of Moteur.listePerso) {
+            if (perso != this && perso.estVivant
+                && perso.coords.getDistance(this.coords) <= 32) {
+                // Ajouter action soudoiement
+                this.listeCommands.push(new SoudoiementCommande(this, perso));
+            }
+        }
+    }
+
 }

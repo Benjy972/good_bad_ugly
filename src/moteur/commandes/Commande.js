@@ -5,7 +5,7 @@ class Commande {
 
     /**
      * 
-     * @param {Personnage} perso le personnage qui effectue l'action
+     * @param {Personnage} perso le personnage à l'origine de l'action
      * @param {Case} case le type de case
      */
     constructor(perso, caseStandard) {

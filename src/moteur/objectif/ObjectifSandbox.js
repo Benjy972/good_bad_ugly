@@ -12,10 +12,12 @@ class ObjectifSandbox {
             return null;
         }
 
+        // On recalcule la liste de pas possibles
+        this.perso.removeCommands();
         this.perso.calculateSteps();
-        if (this.perso.listeMarcheCommande.length > 0) {
+        if (this.perso.listeCommands.length > 0) {
             // On choisit une action au hasard
-            action = this.perso.listeMarcheCommande[Math.round(Math.random() * (this.perso.listeMarcheCommande.length - 1))]
+            action = this.perso.listeCommands[Math.round(Math.random() * (this.perso.listeCommands.length - 1))];
         }
         return action;
     }

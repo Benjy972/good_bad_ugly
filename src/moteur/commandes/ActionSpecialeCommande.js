@@ -1,5 +1,5 @@
 /**
- * Commande de tir
+ * Commande d'action spéciale
  */
 class ActionSpecialeCommande extends Commande {
 

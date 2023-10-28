@@ -15,8 +15,6 @@ class PasserTourCommande {
      * Exécution de la commande
      */
     execute() {
-        this.perso.removeMarcheCommands();
-        this.perso.removeTirCommands();
         this.perso.peutMarcher = true;
         this.perso.peutTirer = true;
         if (this.perso.cooldownActionSpeciale > 0) {

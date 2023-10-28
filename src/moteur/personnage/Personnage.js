@@ -34,12 +34,7 @@ class Personnage {
         // Commandes
         this.estVivant = true;
         this.peutMarcher = true;
-        this.listeMarcheCommande = [];
-        this.peutTirer = true;
-        this.listeTirCommande = [];
-        this.listeActionCommande = [];
-        this.listeEchangeCommande = [];
-        this.listeActionSpecialeCommande = [];
+        this.listeCommands = [];
 
         // IA
         if (estIA) {
@@ -109,33 +104,22 @@ class Personnage {
                     && !Moteur.listeObjets.some(objet => objet.coords.equalsCoords(new_x, new_y))) {
 
                     let newCoords = new Coordonnees(new_x, new_y);
-                    this.listeMarcheCommande.push(new MarcheCommande(this, newCoords));
+                    //this.listeMarcheCommande.push(new MarcheCommande(this, newCoords));
+                    this.listeCommands.push(new MarcheCommande(this, newCoords));
                 }
             }
         }
     }
 
     /**
-     * Vide la liste des commandes de déplacement
+     * Vide la liste de toutes les commandes
      */
-    removeCommands(...listeCommands) {
-        for (let commands of listeCommands) {
-            for (let commande of commands) {
-                commande.destroyCase();
-            }
-            commands = [];
+    removeCommands() {
+        for (let commande of this.listeCommands) {
+            commande.destroyCase();
         }
+        this.listeCommands = [];
     }
-
-    /**
-     * Vide la liste des commandes de déplacement
-     */
-    /**removeMarcheCommands() {
-        for (let commande of this.listeMarcheCommande) {
-            commande.caseDeplacement.destroy();
-        }
-        this.listeMarcheCommande = [];
-    }**/
 
     /**
      * Définit la liste des commandes de tir possibles
@@ -145,7 +129,8 @@ class Personnage {
             if (perso != this && perso.estVivant
                 && perso.coords.getDistance(this.coords) <= this.porteeTir * 32) {
                 // Ajouter action tir
-                this.listeTirCommande.push(new TirCommande(this, perso, this.puissanceFeu));
+                //this.listeTirCommande.push(new TirCommande(this, perso, this.puissanceFeu));
+                this.listeCommands.push(new TirCommande(this, perso, this.puissanceFeu));
             }
         }
     }
@@ -203,36 +188,17 @@ class Personnage {
     }
 
     /**
-     * Vider la liste des commandes de tir
-     */
-    /**removeTirCommands() {
-        for (let commande of this.listeTirCommande) {
-            commande.caseTir.destroy();
-        }
-        this.listeTirCommande = [];
-    }**/
-
-    /**
      * Définit la liste des commandes dion'act possibles
      */
     evaluerAction() {
         for (let objet of Moteur.listeObjets) {
             if (objet.actif && objet.coords.getDistance(this.coords) <= 32) {
                 // Ajouter action tir
-                this.listeActionCommande.push(new ActionCommande(this, objet));
+                //this.listeActionCommande.push(new ActionCommande(this, objet));
+                this.listeCommands.push(new ActionCommande(this, objet));
             }
         }
     }
-
-    /**
-     * Vider la liste des commandes de d'action
-     */
-    /**removeActionCommands() {
-        for (let commande of this.listeActionCommande) {
-            commande.caseAction.destroy();
-        }
-        this.listeActionCommande = [];
-    }**/
 
     /**
      * Définit la liste des commandes d'echange possibles
@@ -242,30 +208,11 @@ class Personnage {
             if (perso != this && perso.estVivant
                 && perso.coords.getDistance(this.coords) <= 32) {
                 // Ajouter action tir
-                this.listeEchangeCommande.push(new EchangeCommande(this, perso, this.inventaire[0]));
+                //this.listeEchangeCommande.push(new EchangeCommande(this, perso, this.inventaire[0]));
+                this.listeCommands.push(new EchangeCommande(this, perso, this.inventaire[0]));
             }
         }
     }
-
-    /**
-     * Vider la liste des commandes d'échange
-     */
-    /**removeEchangeCommands() {
-        for (let commande of this.listeEchangeCommande) {
-            commande.caseAction.destroy();
-        }
-        this.listeEchangeCommande = [];
-    }**/
-
-    /**
-     * Vider la liste des commandes de d'action spéciale
-     */
-    /**removeActionSpecialeCommands() {
-        for (let commande of this.listeActionSpecialeCommande) {
-            commande.caseActionSpeciale.destroy();
-        }
-        this.listeActionSpecialeCommande = [];
-    }**/
 
     /**
      * Si le personnage est non joueur, définit l'action à effectuer

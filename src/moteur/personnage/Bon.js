@@ -27,7 +27,7 @@ class Bon extends Personnage {
             if (perso != this && perso.estVivant
                 && perso.coords.getDistance(this.coords) <= this.porteeActionSpeciale*32) {
                 // Ajouter action tir
-                this.listeActionSpecialeCommande.push(new LancerLassoCommande(this, perso));
+                this.listeCommands.push(new LancerLassoCommande(this, perso));
             }
         }
     }

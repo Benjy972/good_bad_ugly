@@ -1,12 +1,12 @@
 /**
- * Commande de tir
+ * Commande d'action
  */
 class ActionCommande extends Commande {
 
     /**
      * 
-     * @param {Personnage} perso le personnage qui tire
-     * @param {Objet} cible l'objet visé
+     * @param {Personnage} perso le personnage effectue l'action
+     * @param {Objet} cible l'objet sur lequel l'action est effectuée
      */
     constructor(perso, cible) {
         super(perso, new CaseAction(cible.coords.x, cible.coords.y));
@@ -18,7 +18,6 @@ class ActionCommande extends Commande {
      */
     execute() {
         this.cible.action(this.perso);
-        this.perso.removeActionCommands();
     }
 
 }

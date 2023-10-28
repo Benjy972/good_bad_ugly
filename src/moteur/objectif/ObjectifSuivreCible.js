@@ -13,11 +13,13 @@ class ObjectifSuivreCible {
             return null;
         }
 
+        // On efface la liste de commandes
+        this.perso.removeCommands();
         this.perso.calculateSteps();
-        if (this.perso.listeMarcheCommande.length > 0) {
+        if (this.perso.listeCommands.length > 0) {
             // On choisit l'action qui rapproche le plus de la cible
             let cible = this.cible;
-            action = this.perso.listeMarcheCommande.reduce((prev, curr) => 
+            action = this.perso.listeCommands.reduce((prev, curr) => 
                 prev.coords.getDistance(cible.coords) < curr.coords.getDistance(cible.coords) ? prev : curr);
         }
         return action;

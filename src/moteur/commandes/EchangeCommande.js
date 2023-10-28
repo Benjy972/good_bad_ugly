@@ -25,7 +25,6 @@ class EchangeCommande extends Commande {
         this.perso.inventaire.splice(indexItem, 1);
         this.cible.inventaire.push(this.objet);
         ServiceInventaire.afficherInventaire();
-        this.perso.removeEchangeCommands();
     }
 
 }

@@ -43,26 +43,18 @@ class Moteur {
         // Obligé de passer par une variable à cause de la fonction anonyme
         let persoCourant = this.getPersoCourant();
 
-        if (persoCourant.listeMarcheCommande.length == 0) {
-            persoCourant.calculateSteps();
-        }
-        for (let marcheCommande of persoCourant.listeMarcheCommande) {
+        // On efface la liste de cases de toutes les actions
+        persoCourant.removeCommands();
+        // On recalcule les déplacements
+        persoCourant.calculateSteps();
+
+        for (let marcheCommande of persoCourant.listeCommands) {
             marcheCommande.displayCase(app);
             marcheCommande.caseCommande.caseSol.on('mousedown', function () {
                 ExecuteurCommande.addCommande(marcheCommande);
-                persoCourant.removeCommands(persoCourant.listeMarcheCommande);
-                //persoCourant.removeMarcheCommands();
+                persoCourant.removeCommands();
             });
         }
-        // On efface la liste de cases des autres actions
-        persoCourant.removeCommands(persoCourant.listeTirCommande,
-            persoCourant.listeEchangeCommande,
-            persoCourant.listeActionCommande,
-            persoCourant.listeActionSpecialeCommande);
-        // persoCourant.removeTirCommands();
-        // persoCourant.removeEchangeCommands();
-        // persoCourant.removeActionCommands();
-        // persoCourant.removeActionSpecialeCommands();
     }
 
     /**
@@ -74,23 +66,20 @@ class Moteur {
         // Obligé de passer par une variable à cause de la fonction anonyme
         let persoCourant = this.getPersoCourant();
 
-        if (persoCourant.listeTirCommande.length == 0) {
-            persoCourant.evaluerTir();
-        }
-        for (let tirCommande of persoCourant.listeTirCommande) {
+        // On efface la liste de cases de toutes les actions
+        persoCourant.removeCommands();
+        // On recalcule les tirs
+        persoCourant.evaluerTir();
+
+        for (let tirCommande of persoCourant.listeCommands) {
             tirCommande.displayCase(app);
             tirCommande.caseCommande.caseSol.on('mousedown', function () {
                 ExecuteurCommande.addCommande(tirCommande);
-                persoCourant.removeTirCommands();
+                persoCourant.removeCommands();
             });
         }
-        // On efface la liste de cases des autres actions
-        persoCourant.removeMarcheCommands();
-        persoCourant.removeActionCommands();
-        persoCourant.removeEchangeCommands();
-        persoCourant.removeActionSpecialeCommands();
         // On vérifie que le personnage a bien une cible à viser
-        return persoCourant.listeTirCommande.length > 0;
+        return persoCourant.listeCommands.length > 0;
     }
 
     /**
@@ -101,22 +90,21 @@ class Moteur {
      static evaluerAction() {
         // Obligé de passer par une variable à cause de la fonction anonyme
         let persoCourant = this.getPersoCourant();
+
+        // On efface la liste de cases de toutes les actions
+        persoCourant.removeCommands();
+        // On recalcule les actions
         persoCourant.evaluerAction();
 
-        for (let actionCommande of persoCourant.listeActionCommande) {
+        for (let actionCommande of persoCourant.listeCommands) {
             actionCommande.displayCase(app);
             actionCommande.caseCommande.caseSol.on('mousedown', function () {
                 ExecuteurCommande.addCommande(actionCommande);
-                persoCourant.removeActionCommands();
+                persoCourant.removeCommands();
             });
         }
-        // On efface la liste de cases des autres actions
-        persoCourant.removeMarcheCommands();
-        persoCourant.removeTirCommands();
-        persoCourant.removeEchangeCommands();
-        persoCourant.removeActionSpecialeCommands();
         // On vérifie que le personnage a bien une cible à viser
-        return persoCourant.listeActionCommande.length > 0;
+        return persoCourant.listeCommands.length > 0;
     }
 
     /**
@@ -127,22 +115,20 @@ class Moteur {
     static evaluerEchange() {
         // Obligé de passer par une variable à cause de la fonction anonyme
         let persoCourant = this.getPersoCourant();
+        // On efface la liste de cases de toutes les actions
+        persoCourant.removeCommands();
+        // On recalcule les échanges
         persoCourant.evaluerEchange();
 
-        for (let echangeCommande of persoCourant.listeEchangeCommande) {
+        for (let echangeCommande of persoCourant.listeCommands) {
             echangeCommande.displayCase(app);
             echangeCommande.caseCommande.caseSol.on('mousedown', function () {
                 ExecuteurCommande.addCommande(echangeCommande);
-                persoCourant.removeEchangeCommands();
+                persoCourant.removeCommands();
             });
         }
-        // On efface la liste de cases des autres actions
-        persoCourant.removeMarcheCommands();
-        persoCourant.removeTirCommands();
-        persoCourant.removeActionCommands();
-        persoCourant.removeActionSpecialeCommands();
         // On vérifie que le personnage a bien une cible à viser
-        return persoCourant.listeEchangeCommande.length > 0;
+        return persoCourant.listeCommands.length > 0;
     }
 
     /**
@@ -154,29 +140,29 @@ class Moteur {
         // Obligé de passer par une variable à cause de la fonction anonyme
         let persoCourant = this.getPersoCourant();
 
-        if (persoCourant.listeActionSpecialeCommande.length == 0) {
-            persoCourant.evaluerActionSpeciale();
-        }
-        for (let actionSpecialeCommande of persoCourant.listeActionSpecialeCommande) {
+        // On efface la liste de cases de toutes les actions
+        persoCourant.removeCommands();
+        // On recalcule les actions spéciales
+        persoCourant.evaluerActionSpeciale();
+
+        for (let actionSpecialeCommande of persoCourant.listeCommands) {
             actionSpecialeCommande.displayCase(app);
             actionSpecialeCommande.caseCommande.caseSol.on('mousedown', function () {
                 ExecuteurCommande.addCommande(actionSpecialeCommande);
-                persoCourant.removeActionSpecialeCommands();
+                persoCourant.removeCommands();
             });
         }
-        // On efface la liste de cases des autres actions
-        persoCourant.removeMarcheCommands();
-        persoCourant.removeTirCommands();
-        persoCourant.removeEchangeCommands();
-        persoCourant.removeActionCommands();
         // On vérifie que le personnage a bien une cible à viser
-        return persoCourant.listeActionSpecialeCommande.length > 0;
+        return persoCourant.listeCommands.length > 0;
     }
 
     /**
      * Passer au joueur suivant
      */
     static passerTour() {
+        // On efface la liste de cases de toutes les actions
+        this.getPersoCourant().removeCommands();
+        // On passe le tour
         ExecuteurCommande.addCommande(new PasserTourCommande(this.getPersoCourant(), this));
     }
 

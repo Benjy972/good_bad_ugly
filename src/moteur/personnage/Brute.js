@@ -17,6 +17,13 @@ class Brute extends Personnage {
     }
 
     /**
+     * Vérifie si l'action spéciale est possible.
+     */
+     actionSpecialePossible() {
+        return cooldownActionSpeciale == 0;
+    }
+
+    /**
      * Définit la liste des commandes d'action spéciale possibles
      */
      evaluerActionSpeciale() {

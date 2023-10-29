@@ -61,8 +61,8 @@ function evaluerActionSpeciale() {
         return;
     }
     // Si le personnage a déjà épuisé son action de déplacement
-    if (Moteur.getPersoCourant().cooldownActionSpeciale > 0) {
-        ServiceNotification.pushMessage("Vous ne pouvez plus utiliser votre action spéciale.");
+    if (!Moteur.getPersoCourant().actionSpecialePossible()) {
+        ServiceNotification.pushMessage("Vous ne pouvez pas utiliser votre action spéciale pour l'instant.");
         return;
     }
 

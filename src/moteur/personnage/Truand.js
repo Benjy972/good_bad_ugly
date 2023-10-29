@@ -16,6 +16,13 @@ class Truand extends Personnage {
     }
 
     /**
+     * Vérifie si l'action spéciale est possible.
+     */
+    actionSpecialePossible() {
+        return true;
+    }
+
+    /**
      * Définit la liste des commandes d'action spéciale possibles
      */
     evaluerActionSpeciale() {

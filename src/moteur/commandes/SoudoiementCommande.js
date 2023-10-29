@@ -24,11 +24,12 @@ class SoudoiementCommande extends Commande {
         for (let persoCible of Moteur.listePerso) {
             if (persoCible != this.perso && persoCible != this.cible && persoCible.estVivant) {
                 // Ajouter action commande d'attaque
-                let commanderAttaqueCommande = new CommanderAttaqueCommande(this.cible, persoCible);
+                let commanderAttaqueCommande = new CommanderAttaqueCommande(this.cible, persoCible, this.perso);
                 commanderAttaqueCommande.displayCase(app);
                 commanderAttaqueCommande.caseCommande.caseSol.on('mousedown', function () {
                     ExecuteurCommande.addCommande(commanderAttaqueCommande);
                     persoTruand.removeCommands();
+                    persoTruand.peutCommander = false;
                 });
                 this.perso.listeCommands.push(commanderAttaqueCommande);
             }
@@ -42,6 +43,7 @@ class SoudoiementCommande extends Commande {
                 commanderRecuperationCommande.caseCommande.caseSol.on('mousedown', function () {
                     ExecuteurCommande.addCommande(commanderRecuperationCommande);
                     persoTruand.removeCommands();
+                    persoTruand.peutCommander = false;
                 });
                 this.perso.listeCommands.push(commanderRecuperationCommande);
             }

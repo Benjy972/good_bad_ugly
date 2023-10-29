@@ -7,7 +7,6 @@ class ObjectifEffectuerAction extends ObjectifSuivreCible {
      */
     constructor(perso, cible) {
         super(perso, cible);
-        this.objectifAtteint = false;
     }
 
     calculateAction() {

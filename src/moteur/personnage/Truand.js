@@ -13,13 +13,14 @@ class Truand extends Personnage {
         // Statistiques
         this.vie = 7;
         this.nombrePas = 5;
+        this.peutCommander = true;
     }
 
     /**
      * Vérifie si l'action spéciale est possible.
      */
     actionSpecialePossible() {
-        return true;
+        return this.peutCommander;
     }
 
     /**

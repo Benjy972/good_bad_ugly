@@ -11,7 +11,6 @@ class ObjectifRapporterObjet extends ObjectifSuivreCible {
         // Objectif de récupérer l'objet
         this.objectifObjet = new ObjectifEffectuerAction(perso, objet);
         this.objetRecupere = false;
-        this.objectifAtteint = false;
     }
 
     calculateAction() {
@@ -34,6 +33,10 @@ class ObjectifRapporterObjet extends ObjectifSuivreCible {
         // On vérifie si l'objectif est atteint ou atteignable
         if (this.objectifAtteint || !this.cible.estVivant || this.perso.inventaire.length == 0) {
             this.objectifAtteint = true;
+            // On notifie le commanditaire
+            if (!!this.commanditaire) {
+                this.commanditaire.peutCommander = true;
+            }
             return null;
         }
 

@@ -19,7 +19,9 @@ class CommanderRecuperationCommande extends Commande {
      * Exécution de la commande
      */
     execute() {
-        this.perso.ia.objectif = new ObjectifRapporterObjet(this.perso, this.cible, this.objet);
+        let objectif = new ObjectifRapporterObjet(this.perso, this.cible, this.objet);
+        objectif.notifierCommanditaire(this.cible);
+        this.perso.ia.objectif = objectif;
     }
 
 }

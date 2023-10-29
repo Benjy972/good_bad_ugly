@@ -3,6 +3,8 @@ class ObjectifSuivreCible {
     constructor(perso, cible) {
         this.perso = perso;
         this.cible = cible;
+        this.objectifAtteint = false;
+        this.commanditaire = undefined;
     }
 
     calculateAction() {
@@ -23,5 +25,14 @@ class ObjectifSuivreCible {
                 prev.coords.getDistance(cible.coords) < curr.coords.getDistance(cible.coords) ? prev : curr);
         }
         return action;
+    }
+
+    /**
+     * Définit le joueur auquel notifier lorsque l'objectif est atteint
+     * 
+     * @param {Personnage} commanditaire le joueur à notifier
+     */
+    notifierCommanditaire(commanditaire) {
+        this.commanditaire = commanditaire;
     }
 }

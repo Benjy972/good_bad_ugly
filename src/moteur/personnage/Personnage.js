@@ -34,6 +34,7 @@ class Personnage {
         // Commandes
         this.estVivant = true;
         this.peutMarcher = true;
+        this.peutTirer = true;
         this.listeCommands = [];
 
         // IA
@@ -185,6 +186,11 @@ class Personnage {
 
         // Animation
         this.personnageGraphique.mourir();
+
+        // Si le personnage avait reçu un ordre, on libère l'ordre
+        if (!!this.ia && !!this.ia.objectif.commanditaire) {
+            this.ia.objectif.commanditaire.peutCommander = true;
+        }
     }
 
     /**
@@ -223,7 +229,7 @@ class Personnage {
             ExecuteurCommande.addCommande(new PasserTourCommande(this));
             return;
         }
-        if (this.ia != null) {
+        if (!!this.ia) {
             this.ia.action();
         }
     }

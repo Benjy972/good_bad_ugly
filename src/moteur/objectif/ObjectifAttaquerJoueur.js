@@ -7,13 +7,16 @@ class ObjectifAttaquerJoueur extends ObjectifSuivreCible {
      */
     constructor(perso, cible) {
         super(perso, cible);
-        this.objectifAtteint = false;
     }
 
     calculateAction() {        
         // On vérifie si l'objectif est atteint
         if (!this.cible.estVivant) {
             this.objectifAtteint = true;
+            // On notifie le commanditaire
+            if (!!this.commanditaire) {
+                this.commanditaire.peutCommander = true;
+            }
             return null;
         }
 

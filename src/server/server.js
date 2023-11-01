@@ -22,6 +22,12 @@ app.get('/', (req, res) => {
 
 });
 
+app.get('/game', (req, res) => {
+    console.log('jeu');
+    res.sendFile(path.join(__dirname, "/../../index.html"));
+
+});
+
 app.post('/login', (req, res) => {
     console.log(req.body);
     let request = req.body;
@@ -43,7 +49,7 @@ app.get('/list', (req, res) => {
     res.json(players);
 });
 
-//app.use(router);
+app.use(express.static(path.join(__dirname, "/../../")));
 app.listen(port, () => {
     console.log('Server app listening on port ' + port);
 });

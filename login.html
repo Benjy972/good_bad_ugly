@@ -31,6 +31,9 @@
             console.log(response);
             if (response.status === "OK") {
                 info.innerText = "Nombre de personnes connectées : " + response.order;
+                setTimeout(() => {
+                    location.href = "http://localhost:3000/game";
+                }, 1000);
             } else {
                 info.innerText = response.message;
             }

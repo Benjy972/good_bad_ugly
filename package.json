@@ -4,11 +4,13 @@
   "description": "Le bon, la brute et le truand",
   "main": "index.js",
   "scripts": {
-    "start": "serve"
+    "start": "node src/server/server.js"
   },
   "author": "winnie_lourdson",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.18.2",
+    "path": "^0.12.7",
     "pixijs": "^7.1.1",
     "serve": "^14.2.0"
   }

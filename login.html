@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<head>
+</head>
+<body>
+    <p>Page de connexion</p>
+    <div id="login">
+        <label for="username">Nom d'utilisateur : </label>
+        <input type="text" id="username" rows="1" cols="30"></textarea>
+        <input type="submit" id="login" onclick="connect()" value="Se connecter"></input>
+    </div>
+    <div id="zone_info">
+        <p id="connected"></p>
+    </div>
+    <script>
+        async function connect() {
+            console.log("Connexion :")
+            let user = document.getElementById("username");
+            let info = document.getElementById("connected");
+            let post = {
+                name: user.value
+            };
+            let res = await fetch("http://localhost:3000/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+
+                },
+                body: JSON.stringify(post)
+            })
+            let response = JSON.parse(await res.json());
+            console.log(response);
+            if (response.status === "OK") {
+                info.innerText = "Nombre de personnes connectées : " + response.order;
+            } else {
+                info.innerText = response.message;
+            }
+            user.value = "";
+        }
+    </script>
+</body>

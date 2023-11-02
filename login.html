@@ -6,16 +6,25 @@
     <div id="login">
         <label for="username">Nom d'utilisateur : </label>
         <input type="text" id="username" rows="1" cols="30"></textarea>
-        <input type="submit" id="login" onclick="connect()" value="Se connecter"></input>
+        <input type="submit" id="loginButton" onclick="connect()" value="Se connecter"></input>
     </div>
     <div id="zone_info">
         <p id="connected"></p>
     </div>
     <script>
+        // Affichage d'informatin
+        let info = document.getElementById("connected");
+
         async function connect() {
-            console.log("Connexion :")
             let user = document.getElementById("username");
-            let info = document.getElementById("connected");
+            let loginButton = document.getElementById("loginButton");
+
+            // Cas où aucun nom n'est renseigné
+            if (user.value === "") {
+                info.innerText = "Veuillez renseigner un nom.";
+                return;
+            }
+
             let post = {
                 name: user.value
             };
@@ -30,14 +39,32 @@
             let response = JSON.parse(await res.json());
             console.log(response);
             if (response.status === "OK") {
-                info.innerText = "Nombre de personnes connectées : " + response.order;
+                info.innerText = "En attente des autres joueurs...";
+                user.disabled = true;
+                loginButton.disabled = true;
+                start();
+                /*setTimeout(() => {
+                    location.href = "http://localhost:3000/game";
+                }, 1000);*/
+            } else {
+                info.innerText = response.message;
+                user.value = "";
+            }
+        }
+
+        async function start() {
+            let res = await fetch("http://localhost:3000/start");
+            let response = JSON.parse(await res.json());
+            if (response.joueursComplet) {
+                info.innerText = "Prêt à démarrer !"
                 setTimeout(() => {
                     location.href = "http://localhost:3000/game";
                 }, 1000);
             } else {
-                info.innerText = response.message;
+                setTimeout(() => {
+                    start();
+                }, 1000);
             }
-            user.value = "";
         }
     </script>
 </body>

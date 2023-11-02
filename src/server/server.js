@@ -1,14 +1,18 @@
+// Imports server
+const JoueurFactory = require('./joueurs/JoueurFactory').JoueurFactory;
+
+// Imports Express.js
 const express = require('express');
 const path = require('path');
+
 const app = express();
 app.use(express.json());
 const port = process.env.PORT || 3000;
 
-let players = [];
 
 // Fonction de contrôle
 function controlAvailableName(request) {
-    for (let playerName of players) {
+    for (let playerName of JoueurFactory.listeJoueurs) {
         if (playerName.name === request.name) {
             return false;
         }
@@ -17,15 +21,12 @@ function controlAvailableName(request) {
 }
 
 app.get('/', (req, res) => {
-    console.log('page d\'accueil');
     res.sendFile(path.join(__dirname, "/../../login.html"));
 
 });
 
 app.get('/game', (req, res) => {
-    console.log('jeu');
     res.sendFile(path.join(__dirname, "/../../index.html"));
-
 });
 
 app.post('/login', (req, res) => {
@@ -33,9 +34,8 @@ app.post('/login', (req, res) => {
     let request = req.body;
     let response = {};
     if (controlAvailableName(request)) {
-        players.push(request);
+        JoueurFactory.creerJoueur(request.name);
         response.status = "OK";
-        response.order = players.length;
     } else {
         response.status = "KO";
         response.message = "Ce nom est déjà pris";
@@ -44,9 +44,16 @@ app.post('/login', (req, res) => {
     res.status(200).json(JSON.stringify(response));
 });
 
+app.get('/start', (req, res) => {
+    let peutDemarrer = {
+        joueursComplet: JoueurFactory.listeJoueursComplete()
+    };
+    res.json(JSON.stringify(peutDemarrer));
+});
+
 app.get('/list', (req, res) => {
     console.log('list');
-    res.json(players);
+    res.json(JoueurFactory.listeJoueurs);
 });
 
 app.use(express.static(path.join(__dirname, "/../../")));

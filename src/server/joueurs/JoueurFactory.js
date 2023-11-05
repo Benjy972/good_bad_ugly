@@ -5,7 +5,7 @@ module.exports.JoueurFactory = class JoueurFactory {
     static listeJoueurs = [];
     static listeRoles = ["Bon", "Brute", "Truand"];
     static listePositionsInitiales = [
-        {x:176, y:176},
+        {x:176, y:144},
         {x:304, y:304},
         {x:304, y:176}
     ]

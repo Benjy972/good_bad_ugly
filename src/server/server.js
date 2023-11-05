@@ -10,7 +10,9 @@ app.use(express.json());
 const port = process.env.PORT || 3000;
 
 
-// Fonction de contrôle
+/**
+ * Fonction contrpile si le nom n'est pas déjà utilisé
+ */ 
 function controlAvailableName(request) {
     for (let playerName of JoueurFactory.listeJoueurs) {
         if (playerName.name === request.name) {
@@ -20,15 +22,24 @@ function controlAvailableName(request) {
     return true;
 }
 
+/**
+ * Page de connexion au jeu
+ */
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "/../../login.html"));
 
 });
 
+/**
+ * Page de redirection vers le jeu
+ */
 app.get('/game', (req, res) => {
     res.sendFile(path.join(__dirname, "/../../index.html"));
 });
 
+/**
+ * Méthode de connexion d'un joueur
+ */
 app.post('/login', (req, res) => {
     console.log(req.body);
     let request = req.body;
@@ -44,6 +55,9 @@ app.post('/login', (req, res) => {
     res.status(200).json(JSON.stringify(response));
 });
 
+/**
+ * Méthode de redirection vers la page de jeu
+ */
 app.get('/start', (req, res) => {
     let peutDemarrer = {
         joueursComplet: JoueurFactory.listeJoueursComplete()
@@ -51,9 +65,11 @@ app.get('/start', (req, res) => {
     res.json(JSON.stringify(peutDemarrer));
 });
 
-app.get('/list', (req, res) => {
-    console.log('list');
-    res.json(JoueurFactory.listeJoueurs);
+/**
+ * Méthode d'initialisation de la partie
+ */
+app.get('/init', (req, res) => {
+    res.json(JSON.stringify(JoueurFactory.listeJoueurs));
 });
 
 app.use(express.static(path.join(__dirname, "/../../")));

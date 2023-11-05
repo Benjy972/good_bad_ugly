@@ -1,20 +1,6 @@
 let app = new PIXI.Application({ width: 640, height: 384 });
 document.body.appendChild(app.view);
 
-// On définit le personnage principal
-let monPerso = new Truand("Joueur 1", 176, 176, false);
-
-// On ajoute les personnages
-Moteur.setListePerso(
-    monPerso,
-    new Personnage("Joueur 2", 304, 304, true),
-    new Personnage("Joueur 3", 304, 176, true)
-)
-// On ajoute les objets
-Moteur.setListeObjets(new Coffre(240, 240));
-// On initialise les graphismes
-MoteurGraphique.initGraphics(app);
-
 // Boutons
 // Marcher
 function evaluerDeplacements() {
@@ -116,15 +102,27 @@ function passerTour() {
 }
 
 window.onload = function() {
+    initJeu();
+};
+
+async function initJeu() {
+    let listeJoueurs = JSON.parse(await fetch("init").then((res) => res.json()));
+    // On ajoute les personnages
+    Moteur.setListePerso(...PersonnageMapper.mapPersonnages(listeJoueurs));
+    // On ajoute les objets
+    Moteur.setListeObjets(new Coffre(240, 240));
+    // On initialise les graphismes
+    MoteurGraphique.initGraphics(app);
+
     // On initialise le service de notification
     ServiceNotification.initService();
 
     // On initialise le service d'affichage de l'inventaire
-    ServiceInventaire.initService(monPerso);
+    // ServiceInventaire.initService(monPerso);
 
     // Execution de commandes
     app.ticker.add((delta) => Moteur.executerCommande());
-};
+}
 
 // Fonction utilitaire
 

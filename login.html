@@ -15,6 +15,9 @@
         // Affichage d'informatin
         let info = document.getElementById("connected");
 
+        /**
+         * Envoie au serveur les données pour se connecter
+         */
         async function connect() {
             let user = document.getElementById("username");
             let loginButton = document.getElementById("loginButton");
@@ -28,7 +31,7 @@
             let post = {
                 name: user.value
             };
-            let res = await fetch("http://localhost:3000/login", {
+            let res = await fetch("/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -43,22 +46,22 @@
                 user.disabled = true;
                 loginButton.disabled = true;
                 start();
-                /*setTimeout(() => {
-                    location.href = "http://localhost:3000/game";
-                }, 1000);*/
             } else {
                 info.innerText = response.message;
                 user.value = "";
             }
         }
 
+        /**
+         * Redirige les joueurs vers la page du jeu une fois que tous les joueurs sont connectés
+         */
         async function start() {
-            let res = await fetch("http://localhost:3000/start");
+            let res = await fetch("/start");
             let response = JSON.parse(await res.json());
             if (response.joueursComplet) {
                 info.innerText = "Prêt à démarrer !"
                 setTimeout(() => {
-                    location.href = "http://localhost:3000/game";
+                    location.href = "/game";
                 }, 1000);
             } else {
                 setTimeout(() => {

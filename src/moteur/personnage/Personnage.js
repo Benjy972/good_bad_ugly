@@ -36,6 +36,7 @@ class Personnage {
         this.peutMarcher = true;
         this.peutTirer = true;
         this.listeCommands = [];
+        this.estRecherche = false;
 
         // IA
         if (estIA) {

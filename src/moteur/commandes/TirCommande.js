@@ -28,6 +28,11 @@ class TirCommande extends Commande {
         // Etape 1 : effectuer l'action de tir
         this.perso.tirer();
         this.cible.encaisserTir(this.degat);
+
+        // Si la cible n'a pas de prime, le tireur en aura une
+        if (!this.cible.estRecherche) {
+            Moteur.mettrePrime(this.perso);
+        }
     }
 
 }

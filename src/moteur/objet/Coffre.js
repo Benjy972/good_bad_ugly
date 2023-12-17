@@ -24,7 +24,11 @@ class Coffre extends Objet {
         this.objetGraphique.changeState(Coffre.OUVERT);
         perso.inventaire.push(new Item(Item.ARGENT));
         this.actif = false;
+
         // On met à jour l'affichage de l'inventaire
         ServiceInventaire.afficherInventaire();
+
+        // Action spéciale : le personnage a une prime sur sa tête
+        Moteur.mettrePrime(perso);
     }
 }

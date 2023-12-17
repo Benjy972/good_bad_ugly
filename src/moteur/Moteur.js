@@ -157,6 +157,25 @@ class Moteur {
     }
 
     /**
+     * Mettre une prime sur la tête d'un personnage
+     * 
+     * @param {Personnage} perso le personnage recherché
+     */
+    static mettrePrime(perso) {
+        // Le perosnnage est recherché
+        perso.estRecherche = true;
+
+        // Les autres personnages le recherchent
+        for (let autrePerso of this.listePerso) {
+            if (autrePerso.nom !== perso.nom && !!autrePerso.ia
+                && autrePerso.ia.objectif instanceof ObjectifSandbox) {
+                    autrePerso.ia.objectif = new ObjectifAttaquerJoueur(autrePerso, perso);
+            }
+        }
+
+    }
+
+    /**
      * Passer au joueur suivant
      */
     static passerTour() {

@@ -9,6 +9,8 @@ class PersonnageGraphique {
      */
     constructor(personnage) {
         this.perso = personnage;
+        personnage.personnageGraphique = this;
+        
         // Sprites marche
         this.spritesMarche_haut = [];
         this.spritesMarche_bas = [];

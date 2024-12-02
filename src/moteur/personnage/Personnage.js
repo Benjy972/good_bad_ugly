@@ -3,6 +3,9 @@
  */
 class Personnage {
 
+    // Personnage graphique
+    personnageGraphique = undefined;
+
     /**
      * 
      * @param {string} nom nom du personnage
@@ -44,9 +47,6 @@ class Personnage {
         } else {
             this.ia = null;
         }
-
-        // Graphique
-        this.personnageGraphique = new PersonnageGraphique(this);
     }
 
     /**

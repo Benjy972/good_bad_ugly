@@ -55,10 +55,10 @@ class MarcheCommande extends Commande {
         let positionPrecedente = null;
         let positionCourante = this.perso.coords;
         while (!positionCourante.equals(this.coords)) {
-            let listePositions = [[positionCourante.x + 32, positionCourante.y],
-            [positionCourante.x - 32, positionCourante.y],
-            [positionCourante.x, positionCourante.y + 32],
-            [positionCourante.x, positionCourante.y - 32]];
+            let listePositions = [[positionCourante.x + Terrain.TAILLE_CASE, positionCourante.y],
+            [positionCourante.x - Terrain.TAILLE_CASE, positionCourante.y],
+            [positionCourante.x, positionCourante.y + Terrain.TAILLE_CASE],
+            [positionCourante.x, positionCourante.y - Terrain.TAILLE_CASE]];
             // On recherche la position qui rapproche le plus de l'objectif
             let meilleurPosition = listePositions.filter(pos => Moteur.terrain.canWalk(pos[0], pos[1])
                 && !Moteur.listePerso.some(perso => perso.coords.equalsCoords(pos[0], pos[1]))

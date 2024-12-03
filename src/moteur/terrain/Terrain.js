@@ -2,6 +2,9 @@
  * Classe de la map
  */
 class Terrain {
+
+    static TAILLE_CASE = 32;
+
     constructor() {
         this.map = [
             [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -27,8 +30,8 @@ class Terrain {
      * @returns true si on peut se déplacer sur la case, false s'il s'agit d'un obstacle
      */
     canWalk(x, y) {
-        let i = Math.trunc(y/32);
-        let j = Math.trunc(x/32);
+        let i = Math.trunc(y/Terrain.TAILLE_CASE);
+        let j = Math.trunc(x/Terrain.TAILLE_CASE);
         if (i<0 || j<0 || i>=this.map.length || j>=this.map[i].length) {
             return false;
         }

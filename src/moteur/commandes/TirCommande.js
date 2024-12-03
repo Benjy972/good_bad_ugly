@@ -25,6 +25,11 @@ class TirCommande extends Commande {
         // Etape 1 : le tireur se tourne ves sa victime
         this.perso.setDirection(this.perso.coords.getAngle(this.cible.coords));
 
+        // Etape 2 : on verifie si la cible est à couvert
+        if (MecaniqueTirUtils.cibleACouvert(Moteur.terrain, this.perso, this.cible)) {
+            this.degat = this.degat/2;
+        }
+
         // Etape 1 : effectuer l'action de tir
         this.perso.tirer();
         this.cible.encaisserTir(this.degat);

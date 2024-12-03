@@ -29,7 +29,7 @@ class Truand extends Personnage {
     evaluerActionSpeciale() {
         for (let perso of Moteur.listePerso) {
             if (perso != this && perso.estVivant
-                && perso.coords.getDistance(this.coords) <= 32) {
+                && perso.coords.getDistance(this.coords) <= Terrain.TAILLE_CASE) {
                 // Ajouter action soudoiement
                 this.listeCommands.push(new SoudoiementCommande(this, perso));
             }

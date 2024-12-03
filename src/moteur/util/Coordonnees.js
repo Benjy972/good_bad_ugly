@@ -81,6 +81,46 @@ class Coordonnees {
      * @returns l'angle entre les deux coordonnées en radians
      */
     getAngle(coords) {
+        let angle = Math.atan2(coords.y-this.y, coords.x-this.x);
+        if (angle < 0) {
+            return 2*Math.PI + angle;
+        }
         return Math.atan2(coords.y-this.y, coords.x-this.x);
+    }
+
+    /**
+     * Définit si la case sur laquelle se situe la coordonnee est
+     * traversee par une droite dont les deux points sont definis
+     * 
+     * @param {Coordonnees} coordDepart premier point de traversee de la droite
+     * @param {Coordonnees} coordArrivee second point de traversee de la droite
+     */
+    caseEstTraverseeParDroite(coordDepart, coordArrivee) {
+        let angleSommet1 = coordDepart.getAngle(new Coordonnees(Terrain.TAILLE_CASE*Math.floor(this.x/Terrain.TAILLE_CASE), Terrain.TAILLE_CASE*Math.floor(this.y/Terrain.TAILLE_CASE)));
+        let angleSommet2 = coordDepart.getAngle(new Coordonnees(Terrain.TAILLE_CASE*(Math.floor(this.x/Terrain.TAILLE_CASE)+1), Terrain.TAILLE_CASE*Math.floor(this.y/Terrain.TAILLE_CASE)));
+        let angleSommet3 = coordDepart.getAngle(new Coordonnees(Terrain.TAILLE_CASE*(Math.floor(this.x/Terrain.TAILLE_CASE)+1), Terrain.TAILLE_CASE*(Math.floor(this.y/Terrain.TAILLE_CASE)+1)));
+        let angleSommet4 = coordDepart.getAngle(new Coordonnees(Terrain.TAILLE_CASE*Math.floor(this.x/Terrain.TAILLE_CASE), Terrain.TAILLE_CASE*(Math.floor(this.y/Terrain.TAILLE_CASE)+1)));
+
+        return coordDepart.angleComprisEntreDeuxAngles(coordArrivee, angleSommet1, angleSommet3)
+            || coordDepart.angleComprisEntreDeuxAngles(coordArrivee, angleSommet2, angleSommet4);
+    }
+
+    /**
+     * Méthode définit si l'angle formé par la droite passant par la coordonnée cible et cette coordonnée (this)
+     * est comprise entre deux angles défini
+     * 
+     * @param {Coordonnees} coordonneesCible 
+     * @param {number} angle1 
+     * @param {number} angle2 
+     * @returns 
+     */
+    angleComprisEntreDeuxAngles(coordonneesCible, angle1, angle2) {
+        let angle = this.getAngle(coordonneesCible);
+        // Hypothèse de départ : la différence entre les angles ne doit pas être trop importante
+        if (Math.abs(angle - angle1) > 0.25*Math.PI && Math.abs(angle - angle2) > 0.25*Math.PI) {
+            return false;
+        }
+        return Math.cos(angle) >= Math.min(Math.cos(angle1), Math.cos(angle2)) && Math.cos(angle) <= Math.max(Math.cos(angle1), Math.cos(angle2))
+            || Math.sin(angle) >= Math.min(Math.sin(angle1), Math.sin(angle2)) && Math.sin(angle) <= Math.max(Math.sin(angle1), Math.sin(angle2));
     }
 }

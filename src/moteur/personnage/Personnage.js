@@ -98,8 +98,8 @@ class Personnage {
     calculateSteps() {
         for (let i = -this.nombrePas; i <= this.nombrePas; i++) {
             for (let j = -this.nombrePas + Math.abs(i); j <= this.nombrePas - Math.abs(i); j++) {
-                let new_x = this.coords.x + 32 * j;
-                let new_y = this.coords.y + 32 * i;
+                let new_x = this.coords.x + Terrain.TAILLE_CASE * j;
+                let new_y = this.coords.y + Terrain.TAILLE_CASE * i;
                 // On vérifie qu'il n'y a ni obstacle, ni joueur, ni objet sur la case
                 if (Moteur.terrain.canWalk(new_x, new_y)
                     && !Moteur.listePerso.some(perso => perso.coords.equalsCoords(new_x, new_y))
@@ -129,7 +129,7 @@ class Personnage {
     evaluerTir() {
         for (let perso of Moteur.listePerso) {
             if (perso != this && perso.estVivant
-                && perso.coords.getDistance(this.coords) <= this.porteeTir * 32) {
+                && perso.coords.getDistance(this.coords) <= this.porteeTir * Terrain.TAILLE_CASE) {
                 // Ajouter action tir
                 //this.listeTirCommande.push(new TirCommande(this, perso, this.puissanceFeu));
                 this.listeCommands.push(new TirCommande(this, perso, this.puissanceFeu));
@@ -199,7 +199,7 @@ class Personnage {
      */
     evaluerAction() {
         for (let objet of Moteur.listeObjets) {
-            if (objet.actif && objet.coords.getDistance(this.coords) <= 32) {
+            if (objet.actif && objet.coords.getDistance(this.coords) <= Terrain.TAILLE_CASE) {
                 // Ajouter action tir
                 //this.listeActionCommande.push(new ActionCommande(this, objet));
                 this.listeCommands.push(new ActionCommande(this, objet));
@@ -213,7 +213,7 @@ class Personnage {
     evaluerEchange() {
         for (let perso of Moteur.listePerso) {
             if (perso != this && perso.estVivant
-                && perso.coords.getDistance(this.coords) <= 32) {
+                && perso.coords.getDistance(this.coords) <= Terrain.TAILLE_CASE) {
                 // Ajouter action tir
                 //this.listeEchangeCommande.push(new EchangeCommande(this, perso, this.inventaire[0]));
                 this.listeCommands.push(new EchangeCommande(this, perso, this.inventaire[0]));

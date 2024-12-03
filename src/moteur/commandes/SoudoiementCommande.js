@@ -9,8 +9,18 @@ class SoudoiementCommande extends Commande {
      * @param {Personnage} cible le personnage à soudoyer
      */
     constructor(perso, cible) {
-        super(perso, new CaseActionSpeciale(cible.coords.x, cible.coords.y));
+        super(perso);
         this.cible = cible;
+    }
+
+    /**
+     * Méthode utilisée pour l'affichage des cases
+     * 
+     * 
+     * @returns les coordonnées de la cible
+     */
+    getCoords() {
+        return this.cible.coords;
     }
 
     /**
@@ -24,30 +34,18 @@ class SoudoiementCommande extends Commande {
         for (let persoCible of Moteur.listePerso) {
             if (persoCible != this.perso && persoCible != this.cible && persoCible.estVivant) {
                 // Ajouter action commande d'attaque
-                let commanderAttaqueCommande = new CommanderAttaqueCommande(this.cible, persoCible, this.perso);
-                commanderAttaqueCommande.displayCase(app);
-                commanderAttaqueCommande.caseCommande.caseSol.on('mousedown', function () {
-                    ExecuteurCommande.addCommande(commanderAttaqueCommande);
-                    persoTruand.removeCommands();
-                    persoTruand.peutCommander = false;
-                });
-                this.perso.listeCommands.push(commanderAttaqueCommande);
+                this.perso.listeCommands.push(new CommanderAttaqueCommande(this.cible, persoCible, this.perso));
             }
         }
 
         for (let objet of Moteur.listeObjets) {
             if (objet.actif) {
                 // Ajouter action commande de récupération d'objet
-                let commanderRecuperationCommande = new CommanderRecuperationCommande(this.cible, this.perso, objet);
-                commanderRecuperationCommande.displayCase(app);
-                commanderRecuperationCommande.caseCommande.caseSol.on('mousedown', function () {
-                    ExecuteurCommande.addCommande(commanderRecuperationCommande);
-                    persoTruand.removeCommands();
-                    persoTruand.peutCommander = false;
-                });
-                this.perso.listeCommands.push(commanderRecuperationCommande);
+                this.perso.listeCommands.push(new CommanderRecuperationCommande(this.cible, this.perso, objet));
             }
         }
+
+        Moteur.initialiserAffichageCommandes(this.perso);
     }
 
 }

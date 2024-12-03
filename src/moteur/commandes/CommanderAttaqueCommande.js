@@ -10,9 +10,19 @@ class CommanderAttaqueCommande extends Commande {
      * @param {Personnage} commanditaire le personnage qui ordonne l'attaque
      */
     constructor(perso, cible, commanditaire) {
-        super(perso, new CaseTir(cible.coords.x, cible.coords.y));
+        super(perso);
         this.cible = cible;
         this.commanditaire = commanditaire;
+    }
+
+    /**
+     * Méthode utilisée pour l'affichage des cases
+     * 
+     * 
+     * @returns les coordonnées de la cible
+     */
+    getCoords() {
+        return this.cible.coords;
     }
 
     /**

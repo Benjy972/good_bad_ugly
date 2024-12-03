@@ -3,8 +3,6 @@
  */
 class MoteurGraphique {
 
-    static pixiApp = undefined;
-
     /**
      * Initialisation des éléments graphiques (terrain, personnages)
      * 

@@ -9,12 +9,22 @@ class MarcheCommande extends Commande {
      * @param {Coordonnees} coords les coordonnées cibles
      */
     constructor(perso, coords) {
-        super(perso, new CaseDeplacement(coords.x, coords.y));
+        super(perso);
         this.coords = coords;
 
         // Calcul du chemin
         this.listeDeplacement = [];
         this.indexDeplacement = 0;
+    }
+
+    /**
+     * Méthode utilisée pour l'affichage des cases
+     * 
+     * 
+     * @returns les coordonnées de la cible
+     */
+    getCoords() {
+        return this.coords;
     }
 
 

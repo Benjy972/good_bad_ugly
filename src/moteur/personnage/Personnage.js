@@ -117,9 +117,6 @@ class Personnage {
      * Vide la liste de toutes les commandes
      */
     removeCommands() {
-        for (let commande of this.listeCommands) {
-            commande.destroyCase();
-        }
         this.listeCommands = [];
     }
 

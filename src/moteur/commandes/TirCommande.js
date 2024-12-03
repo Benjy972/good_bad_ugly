@@ -10,9 +10,19 @@ class TirCommande extends Commande {
      * @param {number} degat le nombre de dégâts infligés
      */
     constructor(perso, cible, degat) {
-        super(perso, new CaseTir(cible.coords.x, cible.coords.y));
+        super(perso);
         this.cible = cible;
         this.degat = degat;
+    }
+
+    /**
+     * Méthode utilisée pour l'affichage des cases
+     * 
+     * 
+     * @returns les coordonnées de la cible
+     */
+    getCoords() {
+        return this.cible.coords;
     }
 
     /**

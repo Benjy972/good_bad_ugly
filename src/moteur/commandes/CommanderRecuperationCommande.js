@@ -10,9 +10,19 @@ class CommanderRecuperationCommande extends Commande {
      * @param {Objet} objet l'objet à récupérer
      */
     constructor(perso, cible, objet) {
-        super(perso, new CaseAction(objet.coords.x, objet.coords.y));
+        super(perso);
         this.cible = cible;
         this.objet = objet;
+    }
+
+    /**
+     * Méthode utilisée pour l'affichage des cases
+     * 
+     * 
+     * @returns les coordonnées de la cible
+     */
+    getCoords() {
+        return this.objet.coords;
     }
 
     /**

@@ -10,9 +10,19 @@ class EchangeCommande extends Commande {
      * @param {Item} objet l'objet à échanger
      */
     constructor(perso, cible, objet) {
-        super(perso, new CaseAction(cible.coords.x, cible.coords.y));
+        super(perso);
         this.cible = cible;
         this.objet = objet;
+    }
+
+    /**
+     * Méthode utilisée pour l'affichage des cases
+     * 
+     * 
+     * @returns les coordonnées de la cible
+     */
+    getCoords() {
+        return this.cible.coords;
     }
 
     /**

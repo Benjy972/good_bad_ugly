@@ -9,8 +9,18 @@ class ActionSpecialeCommande extends Commande {
      * @param {any} cible la cible de l'action
      */
     constructor(perso, cible) {
-        super(perso, new CaseActionSpeciale(cible.coords.x, cible.coords.y));
+        super(perso);
         this.cible = cible;
+    }
+
+    /**
+     * Méthode utilisée pour l'affichage des cases
+     * 
+     * 
+     * @returns les coordonnées de la cible
+     */
+    getCoords() {
+        return this.cible.coords;
     }
 
 }

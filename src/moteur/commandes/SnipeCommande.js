@@ -15,6 +15,16 @@ class SnipeCommande extends ActionSpecialeCommande {
     }
 
     /**
+     * Méthode utilisée pour l'affichage des cases
+     * 
+     * 
+     * @returns les coordonnées de la cible
+     */
+    getCoords() {
+        return this.cible.coords;
+    }
+
+    /**
      * Exécution de la commande
      */
     execute() {       

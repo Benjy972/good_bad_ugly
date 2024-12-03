@@ -9,8 +9,18 @@ class ActionCommande extends Commande {
      * @param {Objet} cible l'objet sur lequel l'action est effectuée
      */
     constructor(perso, cible) {
-        super(perso, new CaseAction(cible.coords.x, cible.coords.y));
+        super(perso);
         this.cible = cible;
+    }
+
+    /**
+     * Méthode utilisée pour l'affichage des cases
+     * 
+     * 
+     * @returns les coordonnées de la cible
+     */
+    getCoords() {
+        return this.cible.coords;
     }
 
     /**

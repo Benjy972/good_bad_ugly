@@ -30,6 +30,7 @@ class Personnage {
 
         // Statistiques
         this.vie = 10;
+        this.nombrePasMax = 4;
         this.nombrePas = 4;
         this.porteeTir = 4;
         this.puissanceFeu = 4;
@@ -106,7 +107,6 @@ class Personnage {
                     && !Moteur.listeObjets.some(objet => objet.coords.equalsCoords(new_x, new_y))) {
 
                     let newCoords = new Coordonnees(new_x, new_y);
-                    //this.listeMarcheCommande.push(new MarcheCommande(this, newCoords));
                     this.listeCommands.push(new MarcheCommande(this, newCoords));
                 }
             }

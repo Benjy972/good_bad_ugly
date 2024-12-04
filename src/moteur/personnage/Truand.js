@@ -12,6 +12,7 @@ class Truand extends Personnage {
 
         // Statistiques
         this.vie = 7;
+        this.nombrePasMax = 5;
         this.nombrePas = 5;
         this.peutCommander = true;
     }

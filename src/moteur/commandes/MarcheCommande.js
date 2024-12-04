@@ -34,9 +34,6 @@ class MarcheCommande extends Commande {
      * @returns le résultat de l'exécution de la commande (null si la commande est terminée)
      */
     execute() {
-        // Etape 0 : consomme l'action de déplacement du personnage
-        this.perso.peutMarcher = false;
-
         // Etape 1 : on définit la route
         if (this.listeDeplacement.length == 0) {
             this.determinerChemin();
@@ -45,11 +42,16 @@ class MarcheCommande extends Commande {
         // Etape 2 : on suit une cas à la fois
         if (this.indexDeplacement == this.listeDeplacement.length) {
             this.perso.move(0, 0);
+            if (this.perso.nombrePas <= 0) {
+                this.perso.peutMarcher = false;
+                this.perso.nombrePas = 0;
+            }
             return null;
         }
         let nextCoord = this.listeDeplacement[this.indexDeplacement];
         if (this.perso.coords.equals(nextCoord)) {
             this.indexDeplacement++;
+            this.perso.nombrePas--;
         } else {
             let dx = 2 * Math.sign(nextCoord.x - this.perso.coords.x);
             let dy = 2 * Math.sign(nextCoord.y - this.perso.coords.y);

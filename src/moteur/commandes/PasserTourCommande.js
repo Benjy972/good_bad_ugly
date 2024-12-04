@@ -16,6 +16,7 @@ class PasserTourCommande {
      */
     execute() {
         this.perso.peutMarcher = true;
+        this.perso.nombrePas = this.perso.nombrePasMax;
         this.perso.peutTirer = true;
         if (this.perso.cooldownActionSpeciale > 0) {
             this.perso.cooldownActionSpeciale--;

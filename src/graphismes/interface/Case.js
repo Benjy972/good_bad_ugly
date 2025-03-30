@@ -1,7 +1,7 @@
 /**
  * Case standard à afficher sur la map.
  */
-class Case {
+export class Case {
 
     /**
      * 

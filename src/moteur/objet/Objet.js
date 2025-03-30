@@ -1,7 +1,10 @@
+import { Coordonnees } from '../util/Coordonnees.js';
+import { ObjetGraphique } from '../../graphismes/objet/ObjetGraphique.js';
+
 /**
  * Objets récupérables et utilisables par les joueurs
  */
-class Objet {
+export class Objet {
 
     static COFFRE = "coffre";
 

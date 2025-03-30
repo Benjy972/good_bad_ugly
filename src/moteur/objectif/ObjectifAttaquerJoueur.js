@@ -1,4 +1,6 @@
-class ObjectifAttaquerJoueur extends ObjectifSuivreCible {
+import { ObjectifSuivreCible } from './ObjectifSuivreCible.js';
+
+export class ObjectifAttaquerJoueur extends ObjectifSuivreCible {
 
     /**
      * 

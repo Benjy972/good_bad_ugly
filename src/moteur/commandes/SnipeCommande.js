@@ -1,7 +1,9 @@
+import { ActionSpecialeCommande } from "./ActionSpecialeCommande.js";
+
 /**
  * Commande de snipe
  */
-class SnipeCommande extends ActionSpecialeCommande {
+export class SnipeCommande extends ActionSpecialeCommande {
 
     /**
      * 

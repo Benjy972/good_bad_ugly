@@ -1,7 +1,10 @@
+import { Commande } from './Commande.js';
+import { ServiceInventaire } from '../../interface/ServiceInventaire.js';
+
 /**
  * Commande d'echange
  */
-class EchangeCommande extends Commande {
+export class EchangeCommande extends Commande {
 
     /**
      * 

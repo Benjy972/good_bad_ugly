@@ -1,7 +1,7 @@
 /**
  * Service de notification
  */
-class ServiceNotification {
+export class ServiceNotification {
     
     static texte = undefined;
 

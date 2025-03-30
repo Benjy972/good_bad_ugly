@@ -1,7 +1,9 @@
+import { Commande } from './Commande.js';
+
 /**
  * Commande d'action
  */
-class ActionCommande extends Commande {
+export class ActionCommande extends Commande {
 
     /**
      * 

@@ -1,7 +1,12 @@
+import {Personnage} from './Personnage.js';
+import { Terrain } from '../terrain/Terrain.js';
+import { Moteur } from '../Moteur.js';
+import { SoudoiementCommande } from '../commandes/SoudoiementCommande.js';
+
 /**
  * Classe Truand
  */
-class Truand extends Personnage {
+export class Truand extends Personnage {
 
     /**
      * @inheritdoc

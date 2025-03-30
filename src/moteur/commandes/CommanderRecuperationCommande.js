@@ -1,7 +1,10 @@
+import { Commande } from './Commande.js';
+import { ObjectifRapporterObjet } from '../objectif/ObjectifRapporterObjet.js';
+
 /**
  * Commande de commande d'attaque
  */
-class CommanderRecuperationCommande extends Commande {
+export class CommanderRecuperationCommande extends Commande {
 
     /**
      * 

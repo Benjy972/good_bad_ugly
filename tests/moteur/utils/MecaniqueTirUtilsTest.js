@@ -1,7 +1,7 @@
 /**
  * Classe de test de MecaniqueTirUtils
  */
-class MecaniqueTirUtilsTest {
+export class MecaniqueTirUtilsTest {
 
     
 

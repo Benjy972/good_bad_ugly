@@ -1,7 +1,10 @@
+import { Commande } from './Commande.js';
+import { ObjectifAttaquerJoueur } from '../objectif/ObjectifAttaquerJoueur.js';
+
 /**
  * Commande de commande d'attaque
  */
-class CommanderAttaqueCommande extends Commande {
+export class CommanderAttaqueCommande extends Commande {
 
     /**
      * 

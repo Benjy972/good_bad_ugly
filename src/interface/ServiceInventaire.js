@@ -1,7 +1,7 @@
 /**
  * Service d'affichage de l'inventaire
  */
-class ServiceInventaire {
+export class ServiceInventaire {
     
     static inventaireList = undefined;
     static perso = undefined;

@@ -1,7 +1,9 @@
+import { Terrain } from "../terrain/Terrain.js";
+
 /**
  * Classe utilitaire de mécanique de tir
  */
-class MecaniqueTirUtils {
+export class MecaniqueTirUtils {
 
     /**
      * Verifie si la cible d'un joueur est à couvert ou non

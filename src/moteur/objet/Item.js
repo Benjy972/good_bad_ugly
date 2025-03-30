@@ -1,7 +1,7 @@
 /**
  * Items uniquement présents dans l'inventaire
  */
-class Item {
+export class Item {
 
     static ARGENT = "argent";
 

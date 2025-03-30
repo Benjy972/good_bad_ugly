@@ -1,7 +1,10 @@
+import { ActionSpecialeCommande } from "./ActionSpecialeCommande.js";
+import { ServiceInventaire } from "../../interface/ServiceInventaire.js";
+
 /**
  * Commande de lancer de lasso (action spéciale du Bon)
  */
-class LancerLassoCommande extends ActionSpecialeCommande {
+export class LancerLassoCommande extends ActionSpecialeCommande {
 
     /**
      * 
@@ -26,9 +29,6 @@ class LancerLassoCommande extends ActionSpecialeCommande {
      * Exécution de la commande
      */
     execute() {
-        // Etape 0 : consomme l'action spéciale du personnage
-        this.perso.removeActionSpecialeCommands();
-
         // Etape 1 : le tireur se tourne ves sa victime
         this.perso.setDirection(this.perso.coords.getAngle(this.cible.coords));
 

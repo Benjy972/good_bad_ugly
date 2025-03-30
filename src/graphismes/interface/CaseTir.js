@@ -1,7 +1,9 @@
+import { Case } from "./Case.js";
+
 /**
  * Case de tir sur un joueur présent sur la map.
  */
-class CaseTir extends Case {
+export class CaseTir extends Case {
 
     /**
      * 

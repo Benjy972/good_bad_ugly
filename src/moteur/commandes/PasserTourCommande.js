@@ -1,7 +1,10 @@
+import { Moteur } from "../Moteur.js";
+import { ServiceNotification } from "../../interface/ServiceNotification.js";
+
 /**
  * Commande pour passer son tour
  */
-class PasserTourCommande {
+export class PasserTourCommande {
 
     /**
      * 

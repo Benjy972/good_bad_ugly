@@ -1,7 +1,16 @@
-let app = new PIXI.Application({ width: 640, height: 384 });
-document.body.appendChild(app.view);
+import { Bon } from "./src/moteur/personnage/Bon.js";
+import { Brute } from "./src/moteur/personnage/Brute.js";
+import { Truand } from "./src/moteur/personnage/Truand.js";
+import { Moteur } from "./src/moteur/Moteur.js";
+import { Personnage } from "./src/moteur/personnage/Personnage.js";
+import { MoteurGraphique } from './src/graphismes/MoteurGraphique.js';
+import { Coffre } from "./src/moteur/objet/Coffre.js";
+import { ServiceNotification } from './src/interface/ServiceNotification.js';
+import { ServiceInventaire } from './src/interface/ServiceInventaire.js';
 
 // On définit le personnage principal
+//let monPerso = new Bon("Joueur 1", 176, 176, false);
+//let monPerso = new Brute("Joueur 1", 176, 176, false);
 let monPerso = new Truand("Joueur 1", 176, 176, false);
 
 // On ajoute les personnages
@@ -13,11 +22,11 @@ Moteur.setListePerso(
 // On ajoute les objets
 Moteur.setListeObjets(new Coffre(240, 240));
 // On initialise les graphismes
-MoteurGraphique.initGraphics(app);
+MoteurGraphique.initGraphics();
 
 // Boutons
 // Marcher
-function evaluerDeplacements() {
+document.getElementById("mouvement").addEventListener('click', () => {
     // Inhibe le bouton si une action est en cours
     if (actionEnCours()) {
         return;
@@ -29,10 +38,10 @@ function evaluerDeplacements() {
     }
 
     Moteur.evaluerDeplacements();
-}
+});
 
 // Tirer
-function evaluerTir() {
+document.getElementById("tir").addEventListener('click', () => {
     // Inhibe le bouton si une action est en cours
     if (actionEnCours()) {
         return;
@@ -48,10 +57,10 @@ function evaluerTir() {
     if (!cibleDisponible) {
         ServiceNotification.pushMessage("Aucune cible à proximité");
     }
-}
+});
 
 // Action spéciale
-function evaluerActionSpeciale() {
+document.getElementById("actionSpeciale").addEventListener('click', () => {
     // Inhibe le bouton si une action est en cours
     if (actionEnCours()) {
         return;
@@ -67,11 +76,10 @@ function evaluerActionSpeciale() {
     if (!cibleDisponible) {
         ServiceNotification.pushMessage("Aucune cible à proximité");
     }
-
-}
+});
 
 // Action sur un objet
-function evaluerAction() {
+document.getElementById("action").addEventListener('click', () => {
     // Inhibe le bouton si une action est en cours
     if (actionEnCours()) {
         return;
@@ -82,11 +90,10 @@ function evaluerAction() {
     if (!objetDisponible) {
         ServiceNotification.pushMessage("Aucun objet à proximité");
     }
-
-}
+});
 
 // Echange avec un autre joueur
-function evaluerEchange() {
+document.getElementById("echange").addEventListener('click', () => {
     // Inhibe le bouton si une action est en cours
     if (actionEnCours()) {
         return;
@@ -103,17 +110,16 @@ function evaluerEchange() {
     if (!personnageDisponible) {
         ServiceNotification.pushMessage("Aucun personnage à proximité");
     }
-
-}
+});
 
 // Passer son tour
-function passerTour() {
+document.getElementById("passerTour").addEventListener('click', () => {
     // Inhibe le bouton si une action est en cours
     if (actionEnCours()) {
         return;
     }
     Moteur.passerTour();
-}
+});
 
 window.onload = function() {
     // On initialise le service de notification
@@ -123,7 +129,7 @@ window.onload = function() {
     ServiceInventaire.initService(monPerso);
 
     // Execution de commandes
-    app.ticker.add((delta) => Moteur.executerCommande());
+    MoteurGraphique.APP.ticker.add((delta) => Moteur.executerCommande());
 };
 
 // Fonction utilitaire

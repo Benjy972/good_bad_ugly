@@ -1,7 +1,7 @@
 /**
  * Élément graphique de la map
  */
-class TerrainGraphique {
+export class TerrainGraphique {
 
     /**
      * 

@@ -1,7 +1,7 @@
 /**
  * Elément graphique de l'objet
  */
-class ObjetGraphique {
+export class ObjetGraphique {
 
     /**
      * 

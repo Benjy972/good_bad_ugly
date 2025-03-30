@@ -1,7 +1,18 @@
+import { Coordonnees } from '../util/Coordonnees.js';
+import { BaseIA } from '../../ia/BaseIA.js';
+import { MarcheCommande } from '../commandes/MarcheCommande.js';
+import { TirCommande } from '../commandes/TirCommande.js';
+import { ActionCommande } from '../commandes/ActionCommande.js';
+import { EchangeCommande } from '../commandes/EchangeCommande.js';
+import { PasserTourCommande } from '../commandes/PasserTourCommande.js';
+import { Terrain } from '../terrain/Terrain.js';
+import { Moteur } from '../Moteur.js';
+import { ExecuteurCommande } from '../commandes/ExecuteurCommande.js';
+
 /**
  * Classe Personnage
  */
-class Personnage {
+export class Personnage {
 
     // Personnage graphique
     personnageGraphique = undefined;
@@ -128,7 +139,6 @@ class Personnage {
             if (perso != this && perso.estVivant
                 && perso.coords.getDistance(this.coords) <= this.porteeTir * Terrain.TAILLE_CASE) {
                 // Ajouter action tir
-                //this.listeTirCommande.push(new TirCommande(this, perso, this.puissanceFeu));
                 this.listeCommands.push(new TirCommande(this, perso, this.puissanceFeu));
             }
         }
@@ -198,7 +208,6 @@ class Personnage {
         for (let objet of Moteur.listeObjets) {
             if (objet.actif && objet.coords.getDistance(this.coords) <= Terrain.TAILLE_CASE) {
                 // Ajouter action tir
-                //this.listeActionCommande.push(new ActionCommande(this, objet));
                 this.listeCommands.push(new ActionCommande(this, objet));
             }
         }
@@ -212,7 +221,6 @@ class Personnage {
             if (perso != this && perso.estVivant
                 && perso.coords.getDistance(this.coords) <= Terrain.TAILLE_CASE) {
                 // Ajouter action tir
-                //this.listeEchangeCommande.push(new EchangeCommande(this, perso, this.inventaire[0]));
                 this.listeCommands.push(new EchangeCommande(this, perso, this.inventaire[0]));
             }
         }

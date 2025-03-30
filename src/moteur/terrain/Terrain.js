@@ -1,7 +1,7 @@
 /**
  * Classe de la map
  */
-class Terrain {
+export class Terrain {
 
     static TAILLE_CASE = 32;
 

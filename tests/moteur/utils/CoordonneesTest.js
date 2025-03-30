@@ -1,7 +1,7 @@
 /**
  * Classe de test de Coordonnees
  */
-class CoordonneesTest {
+export class CoordonneesTest {
 
     static angleComprisEntreDeuxAnglesTest(coordonneesSource, coordonneesCible, angle1, angle2, attendu) {
         console.log(`Point de depart : ${coordonneesSource.x}, ${coordonneesSource.y}`);

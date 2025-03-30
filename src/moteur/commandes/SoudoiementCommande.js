@@ -1,7 +1,12 @@
+import { Commande } from './Commande.js';
+import { CommanderAttaqueCommande } from './CommanderAttaqueCommande.js';
+import { CommanderRecuperationCommande } from './CommanderRecuperationCommande.js';
+import { Moteur } from '../Moteur.js';
+
 /**
  * Commande de soudoiement
  */
-class SoudoiementCommande extends Commande {
+export class SoudoiementCommande extends Commande {
 
     /**
      * 

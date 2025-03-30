@@ -1,7 +1,9 @@
+import { Case } from "./Case.js";
+
 /**
  * Case d'action spéciale sur un personnage présent sur la map.
  */
-class CaseActionSpeciale extends Case {
+export class CaseActionSpeciale extends Case {
 
     /**
      * 

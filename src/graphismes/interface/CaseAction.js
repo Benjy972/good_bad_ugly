@@ -1,7 +1,9 @@
+import { Case } from "./Case.js";
+
 /**
  * Case d'action sur un objet présent sur la map.
  */
-class CaseAction extends Case {
+export class CaseAction extends Case {
 
     /**
      * 

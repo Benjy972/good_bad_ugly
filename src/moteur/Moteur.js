@@ -1,7 +1,15 @@
+import {Terrain} from './terrain/Terrain.js';
+import { ObjectifSandbox } from './objectif/ObjectifSandbox.js';
+import { ObjectifAttaquerJoueur } from './objectif/ObjectifAttaquerJoueur.js';
+import { PasserTourCommande } from './commandes/PasserTourCommande.js';
+import { AffichageCommande } from '../graphismes/interface/AffichageCommande.js';
+import { MoteurGraphique } from '../graphismes/MoteurGraphique.js';
+import { ExecuteurCommande } from './commandes/ExecuteurCommande.js';
+
 /**
  * Classe moteur : gère les actions des personnages
  */
-class Moteur {
+export class Moteur {
 
     static terrain = new Terrain();
     // À définir
@@ -40,8 +48,6 @@ class Moteur {
      * Méthode d'affichage de la liste des commandes à afficher
      * 
      * @param {Personnage} persoCourant 
-     * @param {Function} getCoords méthode pour récupérer les coordonnees de la commande 
-     * @param {Case} typeCase 
      */
     static initialiserAffichageCommandes(persoCourant) {
         for (let commande of persoCourant.listeCommands) {
@@ -51,7 +57,7 @@ class Moteur {
                 AffichageCommande.destroyAllCommands();
             });
         }
-        AffichageCommande.displayAllCommands(app);
+        AffichageCommande.displayAllCommands(MoteurGraphique.APP);
     }
 
     /**
@@ -67,12 +73,11 @@ class Moteur {
         // On recalcule les déplacements
         persoCourant.calculateSteps();
 
-        this.initialiserAffichageCommandes(persoCourant);
+        this.initialiserAffichageCommandes(persoCourant, MoteurGraphique.APP);
     }
 
     /**
      * Définit la liste de tirs possibles pour le joueur en train de jouer
-     * 
      * @returns true si une cible est à portée du joueur, false sinon 
      */
     static evaluerTir() {
@@ -93,7 +98,6 @@ class Moteur {
 
     /**
      * Définit la liste de actions sur des objets possibles pour le joueur en train de jouer
-     * 
      * @returns true si un objet est à portée du joueur, false sinon 
      */
      static evaluerAction() {
@@ -114,7 +118,6 @@ class Moteur {
 
     /**
      * Définit la liste de échanges possibles pour le joueur en train de jouer
-     * 
      * @returns true si un personnage est à portée du joueur, false sinon 
      */
     static evaluerEchange() {
@@ -135,7 +138,6 @@ class Moteur {
 
     /**
      * Définit la liste d'action spéciale pour le joueur en train de jouer
-     * 
      * @returns true si une cible est à portée du joueur, false sinon 
      */
      static evaluerActionSpeciale() {

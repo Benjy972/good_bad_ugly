@@ -1,4 +1,7 @@
-class ObjectifRapporterObjet extends ObjectifSuivreCible {
+import { ObjectifSuivreCible } from "./ObjectifSuivreCible.js";
+import { ObjectifEffectuerAction } from "./ObjectifEffectuerAction.js";
+
+export class ObjectifRapporterObjet extends ObjectifSuivreCible {
 
     /**
      * 

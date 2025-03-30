@@ -1,4 +1,4 @@
-class ObjectifSandbox {
+export class ObjectifSandbox {
 
     constructor(perso) {
         this.perso = perso;

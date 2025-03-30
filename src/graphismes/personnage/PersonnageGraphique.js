@@ -1,7 +1,7 @@
 /**
  * Élément graphique du personnage
  */
-class PersonnageGraphique {
+export class PersonnageGraphique {
 
     /**
      * 

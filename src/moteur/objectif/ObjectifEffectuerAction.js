@@ -1,4 +1,6 @@
-class ObjectifEffectuerAction extends ObjectifSuivreCible {
+import { ObjectifSuivreCible } from "./ObjectifSuivreCible.js";
+
+export class ObjectifEffectuerAction extends ObjectifSuivreCible {
 
     /**
      * 

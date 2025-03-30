@@ -1,7 +1,7 @@
 /**
  * Commande standard
  */
-class Commande {
+export class Commande {
 
     /**
      * 

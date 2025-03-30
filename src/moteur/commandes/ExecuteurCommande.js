@@ -1,7 +1,7 @@
 /**
  * Service d'exécution de commande
  */
-class ExecuteurCommande {
+export class ExecuteurCommande {
 
     static listeCommande = [];
 

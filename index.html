@@ -3,57 +3,15 @@
     <script src="https://unpkg.com/pixi.js@7.x/dist/pixi.min.js"></script>
 </head>
 <body>
-    <script src="src/moteur/util/Coordonnees.js"></script>
-    <script src="src/moteur/terrain/Terrain.js"></script>
-    <script src="src/graphismes/terrain/TerrainGraphique.js"></script>
-    <script src="src/moteur/personnage/Personnage.js"></script>
-    <script src="src/moteur/personnage/Bon.js"></script>
-    <script src="src/moteur/personnage/Brute.js"></script>
-    <script src="src/moteur/personnage/Truand.js"></script>
-    <script src="src/graphismes/personnage/PersonnageGraphique.js"></script>
-    <script src="src/moteur/objet/Objet.js"></script>
-    <script src="src/moteur/objet/Item.js"></script>
-    <script src="src/moteur/objet/Coffre.js"></script>
-    <script src="src/graphismes/objet/ObjetGraphique.js"></script>
-    <script src="src/graphismes/interface/Case.js"></script>
-    <script src="src/graphismes/interface/CaseDeplacement.js"></script>
-    <script src="src/graphismes/interface/CaseTir.js"></script>
-    <script src="src/graphismes/interface/CaseAction.js"></script>
-    <script src="src/graphismes/interface/CaseActionSpeciale.js"></script>
-    <script src="src/moteur/commandes/Commande.js"></script>
-    <script src="src/moteur/commandes/MarcheCommande.js"></script>
-    <script src="src/moteur/util/MecaniqueTirUtils.js"></script>
-    <script src="src/moteur/commandes/TirCommande.js"></script>
-    <script src="src/moteur/commandes/ActionCommande.js"></script>
-    <script src="src/moteur/commandes/EchangeCommande.js"></script>
-    <script src="src/moteur/commandes/PasserTourCommande.js"></script>
-    <script src="src/moteur/commandes/ActionSpecialeCommande.js"></script>
-    <script src="src/moteur/commandes/LancerLassoCommande.js"></script>
-    <script src="src/moteur/commandes/SnipeCommande.js"></script>
-    <script src="src/moteur/commandes/CommanderAttaqueCommande.js"></script>
-    <script src="src/moteur/commandes/CommanderRecuperationCommande.js"></script>
-    <script src="src/moteur/commandes/SoudoiementCommande.js"></script>
-    <script src="src/moteur/commandes/ExecuteurCommande.js"></script>
-    <script src="src/graphismes/interface/AffichageCommande.js"></script>
-    <script src="src/moteur/objectif/ObjectifSandbox.js"></script>
-    <script src="src/moteur/objectif/ObjectifSuivreCible.js"></script>
-    <script src="src/moteur/objectif/ObjectifAttaquerJoueur.js"></script>
-    <script src="src/moteur/objectif/ObjectifEffectuerAction.js"></script>
-    <script src="src/moteur/objectif/ObjectifRapporterObjet.js"></script>
-    <script src="src/ia/BaseIA.js"></script>
-    <script src="src/moteur/Moteur.js"></script>
-    <script src="src/graphismes/MoteurGraphique.js"></script>
-    <script src="src/interface/ServiceNotification.js"></script>
-    <script src="src/interface/ServiceInventaire.js"></script>
-    <script src="index.js"></script>
+    <script type="module" src="index.js"></script>
 
     <div id="zoneActions">
-        <button id="mouvement" onclick="evaluerDeplacements()">Deplacement</button>
-        <button id="tir" onclick="evaluerTir()">Tir</button>
-        <button id="action" onclick="evaluerAction()">Action</button>
-        <button id="action" onclick="evaluerEchange()">Echange</button>
-        <button id="actionSpeciale" onclick="evaluerActionSpeciale()">Action spéciale</button>
-        <button id="tour" onclick="passerTour()">Passer son tour</button>   
+        <button id="mouvement">Deplacement</button>
+        <button id="tir">Tir</button>
+        <button id="action">Action</button>
+        <button id="echange">Echange</button>
+        <button id="actionSpeciale">Action spéciale</button>
+        <button id="passerTour">Passer son tour</button>   
     </div>
     <div id="zoneTexte">
         <textarea id="infoTexte" rows="3" cols="80"></textarea>

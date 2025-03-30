@@ -1,4 +1,4 @@
-class ObjectifSuivreCible {
+export class ObjectifSuivreCible {
 
     constructor(perso, cible) {
         this.perso = perso;

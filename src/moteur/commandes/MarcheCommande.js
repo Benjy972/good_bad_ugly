@@ -1,7 +1,12 @@
+import { Commande } from './Commande.js';
+import { Coordonnees } from '../util/Coordonnees.js';
+import { Terrain } from '../terrain/Terrain.js';
+import { Moteur } from '../Moteur.js';
+
 /**
  * Commande de déplacement de personnage
  */
-class MarcheCommande extends Commande {
+export class MarcheCommande extends Commande {
 
     /**
      * 

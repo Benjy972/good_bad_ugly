@@ -1,7 +1,11 @@
+import { Personnage } from './Personnage.js';
+import { SnipeCommande } from '../commandes/SnipeCommande.js';
+import { Moteur } from '../Moteur.js';
+
 /**
  * Classe Brute
  */
-class Brute extends Personnage {
+export class Brute extends Personnage {
 
     /**
      * @inheritdoc
@@ -20,7 +24,7 @@ class Brute extends Personnage {
      * Vérifie si l'action spéciale est possible.
      */
      actionSpecialePossible() {
-        return cooldownActionSpeciale == 0;
+        return this.cooldownActionSpeciale == 0;
     }
 
     /**

@@ -1,7 +1,11 @@
+import { Commande } from './Commande.js';
+import { MecaniqueTirUtils } from '../util/MecaniqueTirUtils.js';
+import { Moteur } from '../Moteur.js';
+
 /**
  * Commande de tir
  */
-class TirCommande extends Commande {
+export class TirCommande extends Commande {
 
     /**
      * 

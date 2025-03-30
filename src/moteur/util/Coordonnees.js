@@ -1,7 +1,9 @@
+import { Terrain } from "../terrain/Terrain.js";
+
 /**
  * Classe de coordonnées
  */
-class Coordonnees {
+export class Coordonnees {
 
     /**
      * 

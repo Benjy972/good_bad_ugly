@@ -1,7 +1,11 @@
+import { ObjectifSandbox } from '../moteur/objectif/ObjectifSandbox.js';
+import { ExecuteurCommande } from '../moteur/commandes/ExecuteurCommande.js';
+import { PasserTourCommande } from '../moteur/commandes/PasserTourCommande.js';
+
 /**
  * IA de base (se déplacer et tirer à vue)
  */
-class BaseIA {
+export class BaseIA {
 
     /**
      * 

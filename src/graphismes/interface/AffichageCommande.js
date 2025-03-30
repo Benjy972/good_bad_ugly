@@ -1,4 +1,13 @@
-class AffichageCommande {
+import { MarcheCommande } from "../../moteur/commandes/MarcheCommande.js";
+import { CaseDeplacement } from "./CaseDeplacement.js";
+import { TirCommande } from "../../moteur/commandes/TirCommande.js";
+import { CommanderAttaqueCommande } from "../../moteur/commandes/CommanderAttaqueCommande.js";
+import { CaseTir } from "./CaseTir.js";
+import { ActionSpecialeCommande } from "../../moteur/commandes/ActionSpecialeCommande.js";
+import { CaseActionSpeciale } from "./CaseActionSpeciale.js";
+import { CaseAction } from "./CaseAction.js";
+
+export class AffichageCommande {
 
     static listeCases = [];
 

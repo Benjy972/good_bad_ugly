@@ -1,7 +1,12 @@
+import { Personnage } from './Personnage.js';
+import { LancerLassoCommande } from '../commandes/LancerLassoCommande.js';
+import { Terrain } from '../terrain/Terrain.js';
+import { Moteur } from '../Moteur.js';
+
 /**
  * Classe Bon
  */
-class Bon extends Personnage {
+export class Bon extends Personnage {
 
     /**
      * @param {string} nom nom du personnage
@@ -23,7 +28,7 @@ class Bon extends Personnage {
      * Vérifie si l'action spéciale est possible.
      */
     actionSpecialePossible() {
-        return cooldownActionSpeciale == 0;
+        return this.cooldownActionSpeciale == 0;
     }
 
     /**

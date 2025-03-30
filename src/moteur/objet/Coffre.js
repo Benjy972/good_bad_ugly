@@ -1,7 +1,13 @@
+import { Objet } from './Objet.js';
+import { Moteur } from '../Moteur.js';
+import { ServiceNotification } from '../../interface/ServiceNotification.js';
+import { ServiceInventaire } from '../../interface/ServiceInventaire.js';
+import { Item } from "./Item.js";
+
 /**
  * Coffre : ouvrable par le joueur
  */
-class Coffre extends Objet {
+export class Coffre extends Objet {
 
     static OUVERT = "_ouvert";
 

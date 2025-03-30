@@ -1,7 +1,7 @@
 /**
  * Classe de test de MarcheCommande
  */
-class MarcheCommandeTest {
+export class MarcheCommandeTest {
 
     static executerTest(marcheCommande) {
         let perso = marcheCommande.perso;

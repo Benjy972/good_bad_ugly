@@ -7,6 +7,7 @@ import { ObjetGraphique } from '../../graphismes/objet/ObjetGraphique.js';
 export class Objet {
 
     static COFFRE = "coffre";
+    static WAGON = "wagon";
 
     /**
      * 

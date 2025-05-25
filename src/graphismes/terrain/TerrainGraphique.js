@@ -14,6 +14,7 @@ export class TerrainGraphique {
         // Initialisation des graphismes
         this.sprites.push(PIXI.Texture.from('resources/map/sol.png'));
         this.sprites.push(PIXI.Texture.from('resources/map/mur.png'));
+        this.sprites.push(PIXI.Texture.from('resources/map/rails.png'));
     }
 
     /**

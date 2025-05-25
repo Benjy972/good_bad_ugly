@@ -21,16 +21,16 @@ export class MoteurGraphique {
         let terrainGraphique = new TerrainGraphique(Moteur.terrain);
         terrainGraphique.draw(MoteurGraphique.APP);
 
-        // On dessine les personnages
-        for (let perso of Moteur.listePerso) {
-            let persoGraphique = new PersonnageGraphique(perso);
-            MoteurGraphique.APP.stage.addChild(persoGraphique.animatedSprite);
-        }
-
         // On dessine les objets
         for (let objet of Moteur.listeObjets) {
             let objetGraphique = objet.objetGraphique;
             objetGraphique.draw(MoteurGraphique.APP);
+        }
+
+        // On dessine les personnages
+        for (let perso of Moteur.listePerso) {
+            let persoGraphique = new PersonnageGraphique(perso);
+            MoteurGraphique.APP.stage.addChild(persoGraphique.animatedSprite);
         }
     }
 

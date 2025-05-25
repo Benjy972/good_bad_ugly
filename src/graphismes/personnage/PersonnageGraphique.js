@@ -129,6 +129,14 @@ export class PersonnageGraphique {
     }
 
     /**
+     * Affichage du personnage montant dans le wagon
+     */
+    monterWagon() {
+        this.animatedSprite.textures = [PIXI.Texture.from(`resources/personnage/heros/wagon/heros_wagon_${this.perso.direction}.png`)];
+        this.animatedSprite.stop();
+    }
+
+    /**
      * Méthode arrête l'animation de marche
      */
     stop() {

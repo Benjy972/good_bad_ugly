@@ -7,6 +7,8 @@ import { MoteurGraphique } from './src/graphismes/MoteurGraphique.js';
 import { Coffre } from "./src/moteur/objet/Coffre.js";
 import { ServiceNotification } from './src/interface/ServiceNotification.js';
 import { ServiceInventaire } from './src/interface/ServiceInventaire.js';
+import { Wagon } from "./src/moteur/objet/Wagon.js";
+import { Terrain } from "./src/moteur/terrain/Terrain.js";
 
 // On définit le personnage principal
 //let monPerso = new Bon("Joueur 1", 176, 176, false);
@@ -20,7 +22,8 @@ Moteur.setListePerso(
     new Personnage("Joueur 3", 304, 176, true)
 )
 // On ajoute les objets
-Moteur.setListeObjets(new Coffre(240, 240));
+Moteur.setListeObjets(new Coffre(240, 240), 
+    new Wagon(5.5*Terrain.TAILLE_CASE, 1.5*Terrain.TAILLE_CASE));
 // On initialise les graphismes
 MoteurGraphique.initGraphics();
 

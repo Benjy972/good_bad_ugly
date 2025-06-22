@@ -5,6 +5,7 @@ import { PasserTourCommande } from './commandes/PasserTourCommande.js';
 import { AffichageCommande } from '../graphismes/interface/AffichageCommande.js';
 import { MoteurGraphique } from '../graphismes/MoteurGraphique.js';
 import { ExecuteurCommande } from './commandes/ExecuteurCommande.js';
+import { Personnage } from './personnage/Personnage.js';
 
 /**
  * Classe moteur : gère les actions des personnages
@@ -191,7 +192,7 @@ export class Moteur {
      */
     static incrementerTour() {
         this.indexPerso = (this.indexPerso + 1) % this.listePerso.length;
-        if (!Moteur.getPersoCourant().estVivant) {
+        if (Moteur.getPersoCourant().etat == Personnage.MORT) {
             Moteur.incrementerTour();
         }
     }

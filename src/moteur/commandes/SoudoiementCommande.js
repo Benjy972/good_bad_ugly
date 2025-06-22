@@ -2,6 +2,7 @@ import { Commande } from './Commande.js';
 import { CommanderAttaqueCommande } from './CommanderAttaqueCommande.js';
 import { CommanderRecuperationCommande } from './CommanderRecuperationCommande.js';
 import { Moteur } from '../Moteur.js';
+import { Personnage } from '../personnage/Personnage.js';
 
 /**
  * Commande de soudoiement
@@ -37,7 +38,7 @@ export class SoudoiementCommande extends Commande {
 
         // On scanne les actions pour tous les personnages à cibler
         for (let persoCible of Moteur.listePerso) {
-            if (persoCible != this.perso && persoCible != this.cible && persoCible.estVivant) {
+            if (persoCible != this.perso && persoCible != this.cible && persoCible.etat != Personnage.MORT) {
                 // Ajouter action commande d'attaque
                 this.perso.listeCommands.push(new CommanderAttaqueCommande(this.cible, persoCible, this.perso));
             }

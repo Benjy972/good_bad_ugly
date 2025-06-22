@@ -36,7 +36,7 @@ export class Bon extends Personnage {
      */
      evaluerActionSpeciale() {
         for (let perso of Moteur.listePerso) {
-            if (perso != this && perso.estVivant
+            if (perso != this && perso.etat != Personnage.MORT
                 && perso.coords.getDistance(this.coords) <= this.porteeActionSpeciale*Terrain.TAILLE_CASE) {
                 // Ajouter action tir
                 this.listeCommands.push(new LancerLassoCommande(this, perso));

@@ -1,3 +1,4 @@
+import { Personnage } from '../personnage/Personnage.js';
 import { ObjectifSuivreCible } from './ObjectifSuivreCible.js';
 
 export class ObjectifAttaquerJoueur extends ObjectifSuivreCible {
@@ -13,7 +14,7 @@ export class ObjectifAttaquerJoueur extends ObjectifSuivreCible {
 
     calculateAction() {        
         // On vérifie si l'objectif est atteint
-        if (!this.cible.estVivant) {
+        if (this.cible.etat == Personnage.MORT) {
             this.objectifAtteint = true;
             // On notifie le commanditaire
             if (!!this.commanditaire) {

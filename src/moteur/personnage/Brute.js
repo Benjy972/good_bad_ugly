@@ -32,7 +32,7 @@ export class Brute extends Personnage {
      */
      evaluerActionSpeciale() {
         for (let perso of Moteur.listePerso) {
-            if (perso != this && perso.estVivant
+            if (perso != this && perso.etat != Personnage.MORT
                 && (perso.coords.x == this.coords.x ||  perso.coords.y == this.coords.y)) {
                 // Ajouter action tir
                 this.listeCommands.push(new SnipeCommande(this, perso, this.puissanceSniper));

@@ -14,6 +14,12 @@ import { ExecuteurCommande } from '../commandes/ExecuteurCommande.js';
  */
 export class Personnage {
 
+    // Constantes etat
+    static ATTENTE = "attente";
+    static MARCHE = "marche";
+    static MORT = "mort";
+    static ASSIS = "assis";
+
     // Personnage graphique
     personnageGraphique = undefined;
 
@@ -31,6 +37,7 @@ export class Personnage {
         // Position
         this.coords = new Coordonnees(x, y);
         this.direction = "bas";
+        this.etat = Personnage.ATTENTE;
 
         // Inventaire
         this.inventaire = [];
@@ -47,7 +54,6 @@ export class Personnage {
         this.puissanceFeu = 4;
 
         // Commandes
-        this.estVivant = true;
         this.peutMarcher = true;
         this.peutTirer = true;
         this.listeCommands = [];
@@ -136,7 +142,7 @@ export class Personnage {
      */
     evaluerTir() {
         for (let perso of Moteur.listePerso) {
-            if (perso != this && perso.estVivant
+            if (perso != this && perso.etat != Personnage.MORT
                 && perso.coords.getDistance(this.coords) <= this.porteeTir * Terrain.TAILLE_CASE) {
                 // Ajouter action tir
                 this.listeCommands.push(new TirCommande(this, perso, this.puissanceFeu));
@@ -190,7 +196,7 @@ export class Personnage {
      */
     mourir() {
         // Action
-        this.estVivant = false;
+        this.etat = Personnage.MORT;
 
         // Animation
         this.personnageGraphique.mourir();
@@ -218,7 +224,7 @@ export class Personnage {
      */
     evaluerEchange() {
         for (let perso of Moteur.listePerso) {
-            if (perso != this && perso.estVivant
+            if (perso != this && perso.etat != Personnage.MORT
                 && perso.coords.getDistance(this.coords) <= Terrain.TAILLE_CASE) {
                 // Ajouter action tir
                 this.listeCommands.push(new EchangeCommande(this, perso, this.inventaire[0]));

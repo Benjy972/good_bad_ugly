@@ -2,6 +2,7 @@ import { Commande } from './Commande.js';
 import { Coordonnees } from '../util/Coordonnees.js';
 import { Terrain } from '../terrain/Terrain.js';
 import { Moteur } from '../Moteur.js';
+import { Personnage } from '../personnage/Personnage.js';
 
 /**
  * Commande de déplacement de personnage
@@ -46,11 +47,13 @@ export class MarcheCommande extends Commande {
 
         // Etape 2 : on suit une cas à la fois
         if (this.indexDeplacement == this.listeDeplacement.length) {
+            // Cas où le personnage a fini de se déplacer
             this.perso.move(0, 0);
             if (this.perso.nombrePas <= 0) {
                 this.perso.peutMarcher = false;
                 this.perso.nombrePas = 0;
             }
+            this.perso.etat = Personnage.ATTENTE;
             return null;
         }
         let nextCoord = this.listeDeplacement[this.indexDeplacement];
@@ -62,6 +65,7 @@ export class MarcheCommande extends Commande {
             let dy = 2 * Math.sign(nextCoord.y - this.perso.coords.y);
             this.perso.move(dx, dy);
         }
+        this.perso.etat = Personnage.MARCHE;
         return this;
     }
 

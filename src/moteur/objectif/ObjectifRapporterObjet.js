@@ -1,5 +1,6 @@
 import { ObjectifSuivreCible } from "./ObjectifSuivreCible.js";
 import { ObjectifEffectuerAction } from "./ObjectifEffectuerAction.js";
+import { Personnage } from "../personnage/Personnage.js";
 
 export class ObjectifRapporterObjet extends ObjectifSuivreCible {
 
@@ -34,7 +35,7 @@ export class ObjectifRapporterObjet extends ObjectifSuivreCible {
         }
 
         // On vérifie si l'objectif est atteint ou atteignable
-        if (this.objectifAtteint || !this.cible.estVivant || this.perso.inventaire.length == 0) {
+        if (this.objectifAtteint || this.cible.etat == Personnage.MORT || this.perso.inventaire.length == 0) {
             this.objectifAtteint = true;
             // On notifie le commanditaire
             if (!!this.commanditaire) {

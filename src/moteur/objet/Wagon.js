@@ -1,3 +1,4 @@
+import { Personnage } from '../personnage/Personnage.js';
 import { Objet } from './Objet.js';
 
 /**
@@ -31,11 +32,15 @@ export class Wagon extends Objet {
             perso.move(0, 0);
             perso.personnageGraphique.monterWagon();
             perso.canMove = false;
+            // Etat assis
+            perso.etat = Personnage.ASSIS;
         } else {
             perso.move(this.positionPerso.x - perso.coords.x, this.positionPerso.y - perso.coords.y);
             perso.move(0, 0);
             perso.canMove = true;
             this.positionPerso = null;
+            // Etat assis
+            perso.etat = Personnage.ATTENTE;
         }
     }
 }

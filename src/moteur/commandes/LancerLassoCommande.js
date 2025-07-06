@@ -29,6 +29,9 @@ export class LancerLassoCommande extends ActionSpecialeCommande {
      * Exécution de la commande
      */
     execute() {
+        // On vérifier si le joueur n'est pas assis
+        super.verifierEtatJoueur();
+        
         // Etape 1 : le tireur se tourne ves sa victime
         this.perso.setDirection(this.perso.coords.getAngle(this.cible.coords));
 

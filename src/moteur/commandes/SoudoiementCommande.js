@@ -33,8 +33,8 @@ export class SoudoiementCommande extends Commande {
      * Exécution de la commande
      */
     execute() {
-        // Obligatoire
-        let persoTruand = this.perso;
+        // On vérifier si le joueur n'est pas assis
+        super.verifierEtatJoueur();
 
         // On scanne les actions pour tous les personnages à cibler
         for (let persoCible of Moteur.listePerso) {

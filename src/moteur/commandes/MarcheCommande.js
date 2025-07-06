@@ -40,6 +40,9 @@ export class MarcheCommande extends Commande {
      * @returns le résultat de l'exécution de la commande (null si la commande est terminée)
      */
     execute() {
+        // On vérifier si le joueur n'est pas assis
+        super.verifierEtatJoueur();
+        
         // Etape 1 : on définit la route
         if (this.listeDeplacement.length == 0) {
             this.determinerChemin();

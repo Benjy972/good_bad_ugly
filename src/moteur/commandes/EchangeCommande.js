@@ -32,6 +32,9 @@ export class EchangeCommande extends Commande {
      * Exécution de la commande
      */
     execute() {
+        // On vérifier si le joueur n'est pas assis
+        super.verifierEtatJoueur();
+        
         // Action spéciale
         let indexItem = this.perso.inventaire.indexOf(this.objet);
 

@@ -33,6 +33,9 @@ export class TirCommande extends Commande {
      * Exécution de la commande
      */
     execute() {
+        // On vérifier si le joueur n'est pas assis
+        super.verifierEtatJoueur();
+
         // Etape 0 : consomme l'action de tir du personnage
         this.perso.peutTirer = false;
 
